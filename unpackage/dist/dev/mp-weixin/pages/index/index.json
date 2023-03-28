@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "洗笑颜开",
+  "usingComponents": {
+    "index-input": "/components/indexInput/indexInput"
+  }
+}

@@ -1,12 +1,40 @@
 {
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"fui-(.*)": "firstui-uni/firstui/fui-$1/fui-$1.vue"
+		}
+	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
-			},
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/welcome/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
 		}
 	],
+	"tabBar": {
+		"color": "#7a7f82",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/welcome/index",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/order/order",
+			"text": "订单"
+		}, {
+			"pagePath": "pages/user/settings/index",
+			"text": "我的"
+		}]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

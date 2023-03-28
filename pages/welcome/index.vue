@@ -1,9 +1,11 @@
 <template>
-	登录页
+	<view></view>
 </template>
 
 <script>
+
 </script>
 
-<style>
+<style lang="scss">
+
 </style>
