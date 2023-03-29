@@ -1,5 +1,5 @@
 <template>
-	地图网点页
+
 </template>
 
 <script>

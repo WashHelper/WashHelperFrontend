@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": ""
@@ -24,11 +30,6 @@
 			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "个人信息"
-			}
-		}, {
-			"path": "pages/user/address",
-			"style": {
-				"navigationBarTitleText": "我的地址"
 			}
 		}, {
 			"path": "pages/user/cooperate",
@@ -66,12 +67,12 @@
 				"navigationBarTitleText": "联系客服"
 			}
 		}, {
-			"path": "pages/user/setting/address",
+			"path": "pages/user/settings/address",
 			"style": {
 				"navigationBarTitleText": "我的地址"
 			}
 		}, {
-			"path": "pages/user/setting/index",
+			"path": "pages/user/settings/index",
 			"style": {
 				"navigationBarTitleText": "我的信息"
 			}
@@ -105,7 +106,7 @@
 			"style": {
 				"navigationBarTitleText": "登录页"
 			}
-		},
+		}
 
 	],
 	"globalStyle": {
