@@ -1,9 +1,18 @@
 <template>
-
+	<view class="container">
+		碳积分
+	</view>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+
+			};
+		}
+	}
 </script>
 
-<style>
+<style lang="scss">
 </style>

@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/order/detail",
+    "pages/welcome/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7a7f82",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/welcome/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/user/settings/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

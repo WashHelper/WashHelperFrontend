@@ -1,5 +1,7 @@
 <template>
-
+	<view class="">
+		联系客服
+	</view>
 </template>
 
 <script>
