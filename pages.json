@@ -8,6 +8,12 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -96,6 +102,7 @@
 			"path": "pages/user/service",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
+
 			}
 		}, {
 			"path": "pages/welcome/index",
@@ -103,6 +110,7 @@
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}
+
 	],
 	"tabBar": {
 		// "custom": true,

@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+<view class="container">
 		意见反馈
 	</view>
 </template>
