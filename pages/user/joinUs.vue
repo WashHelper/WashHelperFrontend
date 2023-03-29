@@ -1,5 +1,8 @@
 <template>
-	加盟我们
+	<view class="container">
+		加盟我们
+	</view>
+
 </template>
 
 <script>

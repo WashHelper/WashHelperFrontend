@@ -1,5 +1,8 @@
 <template>
-	地址页
+	<view class="container">
+		地址页
+	</view>
+
 </template>
 
 <script>

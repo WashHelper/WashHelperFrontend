@@ -13,6 +13,91 @@
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}, {
+			"path": "pages/order/detail",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/order/doorToDoor",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/order/mailingAddress",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/order/pickupAddress",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/order/types",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/order/detail",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/order/feedback",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/order/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/settings/address",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/settings/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/cooperate",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/credit",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/feedback",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/joinUs",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/recycle",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/service",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
 			"path": "pages/welcome/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -20,26 +105,30 @@
 		}
 	],
 	"tabBar": {
+		// "custom": true,
 		"color": "#7a7f82",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/welcome/index",
-			"text": "首页"
+			"pagePath": "pages/index/index",
+			"text": "首页",
+			"iconPath": "static/tabbar/画板 1.png"
 		}, {
 			"pagePath": "pages/order/order",
-			"text": "订单"
+			"text": "订单",
+			"iconPath": "static/tabbar/并集.png"
 		}, {
 			"pagePath": "pages/user/settings/index",
-			"text": "我的"
+			"text": "我的",
+			"iconPath": "static/tabbar/画板 1 (3).png"
 		}]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTitleText": "洗笑颜开",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
 	},
 	"uniIdRouter": {}
 }

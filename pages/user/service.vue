@@ -1,5 +1,8 @@
 <template>
-	联系客服
+	<view class="">
+		联系客服
+	</view>
+
 </template>
 
 <script>

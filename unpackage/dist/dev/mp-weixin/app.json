@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/order/detail",
     "pages/welcome/index"
   ],
   "subPackages": [],

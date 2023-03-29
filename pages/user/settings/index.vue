@@ -1,39 +1,46 @@
 <template>
 	<view class="mine-container">
-		<text>hello</text>
-		<header>
+		<header class="header-box">
 			<view class="head-picture">
-				<image src="@/static/mine-index/用户.png" mode="aspectFit"></image>
+				<image src="@/static/user-index/头像.png" mode="aspectFit"></image>
 			</view>
 			<text class="user-name">微信用户4037</text>
-			<image class="set-icon" src="~@/static/mine-index/蒙版组 128.png" mode="aspectFit"></image>
+			<image class="set-icon" src="@/static/user-index/蒙版组 128.png" mode="aspectFit"></image>
 		</header>
-		<fui-list class="mine-body">
-			<fui-list-cell :highlight="false">我的订单</fui-list-cell>
-			<fui-list-cell :highlight="false">我的回收</fui-list-cell>
-			<fui-list-cell :highlight="false">我的碳积分</fui-list-cell>
-			<fui-list-cell :highlight="false">合作品牌</fui-list-cell>
-			<fui-list-cell :highlight="false">意见反馈</fui-list-cell>
-			<fui-list-cell :highlight="false">加盟我们</fui-list-cell>
-			<fui-list-cell :highlight="false">联系客服</fui-list-cell>
-		</fui-list>
-		<van-cell title="展示弹出层" is-link bind:click="showPopup" />
-		<!-- <van-popup  bind:close="onClose">内容</van-popup> -->
+		<section class="mine-body">
+			<ul class="set-list">
+				<li>
+					<navigator>我的订单</navigator>
+				</li>
+				<li>
+					<navigator>我的回收</navigator>
+				</li>
+				<li>
+					<navigator>我的碳积分</navigator>
+				</li>
+				<li>
+					<navigator>合作品牌</navigator>
+				</li>
+				<li>
+					<navigator>意见反馈</navigator>
+				</li>
+				<li>
+					<navigator>加盟我们</navigator>
+				</li>
+				<li>
+					<navigator>联系客服</navigator>
+				</li>
+			</ul>
+		</section>
 	</view>
 </template>
 
 <script>
-	import {
-		uniBadge
-	} from '@dcloudio/uni-ui'
 	export default {
 		data() {
 			return {
 
 			};
-		},
-		components: {
-			uniBadge
 		},
 		methods: {
 			showPopup() {
@@ -53,18 +60,19 @@
 
 <style lang="scss">
 	.mine-container {
-		width: 100vw;
+		width: 750rpx;
 		background-color: rgba(245, 245, 245, 1);
 
-		header {
+		.header-box {
+			position: relative;
 			width: 750rpx;
-			height: 750rpx;
 			height: 78px;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 
 			.head-picture {
+				margin-left: 15px;
 				width: 71px;
 				height: 71px;
 				background: rgba(204, 204, 204, 1);
@@ -75,23 +83,49 @@
 				}
 			}
 
+
 			.user-name {
 				font-size: 12px;
-				margin-left: 16px;
+				margin-left: 10px;
 			}
 
 			.set-icon {
-				display: flex;
-				justify-content: flex-end;
+				position: absolute;
 				width: 25px;
+				height: 25px;
+				right: 61.5rpx;
 			}
 		}
 
-		.mine-body,
-		fui-list-cell {
-			width: 700rpx;
-			height: 75rpx;
-			margin-top: 0px;
+		.mine-body {
+			width: 692rpx;
+			height: 416px;
+			width: auto;
+			background-color: #fff;
+			margin-top: 17px;
+			border-radius: 10px;
+
+			.set-list {
+				list-style: none;
+
+				li {
+					width: 628rpx;
+					height: 41px;
+					width: auto;
+
+					&:first-child {
+						padding-top: 17px;
+					}
+
+					navigator {
+						width: 100%;
+						height: 100%;
+						text-align: left;
+						margin-top: 0px;
+						line-height: 16px;
+					}
+				}
+			}
 		}
 	}
 </style>

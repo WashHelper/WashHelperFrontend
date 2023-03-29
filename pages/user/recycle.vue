@@ -1,5 +1,8 @@
 <template>
-	我的回收
+	<view class="">
+		我的回收
+	</view>
+
 </template>
 
 <script>
