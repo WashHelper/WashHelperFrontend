@@ -12,7 +12,7 @@
 				<text>验证码</text>
 				<view class="verification-code">
 					<input type="text" placeholder="请输入验证码" placeholder-class="placeholder">
-					<text>获取验证码</text>
+					<text @click="getCaptcha">获取验证码</text>
 				</view>
 			</view>
 			<view class="password">
@@ -21,8 +21,10 @@
 			</view>
 
 			<view class="button-wrapper">
-				<button>注册并登录</button>
-				<text>登录即表示接受<navigator>《用户协议》</navigator>与<navigator>《隐私政策》</navigator></text>
+				<button @click="handleRegister">注册并登录</button>
+				<text>&nbsp;登录即表示接受</text>
+				<navigator url="">《用户协议》</navigator><text>与</text>
+				<navigator url="">《隐私政策》</navigator>
 			</view>
 		</view>
 		<view class="third-party-login">
@@ -33,14 +35,32 @@
 			</view>
 
 			<view class="sign-in-with">
-				<image src="/static/login/qq.png" mode=""></image>
-				<image src="/static/login/vx.png" mode=""></image>
+				<image src="/static/login/qq.png" mode="" @click="quickLogin"></image>
+				<image src="/static/login/vx.png" mode="" @click="quickLogin"></image>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		methods: {
+			getCaptcha() {
+				// this.$axios.getCaptcha('123123123')
+			},
+			handleRegister() {
+				uni.navigateTo({
+					url: '/pages/index/index'
+				})
+			},
+			quickLogin() {
+				console.log(123123);
+				uni.navigateTo({
+					url: '/pages/login/quickLogin'
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -50,7 +70,7 @@
 		.title {
 			text {
 				font-size: 18px;
-				font-weight: 400;
+				font-weight: 500;
 				letter-spacing: 0px;
 				color: rgba(0, 0, 0, 1);
 				vertical-align: top;
@@ -66,7 +86,7 @@
 
 			text {
 				font-size: 16px;
-				font-weight: 400;
+				font-weight: 500;
 				line-height: 24px;
 				color: rgba(0, 0, 0, 0.9);
 			}
@@ -74,6 +94,12 @@
 			input {
 				margin-top: 10px;
 				height: 26px;
+			}
+
+			.placeholder {
+				font-size: 12px;
+				font-weight: 400;
+				color: rgba(207, 207, 207, 1);
 			}
 
 			.verification-code {
@@ -108,15 +134,17 @@
 			}
 
 			text {
-				margin-top: 5px;
 				font-size: 12px;
 				font-weight: 400;
+				margin-top: 5px;
 				color: rgba(153, 153, 153, 1);
+			}
 
-				navigator {
-					display: inline-block;
-					color: rgba(64, 158, 254, 1)
-				}
+			navigator {
+				font-size: 12px;
+				font-weight: 400;
+				display: inline-block;
+				color: rgba(64, 158, 254, 1)
 			}
 		}
 
@@ -144,11 +172,5 @@
 				}
 			}
 		}
-	}
-
-	.placeholder {
-		font-size: 12px;
-		font-weight: 400;
-		color: rgba(207, 207, 207, 1);
 	}
 </style>

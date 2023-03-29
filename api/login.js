@@ -11,6 +11,18 @@ export default {
 		return request('/user/register', 'post', params)
 	},
 
+	// 获取验证码
+	getCaptcha(phoneNum) {
+		const data = new FormData()
+		data.append('phone', phoneNum)
+
+		return request({
+			url: '/getCaptcha',
+			method: 'post',
+			data
+		})
+	}
+
 	// // 获取手机号
 	// getUserPhoneNum(params) {
 	// 	return request('/user/getPhone', 'post', params)
