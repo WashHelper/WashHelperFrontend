@@ -2,14 +2,30 @@
   "pages": [
     "pages/index/index",
     "pages/order/detail",
+    "pages/order/doorToDoor",
+    "pages/order/mailingAddress",
+    "pages/order/pickupAddress",
+    "pages/order/types",
+    "pages/user/order/detail",
+    "pages/user/order/feedback",
+    "pages/user/order/index",
+    "pages/user/settings/address",
+    "pages/user/settings/index",
+    "pages/user/cooperate",
+    "pages/user/credit",
+    "pages/user/feedback",
+    "pages/user/index",
+    "pages/user/joinUs",
+    "pages/user/recycle",
+    "pages/user/service",
     "pages/welcome/index"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTitleText": "洗笑颜开",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
   },
   "tabBar": {
     "color": "#7a7f82",
@@ -18,16 +34,16 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/welcome/index",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "订单"
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/tabbar/画板 1.png",
+        "selectedIconPath": "static/tabbar/画板 1.png"
       },
       {
         "pagePath": "pages/user/settings/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "static/tabbar/画板 1 (3).png",
+        "selectedIconPath": "static/tabbar/画板 1 (3).png"
       }
     ]
   },

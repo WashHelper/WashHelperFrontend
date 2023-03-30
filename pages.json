@@ -3,7 +3,8 @@
 		"autoscan": true,
 		"custom": {
 			// uni-ui 规则如下配置
-			"fui-(.*)": "firstui-uni/firstui/fui-$1/fui-$1.vue"
+			"fui-(.*)": "firstui-uni/firstui/fui-$1/fui-$1.vue",
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
@@ -95,7 +96,14 @@
 		}, {
 			"path": "pages/user/service",
 			"style": {
-				"navigationBarTitleText": "洗笑颜开"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "洗笑颜开",
+				"app-plus": {
+					"animationType": "fade-in",
+					"background": "transparent",
+					"backgroundColor": "transparent",
+					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
 			}
 		}, {
 			"path": "pages/welcome/index",
@@ -105,24 +113,27 @@
 		}
 	],
 	"tabBar": {
-		// "custom": true,
 		"color": "#7a7f82",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath": "static/tabbar/画板 1.png"
-		}, {
-			"pagePath": "pages/order/order",
-			"text": "订单",
-			"iconPath": "static/tabbar/并集.png"
-		}, {
-			"pagePath": "pages/user/settings/index",
-			"text": "我的",
-			"iconPath": "static/tabbar/画板 1 (3).png"
-		}]
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/画板 1.png",
+				"selectedIconPath": "static/tabbar/画板 1.png"
+			}, {
+				"pagePath": "pages/user/order/index",
+				"text": "订单",
+				"iconPath": "static/tabbar/并集.png"
+			},
+			{
+				"pagePath": "pages/user/settings/index",
+				"text": "我的",
+				"iconPath": "static/tabbar/画板 1 (3).png",
+				"selectedIconPath": "static/tabbar/画板 1 (3).png"
+			}
+		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

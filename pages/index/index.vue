@@ -5,13 +5,13 @@
 				<swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff" circular
 					autoplay interval="4000">
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/轮播图1.png"></image>
+						<image src="@/static/index-index/index-banner/first.png"></image>
 					</swiper-item>
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/轮播图2.png"></image>
+						<image src="@/static/index-index/index-banner/second.png"></image>
 					</swiper-item>
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/轮播图3.png"></image>
+						<image src="@/static/index-index/index-banner/third.png"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -26,9 +26,12 @@
 			<indexInput></indexInput>
 		</view>
 		<view class="ad">
-			<image src="@/static/index-index/画板 1.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
 		</view>
-
+		<text class="ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
 		<view class="serve-container">
 			<text class="serve-text">服务类别</text>
 			<view class="serve-choice">
@@ -37,7 +40,10 @@
 				<button type="default" disabled="true">碳积分</button>
 			</view>
 		</view>
+		<view class="kong" style="height: 110rpx;"></view>
 	</view>
+
+
 </template>
 
 <script>
@@ -45,17 +51,19 @@
 		data() {
 			return {
 				navArr: [{
-						id: 0,
-						title: "网点自送"
-					},
-					{
-						id: 1,
-						title: "上门取件"
-					}
-				],
+					id: 0,
+					title: "网点自送"
+				}, {
+					id: 1,
+					title: "上门取件"
+				}, {
+					id: 2,
+					title: '智能鞋柜'
+				}, {
+					id: 3,
+					title: '邮寄取送'
+				}],
 				navIndex: 0,
-
-
 			};
 		},
 		onLoad() {
@@ -68,7 +76,7 @@
 <style lang="scss">
 	.container {
 		width: 100vw;
-		height: 858px;
+		// height: 858px;
 		padding-top: 20px;
 		background-color: rgba(235, 236, 237, 1);
 		display: flex;
@@ -97,6 +105,7 @@
 			}
 
 			.choice-container {
+				margin-top: 5px;
 				width: 692rpx;
 				height: 44px;
 				display: flex;
@@ -116,14 +125,31 @@
 
 
 		.ad {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-around;
 			margin-top: 10px;
 			width: 692rpx;
 			height: 158px;
 
 			image {
-				width: 100%;
-				height: 100%;
+				&:nth-child(2n+1) {
+					width: 298rpx;
+					height: 60px;
+				}
+
+				&:nth-child(2n) {
+					width: 373rpx;
+					height: 60px;
+				}
+
 			}
+		}
+
+		.ad-text {
+			color: rgba(166, 166, 166, 1);
+			font-size: 11px;
 		}
 
 		.serve-container {
@@ -140,9 +166,12 @@
 				display: flex;
 				flex-direction: row;
 				margin-top: 15px;
+				justify-content: space-around;
+				align-self: center;
 
 				button {
-					width: 177rpx;
+					border-color: transparent;
+					width: 91px;
 					font-size: 14px;
 					color: rgba(179, 179, 179, 1);
 				}
