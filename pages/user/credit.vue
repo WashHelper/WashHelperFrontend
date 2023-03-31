@@ -2,7 +2,6 @@
 	<view class="container">
 		碳积分
 	</view>
-
 </template>
 
 <script>
