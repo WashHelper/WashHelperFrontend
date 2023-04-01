@@ -1,6 +1,8 @@
 <template>
-	<view class="container">
-		订单详情
+	<view class="detail-container">
+		<view class="">
+
+		</view>
 	</view>
 </template>
 

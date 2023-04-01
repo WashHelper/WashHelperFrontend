@@ -1,5 +1,5 @@
 <template>
-<<<<<<< HEAD
+	<!-- <<<<<<< HEAD -->
 	<view class="mine-container">
 		<header class="header-box">
 			<view class="head-picture">
@@ -41,10 +41,6 @@
 
 		</footer>
 		<view class="kong" style="height: 110rpx;"></view>
-=======
-	<view class="">
-		联系客服
->>>>>>> bff265500213eca6092fd2a4c1206b0a29e74485
 	</view>
 </template>
 

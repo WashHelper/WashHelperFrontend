@@ -102,8 +102,7 @@
 		}, {
 			"path": "pages/user/service",
 			"style": {
-<<<<<<< HEAD
-				"navigationStyle": "custom",
+				// "navigationStyle": "custom",
 				"navigationBarTitleText": "洗笑颜开",
 				"app-plus": {
 					"animationType": "fade-in",
@@ -111,18 +110,20 @@
 					"backgroundColor": "transparent",
 					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
 				}
-=======
-				"navigationBarTitleText": "洗笑颜开"
-
->>>>>>> bff265500213eca6092fd2a4c1206b0a29e74485
 			}
 		}, {
 			"path": "pages/welcome/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
-		}
+		}, {
+			"path": "pages/order/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 
+		}
 	],
 	"tabBar": {
 		"color": "#7a7f82",
