@@ -15,6 +15,12 @@
 			}
 		},
 		{
+			"path": "pages/login/quickLogin",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -125,29 +131,25 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/user/chargeMoney",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user/unused-coupon",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/user/chargeMoney",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/unused-coupon",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"tabBar": {
 		"color": "#7a7f82",
-		"selectedColor": "#3cc51f",
+		"selectedColor": "#57B6E6",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

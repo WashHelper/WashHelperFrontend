@@ -1,49 +1,6 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
 /* 0 */,
 /* 1 */
-/*!*********************************************************!*\
-  !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var objectKeys = ['qy', 'env', 'error', 'version', 'lanDebug', 'cloud', 'serviceMarket', 'router', 'worklet'];
-var singlePageDisableKey = ['lanDebug', 'router', 'worklet'];
-var target = typeof globalThis !== 'undefined' ? globalThis : function () {
-  return this;
-}();
-var key = ['w', 'x'].join('');
-var oldWx = target[key];
-var launchOption = oldWx.getLaunchOptionsSync ? oldWx.getLaunchOptionsSync() : null;
-function isWxKey(key) {
-  if (launchOption && launchOption.scene === 1154 && singlePageDisableKey.includes(key)) {
-    return false;
-  }
-  return objectKeys.indexOf(key) > -1 || typeof oldWx[key] === 'function';
-}
-function initWx() {
-  var newWx = {};
-  for (var _key in oldWx) {
-    if (isWxKey(_key)) {
-      // TODO wrapper function
-      newWx[_key] = oldWx[_key];
-    }
-  }
-  return newWx;
-}
-target[key] = initWx();
-var _default = target[key];
-exports.default = _default;
-
-/***/ }),
-/* 2 */
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -51,9 +8,9 @@ exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(wx, global) {
+/* WEBPACK VAR INJECTION */(function(global) {
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -63,13 +20,13 @@ exports.createPage = createPage;
 exports.createPlugin = createPlugin;
 exports.createSubpackageApp = createSubpackageApp;
 exports.default = void 0;
-var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _construct2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/construct */ 15));
-var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
-var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _uniI18n = __webpack_require__(/*! @dcloudio/uni-i18n */ 22);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 4));
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 10));
+var _construct2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/construct */ 14));
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 17));
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 12));
+var _uniI18n = __webpack_require__(/*! @dcloudio/uni-i18n */ 21);
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 24));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var realAtob;
@@ -359,7 +316,7 @@ var promiseInterceptor = {
     });
   }
 };
-var SYNC_API_RE = /^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo|getSystemSetting|getAppAuthorizeSetting|initUTS|requireUTS|registerUTS/;
+var SYNC_API_RE = /^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo|getSystemSetting|getAppAuthorizeSetting/;
 var CONTEXT_API_RE = /^create|Manager$/;
 
 // Context例外情况
@@ -407,7 +364,7 @@ if (!Promise.prototype.finally) {
   };
 }
 function promisify(name, api) {
-  if (!shouldPromise(name) || !isFn(api)) {
+  if (!shouldPromise(name)) {
     return api;
   }
   return function promiseApi() {
@@ -585,18 +542,16 @@ function normalizeLocale(locale, messages) {
 
 function getLocale$1() {
   // 优先使用 $locale
-  if (isFn(getApp)) {
-    var app = getApp({
-      allowDefault: true
-    });
-    if (app && app.$vm) {
-      return app.$vm.$locale;
-    }
+  var app = getApp({
+    allowDefault: true
+  });
+  if (app && app.$vm) {
+    return app.$vm.$locale;
   }
   return normalizeLocale(wx.getSystemInfoSync().language) || LOCALE_EN;
 }
 function setLocale$1(locale) {
-  var app = isFn(getApp) ? getApp() : false;
+  var app = getApp();
   if (!app) {
     return false;
   }
@@ -739,8 +694,6 @@ function populateParameters(result) {
     deviceOrientation = result.deviceOrientation;
   // const isQuickApp = "mp-weixin".indexOf('quickapp-webview') !== -1
 
-  var extraParam = {};
-
   // osName osVersion
   var osName = '';
   var osVersion = '';
@@ -779,8 +732,8 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.7.9",
-    uniRuntimeVersion: "3.7.9",
+    uniCompileVersion: "3.6.15",
+    uniRuntimeVersion: "3.6.15",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -805,7 +758,7 @@ function populateParameters(result) {
     browserName: undefined,
     browserVersion: undefined
   };
-  Object.assign(result, parameters, extraParam);
+  Object.assign(result, parameters);
 }
 function getGetDeviceType(result, model) {
   var deviceType = result.deviceType || 'phone';
@@ -924,17 +877,6 @@ var getAppAuthorizeSetting = {
 
 // import navigateTo from 'uni-helpers/navigate-to'
 
-var compressImage = {
-  args: function args(fromArgs) {
-    // https://developers.weixin.qq.com/community/develop/doc/000c08940c865011298e0a43256800?highLine=compressHeight
-    if (fromArgs.compressedHeight && !fromArgs.compressHeight) {
-      fromArgs.compressHeight = fromArgs.compressedHeight;
-    }
-    if (fromArgs.compressedWidth && !fromArgs.compressWidth) {
-      fromArgs.compressWidth = fromArgs.compressedWidth;
-    }
-  }
-};
 var protocols = {
   redirectTo: redirectTo,
   // navigateTo,  // 由于在微信开发者工具的页面参数，会显示__id__参数，因此暂时关闭mp-weixin对于navigateTo的AOP
@@ -945,8 +887,7 @@ var protocols = {
   getAppBaseInfo: getAppBaseInfo,
   getDeviceInfo: getDeviceInfo,
   getWindowInfo: getWindowInfo,
-  getAppAuthorizeSetting: getAppAuthorizeSetting,
-  compressImage: compressImage
+  getAppAuthorizeSetting: getAppAuthorizeSetting
 };
 var todos = ['vibrate', 'preloadPage', 'unPreloadPage', 'loadSubPackage'];
 var canIUses = [];
@@ -1247,15 +1188,8 @@ var offPushMessage = function offPushMessage(fn) {
     }
   }
 };
-var baseInfo = wx.getAppBaseInfo && wx.getAppBaseInfo();
-if (!baseInfo) {
-  baseInfo = wx.getSystemInfoSync();
-}
-var host = baseInfo ? baseInfo.host : null;
-var shareVideoMessage = host && host.env === 'SAAASDK' ? wx.miniapp.shareVideoMessage : wx.shareVideoMessage;
 var api = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  shareVideoMessage: shareVideoMessage,
   getPushClientId: getPushClientId,
   onPushMessage: onPushMessage,
   offPushMessage: offPushMessage,
@@ -1378,19 +1312,6 @@ function toSkip(obj) {
     });
   }
   return obj;
-}
-var WORKLET_RE = /_(.*)_worklet_factory_/;
-function initWorkletMethods(mpMethods, vueMethods) {
-  if (vueMethods) {
-    Object.keys(vueMethods).forEach(function (name) {
-      var matches = name.match(WORKLET_RE);
-      if (matches) {
-        var workletName = matches[1];
-        mpMethods[name] = vueMethods[name];
-        mpMethods[workletName] = vueMethods[workletName];
-      }
-    });
-  }
 }
 var MPPage = Page;
 var MPComponent = Component;
@@ -2278,9 +2199,6 @@ function parseBasePage(vuePageOptions) {
   {
     initUnknownHooks(pageOptions.methods, vuePageOptions, ['onReady']);
   }
-  {
-    initWorkletMethods(pageOptions.methods, vueOptions.methods);
-  }
   return pageOptions;
 }
 function parsePage(vuePageOptions) {
@@ -2394,6 +2312,9 @@ if (typeof Proxy !== 'undefined' && "mp-weixin" !== 'app-plus') {
       if (eventApi[name]) {
         return eventApi[name];
       }
+      if (typeof wx[name] !== 'function' && !hasOwn(protocols, name)) {
+        return;
+      }
       return promisify(name, wrapper(name, wx[name]));
     },
     set: function set(target, name, value) {
@@ -2433,10 +2354,10 @@ wx.createPlugin = createPlugin;
 var uni$1 = uni;
 var _default = uni$1;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2466,7 +2387,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
   \**********************************************************************/
@@ -2481,24 +2402,24 @@ function _interopRequireDefault(obj) {
 module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /*!**************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 6);
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 7);
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 10);
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 5);
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 6);
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 7);
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 9);
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
   \***************************************************************/
@@ -2511,7 +2432,7 @@ function _arrayWithHoles(arr) {
 module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 7 */
+/* 6 */
 /*!*********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
   \*********************************************************************/
@@ -2550,14 +2471,14 @@ function _iterableToArrayLimit(arr, i) {
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 8 */
+/* 7 */
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
   \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 8);
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -2569,7 +2490,7 @@ function _unsupportedIterableToArray(o, minLen) {
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
   \*****************************************************************/
@@ -2586,7 +2507,7 @@ function _arrayLikeToArray(arr, len) {
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
   \****************************************************************/
@@ -2599,14 +2520,14 @@ function _nonIterableRest() {
 module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
   \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 11);
 function _defineProperty(obj, key, value) {
   key = toPropertyKey(key);
   if (key in obj) {
@@ -2624,15 +2545,15 @@ function _defineProperty(obj, key, value) {
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /*!**************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 14);
+var _typeof = __webpack_require__(/*! ./typeof.js */ 12)["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 13);
 function _toPropertyKey(arg) {
   var key = toPrimitive(arg, "string");
   return _typeof(key) === "symbol" ? key : String(key);
@@ -2640,7 +2561,7 @@ function _toPropertyKey(arg) {
 module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
   \*******************************************************/
@@ -2659,14 +2580,14 @@ function _typeof(obj) {
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 14 */
+/* 13 */
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
   \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
+var _typeof = __webpack_require__(/*! ./typeof.js */ 12)["default"];
 function _toPrimitive(input, hint) {
   if (_typeof(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
@@ -2680,15 +2601,15 @@ function _toPrimitive(input, hint) {
 module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/construct.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ 16);
-var isNativeReflectConstruct = __webpack_require__(/*! ./isNativeReflectConstruct.js */ 17);
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ 15);
+var isNativeReflectConstruct = __webpack_require__(/*! ./isNativeReflectConstruct.js */ 16);
 function _construct(Parent, args, Class) {
   if (isNativeReflectConstruct()) {
     module.exports = _construct = Reflect.construct.bind(), module.exports.__esModule = true, module.exports["default"] = module.exports;
@@ -2707,7 +2628,7 @@ function _construct(Parent, args, Class) {
 module.exports = _construct, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
   \***************************************************************/
@@ -2724,7 +2645,7 @@ function _setPrototypeOf(o, p) {
 module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /*!*************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/isNativeReflectConstruct.js ***!
   \*************************************************************************/
@@ -2745,38 +2666,38 @@ function _isNativeReflectConstruct() {
 module.exports = _isNativeReflectConstruct, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
   \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ 19);
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ 20);
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ 21);
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ 18);
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ 19);
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 7);
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ 20);
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
   \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 8);
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
   \****************************************************************/
@@ -2789,7 +2710,7 @@ function _iterableToArray(iter) {
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
   \******************************************************************/
@@ -2802,7 +2723,7 @@ function _nonIterableSpread() {
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 22 */
+/* 21 */
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -2812,7 +2733,7 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni, global) {
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -2825,10 +2746,10 @@ exports.isString = void 0;
 exports.normalizeLocale = normalizeLocale;
 exports.parseI18nJson = parseI18nJson;
 exports.resolveLocale = resolveLocale;
-var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 4));
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 22));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 23));
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 12));
 var isArray = Array.isArray;
 var isObject = function isObject(val) {
   return val !== null && (0, _typeof2.default)(val) === 'object';
@@ -3328,10 +3249,10 @@ function resolveLocaleChain(locale) {
   }
   return chain;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 23 */
+/* 22 */
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
   \***************************************************************/
@@ -3346,14 +3267,14 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/createClass.js ***!
   \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 11);
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -3374,7 +3295,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -9451,25 +9372,32 @@ internalMixin(Vue);
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 26 */
 /*!*************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/pages.json ***!
   \*************************************************/
+=======
+/* 25 */
+/*!*****************************************!*\
+  !*** D:/Projects/WashHelper/pages.json ***!
+  \*****************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
+/* 26 */,
 /* 27 */,
 /* 28 */,
 /* 29 */,
 /* 30 */,
-/* 31 */,
-/* 32 */
+/* 31 */
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -9516,9 +9444,6 @@ function normalizeComponent (
   }
   // fixed by xxxxxx renderjs
   if (renderjs) {
-    if(typeof renderjs.beforeCreate === 'function'){
-			renderjs.beforeCreate = [renderjs.beforeCreate]
-		}
     (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
       this[renderjs.__module] = this
     });
@@ -9600,25 +9525,43 @@ function normalizeComponent (
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 33 */
 /*!***************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/index.js ***!
   \***************************************************/
+=======
+/* 32 */
+/*!*******************************************!*\
+  !*** D:/Projects/WashHelper/api/index.js ***!
+  \*******************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var context = __webpack_require__(34);
+=======
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 10));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var context = __webpack_require__(33);
+>>>>>>> master
 var api = {};
 context.keys().forEach(function (e) {
   api = _objectSpread(_objectSpread({}, api), context(e).default);
@@ -9627,18 +9570,32 @@ var _default = _objectSpread({}, api);
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 34 */
 /*!*****************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api sync \.js$ ***!
   \*****************************************************/
+=======
+/* 33 */
+/*!*********************************************!*\
+  !*** D:/Projects/WashHelper/api sync \.js$ ***!
+  \*********************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+<<<<<<< HEAD
 	"./index.js": 33,
 	"./login.js": 35,
 	"./order.js": 84,
 	"./user.js": 85
+=======
+	"./index.js": 32,
+	"./login.js": 34,
+	"./order.js": 83,
+	"./user.js": 84
+>>>>>>> master
 };
 
 
@@ -9659,6 +9616,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
+<<<<<<< HEAD
 webpackContext.id = 34;
 
 /***/ }),
@@ -9666,18 +9624,35 @@ webpackContext.id = 34;
 /*!***************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/login.js ***!
   \***************************************************/
+=======
+webpackContext.id = 33;
+
+/***/ }),
+/* 34 */
+/*!*******************************************!*\
+  !*** D:/Projects/WashHelper/api/login.js ***!
+  \*******************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 36));
+=======
+var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 35));
+>>>>>>> master
 var _default = {
   // 密码登录
   login: function login(params) {
@@ -9686,6 +9661,19 @@ var _default = {
   // 注册
   register: function register(params) {
     return (0, _service.default)('/user/register', 'post', params);
+<<<<<<< HEAD
+=======
+  },
+  // 获取验证码
+  getCaptcha: function getCaptcha(phoneNum) {
+    var data = new FormData();
+    data.append('phone', phoneNum);
+    return (0, _service.default)({
+      url: '/getCaptcha',
+      method: 'post',
+      data: data
+    });
+>>>>>>> master
   } // // 获取手机号
   // getUserPhoneNum(params) {
   // 	return request('/user/getPhone', 'post', params)
@@ -9698,34 +9686,58 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 36 */
 /*!*******************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/utils/service.js ***!
   \*******************************************************/
+=======
+/* 35 */
+/*!***********************************************!*\
+  !*** D:/Projects/WashHelper/utils/service.js ***!
+  \***********************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 37));
+=======
+var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 36));
+>>>>>>> master
 /* eslint-disable */
 
 // 创建axios实例
 var service = _axios.default.create({
   // 超时
   timeout: 5000,
+<<<<<<< HEAD
   baseURL: 'http://1.117.115.133:8080'
 });
 _axios.default.defaults.adapter = function (config) {
   return new Promise(function (resolve, reject) {
     var settle = __webpack_require__(/*! axios/lib/core/settle */ 69);
     var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 42);
+=======
+  baseURL: 'http: //127.0.0.1:4523/m1/2475051-0-default'
+});
+_axios.default.defaults.adapter = function (config) {
+  return new Promise(function (resolve, reject) {
+    var settle = __webpack_require__(/*! axios/lib/core/settle */ 68);
+    var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 41);
+>>>>>>> master
     uni.request({
       method: config.method.toUpperCase(),
       url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
@@ -9788,6 +9800,7 @@ service.interceptors.response.use(function (res) {
 });
 var _default = service;
 exports.default = _default;
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
@@ -9795,13 +9808,26 @@ exports.default = _default;
 /*!******************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/index.js ***!
   \******************************************************************/
+=======
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 36 */
+/*!**********************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/index.js ***!
+  \**********************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -9813,7 +9839,11 @@ Object.defineProperty(exports, "default", {
   }
 });
 exports.toFormData = exports.spread = exports.mergeConfig = exports.isCancel = exports.isAxiosError = exports.formToJSON = void 0;
+<<<<<<< HEAD
 var _axios = _interopRequireDefault(__webpack_require__(/*! ./lib/axios.js */ 38));
+=======
+var _axios = _interopRequireDefault(__webpack_require__(/*! ./lib/axios.js */ 37));
+>>>>>>> master
 // This module is intended to unwrap Axios default export as named.
 // Keep top-level export same with static properties
 // so that it can keep same with es module or cjs
@@ -9849,21 +9879,33 @@ exports.AxiosError = AxiosError;
 exports.Axios = Axios;
 
 /***/ }),
+<<<<<<< HEAD
 /* 38 */
 /*!**********************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/axios.js ***!
   \**********************************************************************/
+=======
+/* 37 */
+/*!**************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/axios.js ***!
+  \**************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./utils.js */ 39));
 var _bind = _interopRequireDefault(__webpack_require__(/*! ./helpers/bind.js */ 40));
 var _Axios = _interopRequireDefault(__webpack_require__(/*! ./core/Axios.js */ 41));
@@ -9880,6 +9922,24 @@ var _spread = _interopRequireDefault(__webpack_require__(/*! ./helpers/spread.js
 var _isAxiosError = _interopRequireDefault(__webpack_require__(/*! ./helpers/isAxiosError.js */ 82));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./core/AxiosHeaders.js */ 63));
 var _HttpStatusCode = _interopRequireDefault(__webpack_require__(/*! ./helpers/HttpStatusCode.js */ 83));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./utils.js */ 38));
+var _bind = _interopRequireDefault(__webpack_require__(/*! ./helpers/bind.js */ 39));
+var _Axios = _interopRequireDefault(__webpack_require__(/*! ./core/Axios.js */ 40));
+var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./core/mergeConfig.js */ 76));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./defaults/index.js */ 53));
+var _formDataToJSON = _interopRequireDefault(__webpack_require__(/*! ./helpers/formDataToJSON.js */ 61));
+var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ./cancel/CanceledError.js */ 65));
+var _CancelToken = _interopRequireDefault(__webpack_require__(/*! ./cancel/CancelToken.js */ 79));
+var _isCancel = _interopRequireDefault(__webpack_require__(/*! ./cancel/isCancel.js */ 64));
+var _data = __webpack_require__(/*! ./env/data.js */ 78);
+var _toFormData = _interopRequireDefault(__webpack_require__(/*! ./helpers/toFormData.js */ 43));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ./core/AxiosError.js */ 48));
+var _spread = _interopRequireDefault(__webpack_require__(/*! ./helpers/spread.js */ 80));
+var _isAxiosError = _interopRequireDefault(__webpack_require__(/*! ./helpers/isAxiosError.js */ 81));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./core/AxiosHeaders.js */ 62));
+var _HttpStatusCode = _interopRequireDefault(__webpack_require__(/*! ./helpers/HttpStatusCode.js */ 82));
+>>>>>>> master
 /**
  * Create an instance of Axios
  *
@@ -9950,23 +10010,39 @@ var _default = axios;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 39 */
 /*!**********************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/utils.js ***!
   \**********************************************************************/
+=======
+/* 38 */
+/*!**************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/utils.js ***!
+  \**************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _bind = _interopRequireDefault(__webpack_require__(/*! ./helpers/bind.js */ 40));
+=======
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 12));
+var _bind = _interopRequireDefault(__webpack_require__(/*! ./helpers/bind.js */ 39));
+>>>>>>> master
 // utils is a library of generic helper functions non-specific to axios
 
 var toString = Object.prototype.toString;
@@ -10651,6 +10727,7 @@ var _default = {
   toJSONObject: toJSONObject
 };
 exports.default = _default;
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
 
 /***/ }),
@@ -10658,6 +10735,15 @@ exports.default = _default;
 /*!*****************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/bind.js ***!
   \*****************************************************************************/
+=======
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../Program Files/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 2)))
+
+/***/ }),
+/* 39 */
+/*!*********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/bind.js ***!
+  \*********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10675,21 +10761,33 @@ function bind(fn, thisArg) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 41 */
 /*!***************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/Axios.js ***!
   \***************************************************************************/
+=======
+/* 40 */
+/*!*******************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/Axios.js ***!
+  \*******************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
@@ -10700,6 +10798,18 @@ var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig.
 var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ./buildFullPath.js */ 71));
 var _validator = _interopRequireDefault(__webpack_require__(/*! ../helpers/validator.js */ 78));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./AxiosHeaders.js */ 63));
+=======
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 22));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 23));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL.js */ 41));
+var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager.js */ 50));
+var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest.js */ 51));
+var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig.js */ 76));
+var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ./buildFullPath.js */ 70));
+var _validator = _interopRequireDefault(__webpack_require__(/*! ../helpers/validator.js */ 77));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./AxiosHeaders.js */ 62));
+>>>>>>> master
 var validators = _validator.default.validators;
 
 /**
@@ -10863,23 +10973,39 @@ var _default = Axios;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 42 */
 /*!*********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/buildURL.js ***!
   \*********************************************************************************/
+=======
+/* 41 */
+/*!*************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/buildURL.js ***!
+  \*************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildURL;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _AxiosURLSearchParams = _interopRequireDefault(__webpack_require__(/*! ../helpers/AxiosURLSearchParams.js */ 43));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _AxiosURLSearchParams = _interopRequireDefault(__webpack_require__(/*! ../helpers/AxiosURLSearchParams.js */ 42));
+>>>>>>> master
 /**
  * It replaces all instances of the characters `:`, `$`, `,`, `+`, `[`, and `]` with their
  * URI encoded counterparts
@@ -10925,22 +11051,37 @@ function buildURL(url, params, options) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 43 */
 /*!*********************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/AxiosURLSearchParams.js ***!
   \*********************************************************************************************/
+=======
+/* 42 */
+/*!*************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/AxiosURLSearchParams.js ***!
+  \*************************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _toFormData = _interopRequireDefault(__webpack_require__(/*! ./toFormData.js */ 44));
+=======
+var _toFormData = _interopRequireDefault(__webpack_require__(/*! ./toFormData.js */ 43));
+>>>>>>> master
 /**
  * It encodes a string by replacing all characters that are not in the unreserved set with
  * their percent-encoded equivalents
@@ -10992,25 +11133,43 @@ var _default = AxiosURLSearchParams;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 44 */
 /*!***********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toFormData.js ***!
   \***********************************************************************************/
+=======
+/* 43 */
+/*!***************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/toFormData.js ***!
+  \***************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
 var _FormData = _interopRequireDefault(__webpack_require__(/*! ../platform/node/classes/FormData.js */ 50));
+=======
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 12));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+var _FormData = _interopRequireDefault(__webpack_require__(/*! ../platform/node/classes/FormData.js */ 49));
+>>>>>>> master
 // temporary hotfix to avoid circular references until AxiosURLSearchParams is refactored
 
 /**
@@ -11194,10 +11353,17 @@ function toFormData(obj, formData, options) {
 }
 var _default = toFormData;
 exports.default = _default;
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 45).Buffer))
 
 /***/ }),
 /* 45 */
+=======
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Program Files/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 44).Buffer))
+
+/***/ }),
+/* 44 */
+>>>>>>> master
 /*!**************************************!*\
   !*** ./node_modules/buffer/index.js ***!
   \**************************************/
@@ -11215,9 +11381,15 @@ exports.default = _default;
 
 
 
+<<<<<<< HEAD
 var base64 = __webpack_require__(/*! base64-js */ 46)
 var ieee754 = __webpack_require__(/*! ieee754 */ 47)
 var isArray = __webpack_require__(/*! isarray */ 48)
+=======
+var base64 = __webpack_require__(/*! base64-js */ 45)
+var ieee754 = __webpack_require__(/*! ieee754 */ 46)
+var isArray = __webpack_require__(/*! isarray */ 47)
+>>>>>>> master
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -12995,10 +13167,17 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3)))
 
 /***/ }),
 /* 46 */
+=======
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 2)))
+
+/***/ }),
+/* 45 */
+>>>>>>> master
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
   \*****************************************/
@@ -13159,7 +13338,11 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 47 */
+=======
+/* 46 */
+>>>>>>> master
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
   \***************************************/
@@ -13254,7 +13437,11 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 48 */
+=======
+/* 47 */
+>>>>>>> master
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
   \***************************************/
@@ -13269,22 +13456,37 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 49 */
 /*!********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosError.js ***!
   \********************************************************************************/
+=======
+/* 48 */
+/*!************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/AxiosError.js ***!
+  \************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+>>>>>>> master
 /**
  * Create an Error with the specified message, config, error code, request and response.
  *
@@ -13363,10 +13565,17 @@ var _default = AxiosError;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 50 */
 /*!*****************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/null.js ***!
   \*****************************************************************************/
+=======
+/* 49 */
+/*!*********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/null.js ***!
+  \*********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13382,24 +13591,41 @@ var _default = null;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 51 */
 /*!****************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/InterceptorManager.js ***!
   \****************************************************************************************/
+=======
+/* 50 */
+/*!********************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \********************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
+=======
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 22));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 23));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+>>>>>>> master
 var InterceptorManager = /*#__PURE__*/function () {
   function InterceptorManager() {
     (0, _classCallCheck2.default)(this, InterceptorManager);
@@ -13480,27 +13706,47 @@ var _default = InterceptorManager;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 52 */
 /*!*************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/dispatchRequest.js ***!
   \*************************************************************************************/
+=======
+/* 51 */
+/*!*****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \*****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = dispatchRequest;
+<<<<<<< HEAD
 var _transformData = _interopRequireDefault(__webpack_require__(/*! ./transformData.js */ 53));
 var _isCancel = _interopRequireDefault(__webpack_require__(/*! ../cancel/isCancel.js */ 65));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../defaults/index.js */ 54));
 var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ../cancel/CanceledError.js */ 66));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 63));
 var _adapters = _interopRequireDefault(__webpack_require__(/*! ../adapters/adapters.js */ 67));
+=======
+var _transformData = _interopRequireDefault(__webpack_require__(/*! ./transformData.js */ 52));
+var _isCancel = _interopRequireDefault(__webpack_require__(/*! ../cancel/isCancel.js */ 64));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../defaults/index.js */ 53));
+var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ../cancel/CanceledError.js */ 65));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 62));
+var _adapters = _interopRequireDefault(__webpack_require__(/*! ../adapters/adapters.js */ 66));
+>>>>>>> master
 /**
  * Throws a `CanceledError` if cancellation has been requested.
  *
@@ -13556,24 +13802,41 @@ function dispatchRequest(config) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 53 */
 /*!***********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/transformData.js ***!
   \***********************************************************************************/
+=======
+/* 52 */
+/*!***************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/transformData.js ***!
+  \***************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = transformData;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../defaults/index.js */ 54));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 63));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../defaults/index.js */ 53));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 62));
+>>>>>>> master
 /**
  * Transform the data for a request or a response
  *
@@ -13595,21 +13858,33 @@ function transformData(fns, response) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 54 */
 /*!*******************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/index.js ***!
   \*******************************************************************************/
+=======
+/* 53 */
+/*!***********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/defaults/index.js ***!
+  \***********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
 var _transitional = _interopRequireDefault(__webpack_require__(/*! ./transitional.js */ 55));
@@ -13617,6 +13892,15 @@ var _toFormData = _interopRequireDefault(__webpack_require__(/*! ../helpers/toFo
 var _toURLEncodedForm = _interopRequireDefault(__webpack_require__(/*! ../helpers/toURLEncodedForm.js */ 56));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 57));
 var _formDataToJSON = _interopRequireDefault(__webpack_require__(/*! ../helpers/formDataToJSON.js */ 62));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+var _transitional = _interopRequireDefault(__webpack_require__(/*! ./transitional.js */ 54));
+var _toFormData = _interopRequireDefault(__webpack_require__(/*! ../helpers/toFormData.js */ 43));
+var _toURLEncodedForm = _interopRequireDefault(__webpack_require__(/*! ../helpers/toURLEncodedForm.js */ 55));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 56));
+var _formDataToJSON = _interopRequireDefault(__webpack_require__(/*! ../helpers/formDataToJSON.js */ 61));
+>>>>>>> master
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': undefined
 };
@@ -13741,10 +14025,17 @@ var _default = defaults;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 55 */
 /*!**************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/transitional.js ***!
   \**************************************************************************************/
+=======
+/* 54 */
+/*!******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/defaults/transitional.js ***!
+  \******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13763,24 +14054,41 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 56 */
 /*!*****************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toURLEncodedForm.js ***!
   \*****************************************************************************************/
+=======
+/* 55 */
+/*!*********************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/toURLEncodedForm.js ***!
+  \*********************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = toURLEncodedForm;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _toFormData = _interopRequireDefault(__webpack_require__(/*! ./toFormData.js */ 44));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 57));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _toFormData = _interopRequireDefault(__webpack_require__(/*! ./toFormData.js */ 43));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 56));
+>>>>>>> master
 function toURLEncodedForm(data, options) {
   return (0, _toFormData.default)(data, new _index.default.classes.URLSearchParams(), Object.assign({
     visitor: function visitor(value, key, path, helpers) {
@@ -13794,17 +14102,28 @@ function toURLEncodedForm(data, options) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 57 */
 /*!*******************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/index.js ***!
   \*******************************************************************************/
+=======
+/* 56 */
+/*!***********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/platform/index.js ***!
+  \***********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -13814,6 +14133,7 @@ Object.defineProperty(exports, "default", {
     return _index.default;
   }
 });
+<<<<<<< HEAD
 var _index = _interopRequireDefault(__webpack_require__(/*! ./node/index.js */ 58));
 
 /***/ }),
@@ -13821,20 +14141,39 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./node/index.js */ 5
 /*!***************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/index.js ***!
   \***************************************************************************************/
+=======
+var _index = _interopRequireDefault(__webpack_require__(/*! ./node/index.js */ 57));
+
+/***/ }),
+/* 57 */
+/*!*******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/platform/browser/index.js ***!
+  \*******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _URLSearchParams = _interopRequireDefault(__webpack_require__(/*! ./classes/URLSearchParams.js */ 59));
 var _FormData = _interopRequireDefault(__webpack_require__(/*! ./classes/FormData.js */ 60));
 var _Blob = _interopRequireDefault(__webpack_require__(/*! ./classes/Blob.js */ 61));
+=======
+var _URLSearchParams = _interopRequireDefault(__webpack_require__(/*! ./classes/URLSearchParams.js */ 58));
+var _FormData = _interopRequireDefault(__webpack_require__(/*! ./classes/FormData.js */ 59));
+var _Blob = _interopRequireDefault(__webpack_require__(/*! ./classes/Blob.js */ 60));
+>>>>>>> master
 /**
  * Determine if we're running in a standard browser environment
  *
@@ -13888,30 +14227,52 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 59 */
 /*!*********************************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/URLSearchParams.js ***!
   \*********************************************************************************************************/
+=======
+/* 58 */
+/*!*************************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/platform/browser/classes/URLSearchParams.js ***!
+  \*************************************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _AxiosURLSearchParams = _interopRequireDefault(__webpack_require__(/*! ../../../helpers/AxiosURLSearchParams.js */ 43));
+=======
+var _AxiosURLSearchParams = _interopRequireDefault(__webpack_require__(/*! ../../../helpers/AxiosURLSearchParams.js */ 42));
+>>>>>>> master
 var _default = typeof URLSearchParams !== 'undefined' ? URLSearchParams : _AxiosURLSearchParams.default;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 60 */
 /*!**************************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/FormData.js ***!
   \**************************************************************************************************/
+=======
+/* 59 */
+/*!******************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/platform/browser/classes/FormData.js ***!
+  \******************************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13926,10 +14287,17 @@ var _default = typeof FormData !== 'undefined' ? FormData : null;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 61 */
 /*!**********************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/Blob.js ***!
   \**********************************************************************************************/
+=======
+/* 60 */
+/*!**************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/platform/browser/classes/Blob.js ***!
+  \**************************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13944,22 +14312,37 @@ var _default = typeof Blob !== 'undefined' ? Blob : null;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 62 */
 /*!***************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/formDataToJSON.js ***!
   \***************************************************************************************/
+=======
+/* 61 */
+/*!*******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/formDataToJSON.js ***!
+  \*******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+>>>>>>> master
 /**
  * It takes a string like `foo[x][y][z]` and returns an array like `['foo', 'x', 'y', 'z']
  *
@@ -14040,26 +14423,45 @@ var _default = formDataToJSON;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 63 */
 /*!**********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosHeaders.js ***!
   \**********************************************************************************/
+=======
+/* 62 */
+/*!**************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/AxiosHeaders.js ***!
+  \**************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _parseHeaders = _interopRequireDefault(__webpack_require__(/*! ../helpers/parseHeaders.js */ 64));
+=======
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 4));
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 22));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 23));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _parseHeaders = _interopRequireDefault(__webpack_require__(/*! ../helpers/parseHeaders.js */ 63));
+>>>>>>> master
 var $internals = Symbol('internals');
 function normalizeHeader(header) {
   return header && String(header).trim().toLowerCase();
@@ -14321,22 +14723,37 @@ var _default = AxiosHeaders;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 64 */
 /*!*************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseHeaders.js ***!
   \*************************************************************************************/
+=======
+/* 63 */
+/*!*****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+>>>>>>> master
 // RawAxiosHeaders whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
 var ignoreDuplicateOf = _utils.default.toObjectSet(['age', 'authorization', 'content-length', 'content-type', 'etag', 'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since', 'last-modified', 'location', 'max-forwards', 'proxy-authorization', 'referer', 'retry-after', 'user-agent']);
@@ -14382,10 +14799,17 @@ var _default = function _default(rawHeaders) {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 65 */
 /*!********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/isCancel.js ***!
   \********************************************************************************/
+=======
+/* 64 */
+/*!************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/isCancel.js ***!
+  \************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14401,23 +14825,39 @@ function isCancel(value) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 66 */
 /*!*************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CanceledError.js ***!
   \*************************************************************************************/
+=======
+/* 65 */
+/*!*****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/CanceledError.js ***!
+  \*****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
+=======
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+>>>>>>> master
 /**
  * A `CanceledError` is an object that is thrown when an operation is canceled.
  *
@@ -14439,25 +14879,43 @@ var _default = CanceledError;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 67 */
 /*!**********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/adapters.js ***!
   \**********************************************************************************/
+=======
+/* 66 */
+/*!**************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/adapters/adapters.js ***!
+  \**************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 50));
 var _xhr = _interopRequireDefault(__webpack_require__(/*! ./xhr.js */ 68));
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 49));
+var _xhr = _interopRequireDefault(__webpack_require__(/*! ./xhr.js */ 67));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+>>>>>>> master
 var knownAdapters = {
   http: _http.default,
   xhr: _xhr.default
@@ -14505,21 +14963,33 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 68 */
 /*!*****************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/xhr.js ***!
   \*****************************************************************************/
+=======
+/* 67 */
+/*!*********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/adapters/xhr.js ***!
+  \*********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
 var _settle = _interopRequireDefault(__webpack_require__(/*! ./../core/settle.js */ 69));
 var _cookies = _interopRequireDefault(__webpack_require__(/*! ./../helpers/cookies.js */ 70));
@@ -14533,6 +15003,21 @@ var _parseProtocol = _interopRequireDefault(__webpack_require__(/*! ../helpers/p
 var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 57));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 63));
 var _speedometer2 = _interopRequireDefault(__webpack_require__(/*! ../helpers/speedometer.js */ 76));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+var _settle = _interopRequireDefault(__webpack_require__(/*! ./../core/settle.js */ 68));
+var _cookies = _interopRequireDefault(__webpack_require__(/*! ./../helpers/cookies.js */ 69));
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! ./../helpers/buildURL.js */ 41));
+var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath.js */ 70));
+var _isURLSameOrigin = _interopRequireDefault(__webpack_require__(/*! ./../helpers/isURLSameOrigin.js */ 73));
+var _transitional = _interopRequireDefault(__webpack_require__(/*! ../defaults/transitional.js */ 54));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ../cancel/CanceledError.js */ 65));
+var _parseProtocol = _interopRequireDefault(__webpack_require__(/*! ../helpers/parseProtocol.js */ 74));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 56));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosHeaders.js */ 62));
+var _speedometer2 = _interopRequireDefault(__webpack_require__(/*! ../helpers/speedometer.js */ 75));
+>>>>>>> master
 function progressEventReducer(listener, isDownloadStream) {
   var bytesNotified = 0;
   var _speedometer = (0, _speedometer2.default)(50, 250);
@@ -14740,22 +15225,37 @@ var _default = isXHRAdapterSupported && function (config) {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 69 */
 /*!****************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/settle.js ***!
   \****************************************************************************/
+=======
+/* 68 */
+/*!********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/settle.js ***!
+  \********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = settle;
+<<<<<<< HEAD
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ./AxiosError.js */ 49));
+=======
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ./AxiosError.js */ 48));
+>>>>>>> master
 /**
  * Resolve or reject a Promise based on response status.
  *
@@ -14775,23 +15275,39 @@ function settle(resolve, reject, response) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 70 */
 /*!********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/cookies.js ***!
   \********************************************************************************/
+=======
+/* 69 */
+/*!************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/cookies.js ***!
+  \************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 57));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 56));
+>>>>>>> master
 var _default = _index.default.isStandardBrowserEnv ?
 // Standard browser envs support document.cookie
 function standardBrowserEnv() {
@@ -14835,23 +15351,39 @@ function nonStandardBrowserEnv() {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 71 */
 /*!***********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/buildFullPath.js ***!
   \***********************************************************************************/
+=======
+/* 70 */
+/*!***************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/buildFullPath.js ***!
+  \***************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildFullPath;
+<<<<<<< HEAD
 var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL.js */ 72));
 var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs.js */ 73));
+=======
+var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL.js */ 71));
+var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs.js */ 72));
+>>>>>>> master
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
  * only when the requestedURL is not already an absolute URL.
@@ -14870,10 +15402,17 @@ function buildFullPath(baseURL, requestedURL) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 72 */
 /*!**************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \**************************************************************************************/
+=======
+/* 71 */
+/*!******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14899,10 +15438,17 @@ function isAbsoluteURL(url) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 73 */
 /*!************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/combineURLs.js ***!
   \************************************************************************************/
+=======
+/* 72 */
+/*!****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14926,23 +15472,39 @@ function combineURLs(baseURL, relativeURL) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 74 */
 /*!****************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \****************************************************************************************/
+=======
+/* 73 */
+/*!********************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \********************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
 var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 57));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../platform/index.js */ 56));
+>>>>>>> master
 var _default = _index.default.isStandardBrowserEnv ?
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
@@ -15000,10 +15562,17 @@ function nonStandardBrowserEnv() {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 75 */
 /*!**************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseProtocol.js ***!
   \**************************************************************************************/
+=======
+/* 74 */
+/*!******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/parseProtocol.js ***!
+  \******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15020,10 +15589,17 @@ function parseProtocol(url) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 76 */
 /*!************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/speedometer.js ***!
   \************************************************************************************/
+=======
+/* 75 */
+/*!****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/speedometer.js ***!
+  \****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15077,23 +15653,39 @@ var _default = speedometer;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 77 */
 /*!*********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/mergeConfig.js ***!
   \*********************************************************************************/
+=======
+/* 76 */
+/*!*************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/mergeConfig.js ***!
+  \*************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = mergeConfig;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
 var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./AxiosHeaders.js */ 63));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 38));
+var _AxiosHeaders = _interopRequireDefault(__webpack_require__(/*! ./AxiosHeaders.js */ 62));
+>>>>>>> master
 var headersToObject = function headersToObject(thing) {
   return thing instanceof _AxiosHeaders.default ? thing.toJSON() : thing;
 };
@@ -15198,24 +15790,41 @@ function mergeConfig(config1, config2) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 78 */
 /*!**********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/validator.js ***!
   \**********************************************************************************/
+=======
+/* 77 */
+/*!**************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/validator.js ***!
+  \**************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _data = __webpack_require__(/*! ../env/data.js */ 79);
 var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
+=======
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 12));
+var _data = __webpack_require__(/*! ../env/data.js */ 78);
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 48));
+>>>>>>> master
 var validators = {};
 
 // eslint-disable-next-line func-names
@@ -15293,10 +15902,17 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 79 */
 /*!*************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/env/data.js ***!
   \*************************************************************************/
+=======
+/* 78 */
+/*!*****************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/env/data.js ***!
+  \*****************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15311,24 +15927,41 @@ var VERSION = "1.3.4";
 exports.VERSION = VERSION;
 
 /***/ }),
+<<<<<<< HEAD
 /* 80 */
 /*!***********************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CancelToken.js ***!
   \***********************************************************************************/
+=======
+/* 79 */
+/*!***************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \***************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ./CanceledError.js */ 66));
+=======
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 22));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 23));
+var _CanceledError = _interopRequireDefault(__webpack_require__(/*! ./CanceledError.js */ 65));
+>>>>>>> master
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
  *
@@ -15447,10 +16080,17 @@ var _default = CancelToken;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 81 */
 /*!*******************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/spread.js ***!
   \*******************************************************************************/
+=======
+/* 80 */
+/*!***********************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/spread.js ***!
+  \***********************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15489,22 +16129,37 @@ function spread(callback) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 82 */
 /*!*************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAxiosError.js ***!
   \*************************************************************************************/
+=======
+/* 81 */
+/*!*****************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \*****************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = isAxiosError;
+<<<<<<< HEAD
 var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 39));
+=======
+var _utils = _interopRequireDefault(__webpack_require__(/*! ./../utils.js */ 38));
+>>>>>>> master
 /**
  * Determines whether the payload is an error thrown by Axios
  *
@@ -15517,22 +16172,37 @@ function isAxiosError(payload) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 83 */
 /*!***************************************************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/HttpStatusCode.js ***!
   \***************************************************************************************/
+=======
+/* 82 */
+/*!*******************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/HttpStatusCode.js ***!
+  \*******************************************************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
+=======
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 4));
+>>>>>>> master
 var HttpStatusCode = {
   Continue: 100,
   SwitchingProtocols: 101,
@@ -15608,22 +16278,37 @@ var _default = HttpStatusCode;
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 84 */
 /*!***************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/order.js ***!
   \***************************************************/
+=======
+/* 83 */
+/*!*******************************************!*\
+  !*** D:/Projects/WashHelper/api/order.js ***!
+  \*******************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 36));
+=======
+var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 35));
+>>>>>>> master
 var _default = {
   // 获取全部审核通过的预约
   getAllAppointments_ok: function getAllAppointments_ok(params) {
@@ -15645,22 +16330,37 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
 /* 85 */
 /*!**************************************************!*\
   !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/user.js ***!
   \**************************************************/
+=======
+/* 84 */
+/*!******************************************!*\
+  !*** D:/Projects/WashHelper/api/user.js ***!
+  \******************************************/
+>>>>>>> master
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+=======
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 3);
+>>>>>>> master
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+<<<<<<< HEAD
 var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 36));
+=======
+var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 35));
+>>>>>>> master
 var _default = {
   // 申请预约
   applyAppointment: function applyAppointment(params) {
@@ -15677,6 +16377,7 @@ var _default = {
 };
 exports.default = _default;
 
+<<<<<<< HEAD
 /***/ }),
 /* 86 */,
 /* 87 */,
@@ -15981,6 +16682,8 @@ function createAnimation(option, _this) {
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
+=======
+>>>>>>> master
 /***/ })
 ]]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

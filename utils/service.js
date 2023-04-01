@@ -6,7 +6,7 @@ import axios from 'axios';
 const service = axios.create({
 	// 超时
 	timeout: 5000,
-	baseURL: 'http://1.117.115.133:8080',
+	baseURL: 'http: //127.0.0.1:4523/m1/2475051-0-default',
 });
 
 axios.defaults.adapter = function(config) {

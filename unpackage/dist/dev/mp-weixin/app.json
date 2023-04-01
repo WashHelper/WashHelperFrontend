@@ -1,6 +1,10 @@
 {
   "pages": [
     "pages/login/index",
+<<<<<<< HEAD
+=======
+    "pages/login/quickLogin",
+>>>>>>> master
     "pages/index/index",
     "pages/order/detail",
     "pages/order/doorToDoor",
@@ -9,6 +13,10 @@
     "pages/order/types",
     "pages/user/order/detail",
     "pages/user/order/feedback",
+<<<<<<< HEAD
+=======
+    "pages/user/order/index",
+>>>>>>> master
     "pages/user/settings/address",
     "pages/user/settings/index",
     "pages/user/cooperate",
@@ -18,11 +26,15 @@
     "pages/user/joinUs",
     "pages/user/recycle",
     "pages/user/service",
+<<<<<<< HEAD
     "pages/welcome/index",
     "pages/order/index",
     "pages/user/card",
     "pages/user/chargeMoney",
     "pages/user/unused-coupon"
+=======
+    "pages/welcome/index"
+>>>>>>> master
   ],
   "subPackages": [],
   "window": {
@@ -33,15 +45,19 @@
   },
   "tabBar": {
     "color": "#7a7f82",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#57B6E6",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
+<<<<<<< HEAD
         "iconPath": "static/tabbar/画板 1.png",
         "selectedIconPath": "static/tabbar/画板 1.png"
+=======
+        "iconPath": "static/tabbar/画板 1.png"
+>>>>>>> master
       },
       {
         "pagePath": "pages/user/order/index",
@@ -51,8 +67,12 @@
       {
         "pagePath": "pages/user/settings/index",
         "text": "我的",
+<<<<<<< HEAD
         "iconPath": "static/tabbar/画板 1 (3).png",
         "selectedIconPath": "static/tabbar/画板 1 (3).png"
+=======
+        "iconPath": "static/tabbar/画板 1 (3).png"
+>>>>>>> master
       }
     ]
   },
