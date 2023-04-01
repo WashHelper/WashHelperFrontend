@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/index/index",
     "pages/order/detail",
     "pages/order/doorToDoor",
@@ -8,7 +9,6 @@
     "pages/order/types",
     "pages/user/order/detail",
     "pages/user/order/feedback",
-    "pages/user/order/index",
     "pages/user/settings/address",
     "pages/user/settings/index",
     "pages/user/cooperate",
@@ -18,7 +18,11 @@
     "pages/user/joinUs",
     "pages/user/recycle",
     "pages/user/service",
-    "pages/welcome/index"
+    "pages/welcome/index",
+    "pages/order/index",
+    "pages/user/card",
+    "pages/user/chargeMoney",
+    "pages/user/unused-coupon"
   ],
   "subPackages": [],
   "window": {
@@ -38,6 +42,11 @@
         "text": "首页",
         "iconPath": "static/tabbar/画板 1.png",
         "selectedIconPath": "static/tabbar/画板 1.png"
+      },
+      {
+        "pagePath": "pages/user/order/index",
+        "text": "订单",
+        "iconPath": "static/tabbar/并集.png"
       },
       {
         "pagePath": "pages/user/settings/index",

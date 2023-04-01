@@ -55,11 +55,6 @@
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}, {
-			"path": "pages/user/order/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
 			"path": "pages/user/settings/address",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -123,8 +118,33 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/user/card",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	],
+	    ,{
+            "path" : "pages/user/chargeMoney",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/unused-coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7f82",
 		"selectedColor": "#3cc51f",
