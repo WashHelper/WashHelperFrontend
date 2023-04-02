@@ -15,6 +15,16 @@ app.$mount()
 // #endif
 
 // #ifdef VUE3
+//封装弹窗的方法
+uni.$showMeg = function(title = '数据请求失败', duration = 1500) {
+	uni.$showToast({
+		title,
+		duration,
+		icon: 'none'
+	})
+}
+
+
 import {
 	createSSRApp
 } from 'vue'

@@ -4,21 +4,19 @@
 			<view class="serial-number">
 				<text>订单详情：</text>
 				<view class="number">2020202</view>
-
 			</view>
-			<text>地址信息</text>
 			<view class="get-address">
-
-				<view class="get-clothes">
-					<text>取衣地址</text><br>
+				<text class="title">地址信息</text>
+				<view class="get-clothes" style="margin-top: 2px;">
+					<text class="title">取衣地址</text><br>
 					<text class="name-number">王二 188888</text><br>
-					<text class="address">南京邮电大学</text>
+					<text class="address">南京邮电大学仙林校区文苑路9号学</text>
 				</view>
 
 				<view class="send-clothes">
-					<text>送衣地址</text><br>
+					<text class="title">送衣地址</text><br>
 					<text class="name-number">王二 188888</text><br>
-					<text class="address">南京邮电大学</text>
+					<text class="address">南京邮电大学仙林校区文苑路9号</text>
 				</view>
 			</view>
 		</view>
@@ -28,7 +26,7 @@
 				<text>订单详情</text>
 				<view class="item-num">共1件</view>
 			</view>
-			<view class="divLine"></view>
+			<div-line></div-line>
 			<!-- 衣服类型和图片 -->
 			<view class="item-detail">
 				<image src="@/static/order-detail/Artboard.png" mode="aspectFit"></image>
@@ -38,7 +36,7 @@
 					<view class="price">洗涤费：25</view>
 				</view>
 			</view>
-			<view class="divLine"></view>
+			<div-line></div-line>
 			<!-- 衣服价格的大盒子 -->
 			<view class="price-container">
 				<view class="wash-care">
@@ -88,24 +86,33 @@
 		align-items: center;
 
 		.text-box {
-			width: 92.3vw;
+			padding: 2px 0px 0px 10px;
+			width: 89.7vw;
 			background-color: #fff;
 			margin-top: 11px;
-			padding-left: 10px;
 			border-radius: 10px;
+			font-size: 12px;
 
 			.serial-number {
 				line-height: 19px;
-				padding-left: 2px;
+				font-weight: 500;
+				display: flex;
 
 				.number {
-					display: inline-block;
+					color: rgba(133, 131, 131, 1);
+					font-size: 12px;
+					font-weight: 400;
 				}
 			}
 
 			.get-address {
 				margin-top: 2px;
 				text-align: 19px;
+
+				.title {
+					line-height: 19px;
+					font-weight: 500;
+				}
 
 				.name-number,
 				.address {
@@ -118,62 +125,115 @@
 				}
 
 				.get-clothes,
-				.send-clothes {}
+				.send-clothes {
+					height: 65px;
+				}
 
 			}
 		}
 
 		.detail-body {
-			width: 92.3vw;
+			width: 89.74vw;
+			height: 345px;
 			background-color: #fff;
 			border-radius: 10px;
 			margin-top: 16px;
 			padding: 11px 0px 15px 10px;
 
 			.title {
-				// margin-top: 11px;
 				margin-left: 19.2rpx;
 				display: flex;
 				flex-direction: row;
-				// line-height: 18px;
+				font-size: 12px;
+				position: relative;
+				font-weight: 500;
 
 				text {
+
 					font-weight: 400;
 					line-height: 18px;
+
 				}
 
 				.item-num {
 					line-height: 18px;
+					// position: absolute;
+					// left: 79.487vw;
+					width: 12.8vw;
+					position: absolute;
+					right: 0px;
 				}
 			}
 
 			.item-detail {
 				display: flex;
 				flex-direction: row;
-				// margin-top: 7px;
+				padding: 7px 0px 24px 12px;
 
 				image {
-					margin-left: 23rpx;
 					width: 16.15vw;
 					height: 72.31px;
 				}
 
 				.type-container {
+					width: 100%;
 					display: flex;
 					flex-direction: row;
 					margin-top: 16px;
+					position: relative;
 
 					.clothes-type {
 						margin-left: 36.5rpx;
+						font-size: 13px;
+						font-weight: 500;
+					}
+
+					.price {
+						font-size: 12px;
+						color: rgba(133, 131, 131, 1);
+						position: absolute;
+						right: 0px;
 					}
 				}
 			}
 
-			.divLine {
-				width: 83.8vw;
-				height: 1px;
-				background: #E0E3DA;
-				margin: 0px auto;
+			.price-container {
+				padding: 16px 0px 10px 12px;
+				position: relative;
+				font-size: 12px;
+				font-weight: 500;
+
+				&>view {
+					height: 24px;
+					vertical-align: top;
+				}
+
+				.number {
+					position: absolute;
+					left: 79.23vw;
+				}
+
+				.time {
+					font-size: 10px;
+					color: rgba(133, 131, 131, 1);
+					height: 19px;
+				}
+			}
+
+			.call-service {
+				text-align: center;
+
+				text {
+					font-size: 12px;
+					line-height: 19px;
+				}
+
+				.call {
+					font-size: 12px;
+					font-weight: 400;
+					height: 13px;
+					color: rgba(133, 131, 131, 1);
+				}
 			}
 		}
 	}
