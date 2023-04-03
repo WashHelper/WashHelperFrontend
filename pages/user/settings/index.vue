@@ -1,129 +1,112 @@
 <template>
-	<view class="mine-container">
-		<header class="header-box">
-			<view class="head-picture">
-				<image src="@/static/user-index/头像.png" mode="aspectFit"></image>
+	<view class="container">
+		<text>设置</text>
+		<section class="list-box">
+			<view class="avatar">
+				<text>头像</text>
+				<image src="@/static/user-order-index/avatar.png" mode="aspectFit"></image>
 			</view>
-			<text class="user-name">微信用户4037</text>
-			<image class="set-icon" src="@/static/user-index/蒙版组 128.png" mode="aspectFit"></image>
-		</header>
-		<section class="mine-body">
-			<ul class="set-list">
-				<li>
-					<navigator>我的订单</navigator>
-				</li>
-				<li>
-					<navigator>我的回收</navigator>
-				</li>
-				<li>
-					<navigator>我的碳积分</navigator>
-				</li>
-				<li>
-					<navigator>合作品牌</navigator>
-				</li>
-				<li>
-					<navigator>意见反馈</navigator>
-				</li>
-				<li>
-					<navigator>加盟我们</navigator>
-				</li>
-				<li>
-					<navigator>联系客服</navigator>
-				</li>
-			</ul>
+			<div-line></div-line>
+			<view class="user-name">
+				<text>用户名</text>
+				<text>微信用户</text>
+			</view>
+			<div-line></div-line>
+			<view class="change-number">
+				<text>手机号修改</text>
+				<text>18888888</text>
+			</view>
+			<div-line></div-line>
+			<view class="address">
+				<text>地址管理</text>
+			</view>
 		</section>
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
+<script></script>
 
-			};
-		},
-		methods: {
-			showPopup() {
-				this.setData({
-					show: true
-				});
-			},
+<style lang="scss" scoped>
+	.container {
+		width: 100vw;
+		position: relative;
 
-			onClose() {
-				this.setData({
-					show: false
-				});
-			}
+		text {
+			margin-top: 10px;
+			margin-left: 15px;
+			font-size: 18px;
+			font-weight: 400;
+			letter-spacing: 0px;
+			line-height: 0px;
 		}
-	}
-</script>
 
-<style lang="scss">
-	.mine-container {
-		width: 750rpx;
-		background-color: rgba(245, 245, 245, 1);
+		.list-box {
+			width: 360px;
+			height: 264px;
+			margin: 15px auto 0px;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 1);
 
-		.header-box {
-			position: relative;
-			width: 750rpx;
-			height: 78px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+			.avatar {
+				width: 100%;
+				height: 73px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				position: relative;
 
-			.head-picture {
-				margin-left: 15px;
-				width: 71px;
-				height: 71px;
-				background: rgba(204, 204, 204, 1);
-				border-radius: 50px;
+				text {
+					// font-size: 16px;
+					line-height: 24px;
+				}
 
 				image {
-					width: fit-content;
+					position: absolute;
+					width: 60px;
+					height: 60px;
+					right: 19px;
 				}
 			}
 
-
 			.user-name {
-				font-size: 12px;
-				margin-left: 10px;
+				width: 100%;
+				height: 56px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				text:nth-child(2) {
+					position: absolute;
+					right: 19px;
+					line-height: 22px;
+					color: rgba(0, 0, 0, 0.5);
+				}
 			}
 
-			.set-icon {
-				position: absolute;
-				width: 25px;
-				height: 25px;
-				right: 61.5rpx;
+			.change-number {
+				width: 100%;
+				height: 56px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				text:nth-child(2) {
+					position: absolute;
+					right: 19px;
+					line-height: 22px;
+					color: rgba(0, 0, 0, 0.5);
+				}
 			}
-		}
 
-		.mine-body {
-			width: 692rpx;
-			height: 416px;
-			width: auto;
-			background-color: #fff;
-			margin-top: 17px;
-			border-radius: 10px;
+			.address {
+				width: 100%;
+				height: 76px;
+				margin-top: 16px;
 
-			.set-list {
-				list-style: none;
+				text {
+					line-height: 24px;
+					// font-size: 16px;
 
-				li {
-					width: 628rpx;
-					height: 41px;
-					width: auto;
-
-					&:first-child {
-						padding-top: 17px;
-					}
-
-					navigator {
-						width: 100%;
-						height: 100%;
-						text-align: left;
-						margin-top: 0px;
-						line-height: 16px;
-					}
 				}
 			}
 		}
