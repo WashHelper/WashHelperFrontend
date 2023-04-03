@@ -1,8 +1,8 @@
 {
-<<<<<<< HEAD
   "description": "项目配置文件。",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
     "urlCheck": false,
@@ -10,58 +10,20 @@
     "postcss": false,
     "minified": false,
     "newFeature": true,
-    "bigPackageSizeSupport": true
+    "bigPackageSizeSupport": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
-  "libVersion": "",
+  "libVersion": "2.30.4",
   "appid": "touristappid",
   "projectname": "WashHelper",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "auto",
+    "tabSize": 2
   }
-=======
-    "description": "项目配置文件。",
-    "packOptions": {
-        "ignore": [],
-        "include": []
-    },
-    "setting": {
-        "urlCheck": false,
-        "es6": true,
-        "postcss": false,
-        "minified": true,
-        "newFeature": true,
-        "bigPackageSizeSupport": true,
-        "babelSetting": {
-            "ignore": [],
-            "disablePlugins": [],
-            "outputPath": ""
-        },
-        "enhance": true
-    },
-    "compileType": "miniprogram",
-    "libVersion": "2.30.0",
-    "appid": "touristappid",
-    "projectname": "WashHelper",
-    "condition": {},
-    "editorSetting": {
-        "tabIndent": "insertSpaces",
-        "tabSize": 4
-    }
->>>>>>> master
 }

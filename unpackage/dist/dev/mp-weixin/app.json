@@ -1,10 +1,7 @@
 {
   "pages": [
     "pages/login/index",
-<<<<<<< HEAD
-=======
     "pages/login/quickLogin",
->>>>>>> master
     "pages/index/index",
     "pages/order/detail",
     "pages/order/doorToDoor",
@@ -13,10 +10,6 @@
     "pages/order/types",
     "pages/user/order/detail",
     "pages/user/order/feedback",
-<<<<<<< HEAD
-=======
-    "pages/user/order/index",
->>>>>>> master
     "pages/user/settings/address",
     "pages/user/settings/index",
     "pages/user/cooperate",
@@ -26,15 +19,11 @@
     "pages/user/joinUs",
     "pages/user/recycle",
     "pages/user/service",
-<<<<<<< HEAD
     "pages/welcome/index",
     "pages/order/index",
     "pages/user/card",
     "pages/user/chargeMoney",
     "pages/user/unused-coupon"
-=======
-    "pages/welcome/index"
->>>>>>> master
   ],
   "subPackages": [],
   "window": {
@@ -52,27 +41,19 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-<<<<<<< HEAD
-        "iconPath": "static/tabbar/画板 1.png",
-        "selectedIconPath": "static/tabbar/画板 1.png"
-=======
-        "iconPath": "static/tabbar/画板 1.png"
->>>>>>> master
+        "iconPath": "static/tabbar/first.png",
+        "selectedIconPath": "static/tabbar/first.png"
       },
       {
         "pagePath": "pages/user/order/index",
         "text": "订单",
-        "iconPath": "static/tabbar/并集.png"
+        "iconPath": "static/tabbar/second.png"
       },
       {
         "pagePath": "pages/user/settings/index",
         "text": "我的",
-<<<<<<< HEAD
-        "iconPath": "static/tabbar/画板 1 (3).png",
-        "selectedIconPath": "static/tabbar/画板 1 (3).png"
-=======
-        "iconPath": "static/tabbar/画板 1 (3).png"
->>>>>>> master
+        "iconPath": "static/tabbar/third.png",
+        "selectedIconPath": "static/tabbar/third.png"
       }
     ]
   },

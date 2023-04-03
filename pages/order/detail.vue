@@ -192,7 +192,7 @@
 						font-size: 12px;
 						color: rgba(133, 131, 131, 1);
 						position: absolute;
-						right: 0px;
+						right: 4px;
 					}
 				}
 			}

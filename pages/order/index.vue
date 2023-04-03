@@ -11,10 +11,13 @@
 			<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
 			<text class="placeholder">订单号搜索</text>
 		</view>
-		<view class="order-detail">
-			<text class="text">订单状态：取件成功</text><br>
-			<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
-			<text class="order-time text">下单时间：2023-03-12 8：43：10</text>
+		<view class="order-detail" @click="gotodetail">
+			<header>
+				<text class="text">订单状态：取件成功</text><br>
+				<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
+				<text class="text">下单时间：2023-03-12 8：43：10</text>
+			</header>
+
 			<div-line></div-line>
 			<view class="order-number text">
 				订单号：188888888
@@ -37,7 +40,11 @@
 			};
 		},
 		methods: {
-
+			gotodetail() {
+				uni.navigateTo({
+					url: '/pages/order/detail'
+				})
+			}
 		}
 	}
 </script>
@@ -51,22 +58,25 @@
 		align-items: center;
 
 		.banner-box {
+			position: sticky;
 			width: 100vw;
 			display: flex;
 			flex-direction: row;
-			justify-content: center;
 			background-color: #fff;
 			// margin-bottom: 10px;
 
 			view {
-				width: 187.5rpx;
+				width: 25vw;
 				height: 40px;
 				text-align: center;
+				font-size: 13px;
+				line-height: 40px;
+				font-weight: 400;
 			}
 		}
 
 		.search {
-			width: 692rpx;
+			width: 89.74vw;
 			height: 40px;
 			border-radius: 100px;
 			background-color: #fff;
@@ -77,8 +87,8 @@
 			image {
 				width: 25.14px;
 				height: 18.16px;
-				margin-left: 35.3rpx;
-				margin-right: 19.2rpx;
+				margin-left: 5.27%;
+				margin-right: 5.27%;
 			}
 
 			.placeholder {
@@ -88,23 +98,29 @@
 		}
 
 		.order-detail {
-			width: 692rpx;
-			height: 150px;
-			padding-top: 21px;
+			width: 89.7vw;
+			border-radius: 10px;
+			height: 175px;
+			// padding21px :
 			// padding-left: 10px;
 			background-color: #fff;
 			margin-top: 16px;
 
-			.text {
-				padding-left: 10px;
-				line-height: 21px;
-				font-size: 14px;
-				font-family: '思源黑体';
+			header {
+				padding: 16px 0px 17px 10px;
+
+				.text {
+					line-height: 28px;
+					font-size: 12px;
+					font-family: '思源黑体';
+				}
 			}
 
 			.order-number {
-				margin-top: 2px;
-				margin-bottom: 11px;
+				line-height: 23px;
+				margin-bottom: 6px;
+				margin-left: 10px;
+				font-size: 12px;
 			}
 
 
@@ -115,8 +131,10 @@
 				align-items: center;
 
 				view {
+					width: 25%;
 					text-align: center;
-
+					font-size: 12px;
+					color: rgba(105, 105, 105, 1);
 				}
 			}
 		}

@@ -10,7 +10,8 @@
 				<text>18888</text>
 				<button class="user-btn">开通会员立享优惠</button>
 			</view>
-			<image class="set-icon" src="@/static/user-order-index/setting.png" mode="aspectFit"></image>
+			<image class="set-icon" src="@/static/user-order-index/setting.png" mode="aspectFit" @click="gotosetting">
+			</image>
 		</header>
 		<section class="mine-body">
 			<ul class="set-list">
@@ -24,11 +25,11 @@
 				<li>
 					<navigator>我的碳积分</navigator>
 				</li><div-line></div-line>
-				<li>
-					<navigator url="@/order/detail.vue">我的订单</navigator>
+				<li @click="gotoorder">
+					<navigator>我的订单</navigator>
 				</li><div-line></div-line>
 				<li>
-					<navigator>常见问题</navigator>
+					<navigator url="card.vue">常见问题</navigator>
 				</li><div-line></div-line>
 				<li>
 					<navigator>在线客服</navigator>
@@ -67,6 +68,18 @@
 				this.type = type
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open(type)
+			},
+			gotoorder() {
+				console.log(123)
+				uni.navigateTo({
+					url: '/pages/order/index'
+				})
+			},
+			gotosetting() {
+				console.log(123)
+				uni.navigateTo({
+					url: '/pages/user/settings/index'
+				})
 			}
 		}
 	}
@@ -74,7 +87,7 @@
 
 <style lang="scss">
 	.mine-container {
-		width: 750rpx;
+		width: 100vw;
 		background-color: rgba(245, 245, 245, 1);
 		display: flex;
 		flex-direction: column;
@@ -82,7 +95,7 @@
 
 		.header-box {
 			position: relative;
-			width: 750rpx;
+			width: 100vw;
 			height: 87px;
 			display: flex;
 			flex-direction: row;
@@ -125,12 +138,12 @@
 				position: absolute;
 				width: 25px;
 				height: 25px;
-				right: 61.5rpx;
+				right: 5.64vw;
 			}
 		}
 
 		.mine-body {
-			width: 682rpx;
+			width: 92.3vw;
 			background-color: #fff;
 			border-radius: 10px;
 
