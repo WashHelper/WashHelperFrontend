@@ -25,13 +25,28 @@
 
 			<indexInput></indexInput>
 		</view>
-		<view class="ad">
+		<uni-section class="ad">
 			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
+			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
+				<uni-popup-share>
+					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
+				</uni-popup-share>
+			</uni-popup>
+		</uni-section>
+		<view>
+			<!-- 分享示例 -->
+			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
+				<uni-popup-share>
+					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
+				</uni-popup-share>
+			</uni-popup>
 		</view>
-		<text class="ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
+		<uni-section>
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle"></image>
+		</uni-section>
+		<text class=" ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
 		<view class="serve-container">
 			<text class="serve-text">服务类别</text>
 			<view class="serve-choice">
@@ -50,6 +65,8 @@
 	export default {
 		data() {
 			return {
+				type: 'center',
+				messageText: '这是一条成功提示',
 				navArr: [{
 					id: 0,
 					title: "网点自送"
@@ -69,6 +86,16 @@
 		onLoad() {
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight
+		},
+		methods: {
+			toggle(type) {
+				this.type = type
+				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+				this.$refs.popup.open()
+			},
+			shareToggle() {
+				this.$refs.share.open()
+			}
 		}
 	}
 </script>
