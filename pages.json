@@ -41,6 +41,11 @@
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}, {
+			"path": "pages/order/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
 			"path": "pages/order/pickupAddress",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -67,6 +72,16 @@
 			}
 		}, {
 			"path": "pages/user/settings/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/card",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		}, {
+			"path": "pages/user/chargeMoney",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
@@ -113,38 +128,15 @@
 				}
 			}
 		}, {
-			"path": "pages/welcome/index",
+			"path": "pages/user/unused-coupon",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}, {
-			"path": "pages/order/index",
+			"path": "pages/welcome/index",
 			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "洗笑颜开"
 			}
-
-		}, {
-			"path": "pages/user/card",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/user/chargeMoney",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/user/unused-coupon",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}
 	],
 	"tabBar": {
