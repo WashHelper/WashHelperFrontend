@@ -67,7 +67,7 @@
 		}, {
 			"path": "pages/order/index",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
 
@@ -100,22 +100,21 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "static/tabbar/first.png",
-				"selectedIconPath": "static/tabbar/first.png"
-			}, {
-				"pagePath": "pages/order/index",
-				"text": "订单",
-				"iconPath": "static/tabbar/second.png"
-			},
-			{
-				"pagePath": "pages/user/settings/index",
-				"text": "我的",
-				"iconPath": "static/tabbar/third.png",
-				"selectedIconPath": "static/tabbar/third.png"
-			}
-		]
+			"pagePath": "pages/index/index",
+			"text": "首页",
+			"iconPath": "static/tabbar/first.png",
+			"selectedIconPath": "static/tabbar/first.png"
+		}, {
+			"pagePath": "pages/order/index",
+			"text": "订单",
+			"iconPath": "static/tabbar/second.png",
+			"selectedIconPath": "static/tabbar/second.png"
+		}, {
+			"pagePath": "pages/user/index",
+			"text": "我的",
+			"iconPath": "static/tabbar/third.png",
+			"selectedIconPath": "static/tabbar/third.png"
+		}]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

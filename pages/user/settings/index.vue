@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<text>设置</text>
+		<text class="title">设置</text>
 		<section class="list-box">
 			<view class="avatar">
 				<text>头像</text>
@@ -9,41 +9,70 @@
 			<div-line></div-line>
 			<view class="user-name">
 				<text>用户名</text>
-				<text>微信用户</text>
+				<view class="right">
+					<text>微信用户</text>
+					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
+				</view>
+
 			</view>
 			<div-line></div-line>
 			<view class="change-number">
 				<text>手机号修改</text>
-				<text>18888888</text>
+				<view class="right">
+					<text>18888888</text>
+					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
+				</view>
 			</view>
 			<div-line></div-line>
-			<view class="address">
+			<view class="address" @click="gotoaddress">
 				<text>地址管理</text>
+				<view class="right">
+					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
+				</view>
 			</view>
+			<div-line></div-line>
 		</section>
 	</view>
 </template>
 
-<script></script>
+<script>
+	export default {
+		data() {
+			return {
+
+			};
+		},
+		methods: {
+			gotoaddress() {
+				uni.navigateTo({
+					url: '/pages/user/settings/address'
+				})
+			}
+		}
+	}
+</script>
 
 <style lang="scss" scoped>
 	.container {
 		width: 100vw;
 		position: relative;
+		padding-top: 2.76vh;
 
-		text {
-			margin-top: 10px;
-			margin-left: 15px;
+		.title {
+			margin-top: 2.76vh;
 			font-size: 18px;
-			font-weight: 400;
+			margin-left: 3.85vw;
 			letter-spacing: 0px;
 			line-height: 0px;
 		}
 
 		.list-box {
-			width: 360px;
-			height: 264px;
-			margin: 15px auto 0px;
+			display: flex;
+			flex-direction: column;
+			width: 87.95vw;
+			margin: 15px auto;
+			height: 30.5vh;
+			padding: 7px 0px 19px 17px;
 			border-radius: 10px;
 			background: rgba(255, 255, 255, 1);
 
@@ -64,35 +93,40 @@
 					position: absolute;
 					width: 60px;
 					height: 60px;
-					right: 19px;
+					right: 4.87vw;
 				}
 			}
 
 			.user-name {
 				width: 100%;
-				height: 56px;
+				height: 7.73vh;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 
-				text:nth-child(2) {
+				.right {
 					position: absolute;
-					right: 19px;
-					line-height: 22px;
+					right: 8.7vw;
+					// line-height: 22px;
+					line-height: 7.73vh;
 					color: rgba(0, 0, 0, 0.5);
+
+					uni-icons {
+						margin-top: 29px;
+					}
 				}
 			}
 
 			.change-number {
 				width: 100%;
-				height: 56px;
+				height: 7.73vh;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 
-				text:nth-child(2) {
+				.right {
 					position: absolute;
-					right: 19px;
+					right: 8.7vw;
 					line-height: 22px;
 					color: rgba(0, 0, 0, 0.5);
 				}
@@ -100,13 +134,15 @@
 
 			.address {
 				width: 100%;
-				height: 76px;
-				margin-top: 16px;
+				height: 7.73vh;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
 
-				text {
+				.right {
+					display: flex;
+					justify-content: flex-end;
 					line-height: 24px;
-					// font-size: 16px;
-
 				}
 			}
 		}

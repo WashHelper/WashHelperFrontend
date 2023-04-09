@@ -236,9 +236,35 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
+      active: 0,
       type: 'center',
       messageText: '这是一条成功提示',
       navArr: [{
@@ -262,6 +288,9 @@ var _default = {
     this.wh = sysInfo.windowHeight;
   },
   methods: {
+    change: function change(e) {
+      console.log('当前模式：' + e.type + ',状态：' + e.show);
+    },
     toggle: function toggle(type) {
       this.type = type;
       // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
@@ -269,6 +298,9 @@ var _default = {
     },
     shareToggle: function shareToggle() {
       this.$refs.share.open();
+    },
+    clickNav: function clickNav(id) {
+      this.active = id;
     }
   }
 };

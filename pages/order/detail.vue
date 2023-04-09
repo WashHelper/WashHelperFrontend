@@ -63,7 +63,7 @@
 				<view class="time">下单时间：2023-03-14 09：03：55</view>
 			</view>
 			<!-- 联系客服 -->
-			<view class="call-service">
+			<view class="call-service" @click="makeCall">
 				<text>联系客服</text>
 				<view class="call">
 					18888888
@@ -74,7 +74,22 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
 
+			};
+
+		},
+		methods: {
+			makeCall() {
+				uni.makePhoneCall({
+					phoneNumber: '18851187568'
+				});
+				plus.device.dial('18851187568', true)
+			}
+		}
+	}
 </script>
 
 <style lang="scss">

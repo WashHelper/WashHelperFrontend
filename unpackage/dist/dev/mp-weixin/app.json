@@ -48,10 +48,11 @@
       {
         "pagePath": "pages/order/index",
         "text": "订单",
-        "iconPath": "static/tabbar/second.png"
+        "iconPath": "static/tabbar/second.png",
+        "selectedIconPath": "static/tabbar/second.png"
       },
       {
-        "pagePath": "pages/user/settings/index",
+        "pagePath": "pages/user/index",
         "text": "我的",
         "iconPath": "static/tabbar/third.png",
         "selectedIconPath": "static/tabbar/third.png"

@@ -16,7 +16,7 @@
 		<section class="mine-body">
 			<ul class="set-list">
 				<li>
-					<navigator>我的卡劵</navigator>
+					<navigator url="/pages/user/card?title=navigate" hover-class="navigator-hover">我的卡劵</navigator>
 				</li>
 				<div-line></div-line>
 				<li>
@@ -26,13 +26,13 @@
 					<navigator>我的碳积分</navigator>
 				</li><div-line></div-line>
 				<li @click="gotoorder">
-					<navigator>我的订单</navigator>
+					<navigator url="/pages/order/index" open-type="switchTab">我的订单</navigator>
 				</li><div-line></div-line>
 				<li>
-					<navigator url="card.vue">常见问题</navigator>
+					<navigator>常见问题</navigator>
 				</li><div-line></div-line>
-				<li>
-					<navigator>在线客服</navigator>
+				<li @click="makeCall">
+					在线客服
 				</li><div-line></div-line>
 				<li>
 					<navigator>加盟我们</navigator>
@@ -80,6 +80,18 @@
 				uni.navigateTo({
 					url: '/pages/user/settings/index'
 				})
+			},
+			gotocard() {
+				console.log(123)
+				uni.navigateTo({
+					url: '/pages/user/card'
+				})
+			},
+			makeCall() {
+				uni.makePhoneCall({
+					phoneNumber: '18851187568' //仅为示例
+				});
+				plue.device.dial('18851187568', true)
 			}
 		}
 	}
@@ -154,16 +166,13 @@
 				li {
 					width: 100%;
 
-					navigator {
-						// height: 100%;
-						font-size: 16px;
-						line-height: 24px;
-						margin: 16px 0px;
-					}
+					// height: 100%;
+					font-size: 16px;
+					line-height: 24px;
+					margin: 16px 0px;
 				}
 			}
+
 		}
-
-
 	}
 </style>
