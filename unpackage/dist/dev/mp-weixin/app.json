@@ -3,6 +3,7 @@
     "pages/login/index",
     "pages/login/quickLogin",
     "pages/index/index",
+    "pages/index/fakeIndex",
     "pages/order/detail",
     "pages/order/doorToDoor",
     "pages/order/mailingAddress",
@@ -45,7 +46,7 @@
         "selectedIconPath": "static/tabbar/first.png"
       },
       {
-        "pagePath": "pages/user/order/index",
+        "pagePath": "pages/order/index",
         "text": "订单",
         "iconPath": "static/tabbar/second.png"
       },
@@ -57,5 +58,6 @@
       }
     ]
   },
+  "permission": {},
   "usingComponents": {}
 }
