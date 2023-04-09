@@ -58,7 +58,9 @@
 			"es6": true
 		},
 		"usingComponents": true,
-		"permission": {}
+		"optimization": {
+			"subPackages": true
+		}
 	},
 	"mp-alipay": {
 		"usingComponents": true

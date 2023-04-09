@@ -83,8 +83,8 @@
 					})
 					return
 				}
-				uni.navigateTo({
-					url: '/pages/index/fakeIndex'
+				uni.switchTab({
+					url: '/pages/index/index'
 				})
 			},
 			quickLogin(provider) {

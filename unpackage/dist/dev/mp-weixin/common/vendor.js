@@ -1757,7 +1757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8780,7 +8780,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8801,14 +8801,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8904,7 +8904,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"WashHelper","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9333,10 +9333,10 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 284:
-/*!*******************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-popup/popup.js ***!
-  \*******************************************************************************************/
+/***/ 292:
+/*!***********************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-popup/popup.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9375,10 +9375,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 285:
-/*!************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/index.js ***!
-  \************************************************************************************************/
+/***/ 293:
+/*!****************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/index.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9390,9 +9390,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 286));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 287));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 288));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 294));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 295));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 296));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -9402,10 +9402,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 286:
-/*!***********************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/en.json ***!
-  \***********************************************************************************************/
+/***/ 294:
+/*!***************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/en.json ***!
+  \***************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -9413,10 +9413,10 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"cancel\",\"uni-popup.ok\":\
 
 /***/ }),
 
-/***/ 287:
-/*!****************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/zh-Hans.json ***!
-  \****************************************************************************************************/
+/***/ 295:
+/*!********************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/zh-Hans.json ***!
+  \********************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -9424,10 +9424,10 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 
 /***/ }),
 
-/***/ 288:
-/*!****************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/zh-Hant.json ***!
-  \****************************************************************************************************/
+/***/ 296:
+/*!********************************************************************************************!*\
+  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-popup/i18n/zh-Hant.json ***!
+  \********************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -9598,7 +9598,35 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 324:
+/***/ 33:
+/*!*******************************************!*\
+  !*** D:/Projects/WashHelper/api/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var context = __webpack_require__(34);
+var api = {};
+context.keys().forEach(function (e) {
+  api = _objectSpread(_objectSpread({}, api), context(e).default);
+});
+var _default = _objectSpread({}, api);
+exports.default = _default;
+
+/***/ }),
+
+/***/ 332:
 /*!***********************************************************************************!*\
   !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
   \***********************************************************************************/
@@ -10620,34 +10648,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 33:
-/*!*******************************************!*\
-  !*** D:/Projects/WashHelper/api/index.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var context = __webpack_require__(34);
-var api = {};
-context.keys().forEach(function (e) {
-  api = _objectSpread(_objectSpread({}, api), context(e).default);
-});
-var _default = _objectSpread({}, api);
-exports.default = _default;
-
-/***/ }),
-
 /***/ 34:
 /*!*********************************************!*\
   !*** D:/Projects/WashHelper/api sync \.js$ ***!
@@ -10731,7 +10731,101 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 353:
+/***/ 36:
+/*!***********************************************!*\
+  !*** D:/Projects/WashHelper/utils/service.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 37));
+/* eslint-disable */
+
+// 创建axios实例
+var service = _axios.default.create({
+  // 超时
+  timeout: 5000,
+  baseURL: 'http: //127.0.0.1:4523/m1/2475051-0-default'
+});
+_axios.default.defaults.adapter = function (config) {
+  return new Promise(function (resolve, reject) {
+    var settle = __webpack_require__(/*! axios/lib/core/settle */ 69);
+    var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 42);
+    uni.request({
+      method: config.method.toUpperCase(),
+      url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
+      header: config.headers,
+      data: config.data,
+      dataType: config.dataType,
+      responseType: config.responseType,
+      sslVerify: config.sslVerify,
+      complete: function complete(response) {
+        response = {
+          data: response.data,
+          status: response.statusCode,
+          errMsg: response.errMsg,
+          header: response.header,
+          config: config
+        };
+        settle(resolve, reject, response);
+      }
+    });
+  });
+};
+
+// request 拦截器
+service.interceptors.request.use(function (config) {
+  config.headers['token'] = uni.getStorageSync('token');
+  return config;
+}, function (error) {
+  if (error.request.status == 500) {
+    var img = new Image();
+    //临时判断网络是否通畅
+    img.src = 'https://www.baidu.com/favicon.ico?_t=' + Date.now();
+    img.onerror = function () {
+      //'提示','断网了，请注意您的网络连接';
+      uni.showToast({
+        title: '断网了，请注意您的网络连接',
+        icon: 'error',
+        duration: 2000
+      });
+    };
+  } else {
+    return Promise.reject(error);
+  }
+});
+
+// 响应拦截器
+service.interceptors.response.use(function (res) {
+  var _res$data = res.data,
+    code = _res$data.code,
+    message = _res$data.message;
+  if (code === 200) {} else {
+    uni.showToast({
+      title: message,
+      icon: 'error',
+      duration: 2000
+    });
+  }
+  return res.data;
+}, function (error) {
+  return Promise.reject(error);
+});
+var _default = service;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 361:
 /*!**************************************************************************************************!*\
   !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-transition/createAnimation.js ***!
   \**************************************************************************************************/
@@ -10862,100 +10956,6 @@ function createAnimation(option, _this) {
   clearTimeout(_this.timer);
   return new MPAnimation(option, _this);
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 36:
-/*!***********************************************!*\
-  !*** D:/Projects/WashHelper/utils/service.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 37));
-/* eslint-disable */
-
-// 创建axios实例
-var service = _axios.default.create({
-  // 超时
-  timeout: 5000,
-  baseURL: 'http: //127.0.0.1:4523/m1/2475051-0-default'
-});
-_axios.default.defaults.adapter = function (config) {
-  return new Promise(function (resolve, reject) {
-    var settle = __webpack_require__(/*! axios/lib/core/settle */ 69);
-    var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 42);
-    uni.request({
-      method: config.method.toUpperCase(),
-      url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
-      header: config.headers,
-      data: config.data,
-      dataType: config.dataType,
-      responseType: config.responseType,
-      sslVerify: config.sslVerify,
-      complete: function complete(response) {
-        response = {
-          data: response.data,
-          status: response.statusCode,
-          errMsg: response.errMsg,
-          header: response.header,
-          config: config
-        };
-        settle(resolve, reject, response);
-      }
-    });
-  });
-};
-
-// request 拦截器
-service.interceptors.request.use(function (config) {
-  config.headers['token'] = uni.getStorageSync('token');
-  return config;
-}, function (error) {
-  if (error.request.status == 500) {
-    var img = new Image();
-    //临时判断网络是否通畅
-    img.src = 'https://www.baidu.com/favicon.ico?_t=' + Date.now();
-    img.onerror = function () {
-      //'提示','断网了，请注意您的网络连接';
-      uni.showToast({
-        title: '断网了，请注意您的网络连接',
-        icon: 'error',
-        duration: 2000
-      });
-    };
-  } else {
-    return Promise.reject(error);
-  }
-});
-
-// 响应拦截器
-service.interceptors.response.use(function (res) {
-  var _res$data = res.data,
-    code = _res$data.code,
-    message = _res$data.message;
-  if (code === 200) {} else {
-    uni.showToast({
-      title: message,
-      icon: 'error',
-      duration: 2000
-    });
-  }
-  return res.data;
-}, function (error) {
-  return Promise.reject(error);
-});
-var _default = service;
-exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
