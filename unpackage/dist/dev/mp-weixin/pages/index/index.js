@@ -232,9 +232,39 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
+      active: 0,
       type: 'center',
       messageText: '这是一条成功提示',
       navArr: [{
@@ -268,6 +298,9 @@ var _default = {
     },
     shareToggle: function shareToggle() {
       this.$refs.share.open();
+    },
+    clickNav: function clickNav(id) {
+      this.active = id;
     }
   }
 };

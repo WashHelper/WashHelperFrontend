@@ -27,7 +27,6 @@
 .container {
   width: 100vw;
   padding-top: 20px;
-  background-color: #ebeced;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,25 +52,61 @@
 .container .bigbox .choice-container {
   margin-top: 5px;
   width: 92.3vw;
-  height: 44px;
-  display: flex;
-  text-align: center;
-  flex-direction: row;
-  justify-content: space-around;
   font-size: 14px;
 }
-.container .bigbox .choice-container .item {
+.container .bigbox .choice-container .ullist {
+  display: flex;
+  flex-direction: row;
+}
+.container .bigbox .choice-container .ullist .item {
+  width: 25%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #cfcfcf;
 }
-.container .bigbox .choice-container .item.active {
+.container .bigbox .choice-container .ullist .item.active {
   color: #57B6E6;
+}
+.container .bigbox .choice-container .indexInput-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .bigbox .choice-container .indexInput-box .input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #EDF2F2;
+  width: 81.5vw;
+  height: 45px;
+  border-radius: 10px;
+}
+.container .bigbox .choice-container .indexInput-box .input:first-child {
+  margin-bottom: 8px;
+}
+.container .bigbox .choice-container .indexInput-box .input:last-child {
+  margin-bottom: 20px;
+}
+.container .bigbox .choice-container .indexInput-box .input image {
+  height: 70rpx;
+  width: 70rpx;
+  margin-left: 3.85vw;
+  margin-right: 18.46vw;
+}
+.container .bigbox .choice-container .indexInput-box .input .placeholder {
+  color: #C9C9C9;
+  margin-top: 8rpx;
+}
+.container .bigbox .choice-container .indexInput-box .input .placeholder text:first-child {
+  font-size: 13px;
 }
 .container .ad {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 92.3vw;
-  background-color: transparent;
 }
 .container .ad image:nth-child(2n+1) {
   width: 39.7vw;
@@ -97,6 +132,9 @@
 .container .ad .popup-content {
   width: 65.38vw;
   height: 50.75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .container .ad .popup-content .pop-ad {
   width: 100%;

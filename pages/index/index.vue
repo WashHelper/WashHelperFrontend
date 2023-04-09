@@ -16,15 +16,44 @@
 				</swiper>
 			</view>
 			<view class="choice-container">
+				<view class="ullist">
+					<view class="item" :class="{active:active==index}" v-for="(item,index) in navArr" :key="index"
+						@click="clickNav(index)">
+						{{item.title}}
+					</view>
+				</view>
+				<view v-if="this.active==0">
+					<indexInput></indexInput>
+				</view>
+				<view v-if="this.active==1">
+					hello
+				</view>
+				<view v-if="this.active==2">
+					<view class="indexInput-box">
+						<view class="input">
+							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
+							<view class="placeholder">
+								<text>选择智能鞋柜</text><br>
+								<text style="font-size: 9px;">洗送衣物存哪里</text>
+							</view>
+						</view>
+						<view class="input">
+							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
+							<view class="placeholder">
+								<text>选择智能鞋柜</text><br>
+								<text style="font-size: 9px;">洗好衣服送回哪里</text>
+							</view>
+						</view>
 
-				<view class="item" :class="navIndex==index ? 'active' : ''" v-for="(item,index) in navArr"
-					:key="item.id" @click="clickNav(index)">
-					{{item.title}}
+					</view>
+				</view>
+				<view v-if="this.active==3">
+					hello
 				</view>
 			</view>
-			<indexInput></indexInput>
+
 		</view>
-		<uni-section class="ad">
+		<uni-section class="ad" style="background-color: transparent;">
 			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
@@ -61,6 +90,7 @@
 	export default {
 		data() {
 			return {
+				active: 0,
 				type: 'center',
 				messageText: '这是一条成功提示',
 				navArr: [{
@@ -94,6 +124,9 @@
 			},
 			shareToggle() {
 				this.$refs.share.open()
+			},
+			clickNav(id) {
+				this.active = id;
 			}
 		}
 	}
@@ -104,7 +137,7 @@
 		width: 100vw;
 		// height: 858px;
 		padding-top: 20px;
-		background-color: rgba(235, 236, 237, 1);
+		// background-color: rgba(235, 236, 237, 1);
 		display: flex;
 		flex-direction: column; //竖直展示内容
 		align-items: center;
@@ -133,18 +166,66 @@
 			.choice-container {
 				margin-top: 5px;
 				width: 92.3vw;
-				height: 44px;
-				display: flex;
-				text-align: center;
-				flex-direction: row;
-				justify-content: space-around;
 				font-size: 14px;
 
-				.item {
-					color: rgba(207, 207, 207, 1);
+				.ullist {
+					display: flex;
+					flex-direction: row;
 
-					&.active {
-						color: #57B6E6;
+					.item {
+						width: 25%;
+						height: 44px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						color: rgba(207, 207, 207, 1);
+
+						&.active {
+							color: #57B6E6;
+						}
+					}
+				}
+
+				.indexInput-box {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+
+					.input {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						background-color: #EDF2F2;
+						width: 81.5vw;
+						height: 45px;
+						border-radius: 10px;
+
+						&:first-child {
+							margin-bottom: 8px;
+						}
+
+						&:last-child {
+							margin-bottom: 20px;
+						}
+
+						image {
+							height: 70rpx;
+							width: 70rpx;
+							margin-left: 3.85vw;
+							margin-right: 18.46vw;
+						}
+
+						.placeholder {
+							color: #C9C9C9;
+							margin-top: 8rpx;
+
+							text {
+								&:first-child {
+									font-size: 13px;
+								}
+							}
+
+						}
 					}
 				}
 			}
@@ -156,7 +237,7 @@
 			flex-direction: row;
 			flex-wrap: wrap;
 			width: 92.3vw;
-			background-color: transparent;
+			// background-color: transparent;
 
 			image {
 				&:nth-child(2n+1) {
@@ -190,6 +271,10 @@
 			.popup-content {
 				width: 65.38vw;
 				height: 50.75vh;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 
 				.pop-ad {
 					width: 100%;
