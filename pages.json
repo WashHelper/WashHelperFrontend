@@ -9,18 +9,33 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
+			"path": "pages/login/index"
+		}, {
+			"path": "pages/login/quickLogin"
 		},
 		{
-			"path": "pages/login/quickLogin",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
+			"path": "pages/index/index"
+		},
+		// {
+		// "path": "pages/order/detail"
+		// },
+		// {
+		// 	"path": "pages/order/doorToDoor"
+		// },
+		// {
+		// 	"path": "pages/order/mailingAddress"
+		// },
+		// {
+		// 	"path": "pages/order/pickupAddress"
+		// },
+		// {
+		// 	"path": "pages/order/types"
+		// },
+		{
+			"path": "pages/user/index"
 		},
 		{
+<<<<<<< HEAD
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
@@ -134,14 +149,119 @@
 			}
 		}, {
 			"path": "pages/welcome/index",
+=======
+			"path": "pages/welcome/index",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开"
+			}
+		},
+		{
+			"path": "pages/order/index",
+>>>>>>> a14d2204d98f9451979cbd84d9560b97de1be0f0
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}
 	],
+	"subpackages": [{
+		"root": "packageOrder",
+		"pages": [{
+				"path": "pages/detail"
+			},
+			{
+				"path": "pages/types"
+			},
+
+			{
+				"path": "pages/doorToDoor"
+			},
+
+			{
+				"path": "pages/mailingAddress"
+			},
+
+			{
+				"path": "pages/pickupAddress"
+			}
+		]
+	}, {
+		"root": "packageUser",
+		"pages": [{
+				"path": "pages/order/detail"
+			},
+			{
+				"path": "pages/order/feedback"
+			},
+			{
+				"path": "pages/settings/address"
+			},
+			{
+				"path": "pages/settings/index"
+			},
+			{
+				"path": "pages/cooperate"
+			},
+			{
+				"path": "pages/credit"
+			},
+			{
+				"path": "pages/feedback"
+			},
+
+			{
+				"path": "pages/joinUs"
+			},
+			{
+				"path": "pages/recycle"
+			},
+			{
+				"path": "pages/service",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "洗笑颜开",
+					"app-plus": {
+						"animationType": "fade-in",
+						"background": "transparent",
+						"backgroundColor": "transparent",
+						"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+					}
+				}
+			}, {
+				"path": "pages/card",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "pages/chargeMoney",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "pages/unused-coupon",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			}
+		]
+	}],
+	"preloadRule": {
+		"pages/order/index": {
+			"network": "all",
+			"packages": ["packageOrder"]
+		},
+		"pages/user/index": {
+			"network": "all",
+			"packages": ["packageUser"]
+		}
+	},
 	"tabBar": {
 		"color": "#7a7f82",
-		"selectedColor": "#57B6E6",
+		"selectedColor": "#7a7f82",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

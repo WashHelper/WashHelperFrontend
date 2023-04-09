@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "洗笑颜开",
   "usingComponents": {
     "index-input": "/components/indexInput/indexInput",
     "uni-section": "/node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section",

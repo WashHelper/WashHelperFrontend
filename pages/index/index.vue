@@ -22,13 +22,13 @@
 						{{item.title}}
 					</view>
 				</view>
-				<view v-if="this.active==0">
+				<view v-if="active==0">
 					<indexInput></indexInput>
 				</view>
-				<view v-if="this.active==1">
+				<view v-if="active==1">
 					hello
 				</view>
-				<view v-if="this.active==2">
+				<view v-if="active==2">
 					<view class="indexInput-box">
 						<view class="input">
 							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
@@ -47,7 +47,7 @@
 
 					</view>
 				</view>
-				<view v-if="this.active==3">
+				<view v-if="active==3">
 					hello
 				</view>
 			</view>

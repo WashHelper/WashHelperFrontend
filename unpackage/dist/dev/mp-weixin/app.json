@@ -3,6 +3,7 @@
     "pages/login/index",
     "pages/login/quickLogin",
     "pages/index/index",
+<<<<<<< HEAD
     "pages/order/detail",
     "pages/order/doorToDoor",
     "pages/order/mailingAddress",
@@ -24,8 +25,42 @@
     "pages/user/service",
     "pages/user/unused-coupon",
     "pages/welcome/index"
+=======
+    "pages/user/index",
+    "pages/welcome/index",
+    "pages/order/index"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "packageOrder",
+      "pages": [
+        "pages/detail",
+        "pages/types",
+        "pages/doorToDoor",
+        "pages/mailingAddress",
+        "pages/pickupAddress"
+      ]
+    },
+    {
+      "root": "packageUser",
+      "pages": [
+        "pages/order/detail",
+        "pages/order/feedback",
+        "pages/settings/address",
+        "pages/settings/index",
+        "pages/cooperate",
+        "pages/credit",
+        "pages/feedback",
+        "pages/joinUs",
+        "pages/recycle",
+        "pages/service",
+        "pages/card",
+        "pages/chargeMoney",
+        "pages/unused-coupon"
+      ]
+    }
+>>>>>>> a14d2204d98f9451979cbd84d9560b97de1be0f0
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "洗笑颜开",
@@ -34,7 +69,7 @@
   },
   "tabBar": {
     "color": "#7a7f82",
-    "selectedColor": "#57B6E6",
+    "selectedColor": "#7a7f82",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
@@ -57,6 +92,20 @@
         "selectedIconPath": "static/tabbar/third.png"
       }
     ]
+  },
+  "preloadRule": {
+    "pages/order/index": {
+      "network": "all",
+      "packages": [
+        "packageOrder"
+      ]
+    },
+    "pages/user/index": {
+      "network": "all",
+      "packages": [
+        "packageUser"
+      ]
+    }
   },
   "usingComponents": {}
 }
