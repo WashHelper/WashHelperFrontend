@@ -1,23 +1,26 @@
 <template>
 	<view class="login-section">
+		<view class="status_bar">
+			<!-- 这里是状态栏 -->
+		</view>
 		<view class="title">
 			<text>欢迎来到洗笑颜开！</text>
 		</view>
 		<view class="input-wrapper">
 			<view class="phoneNum">
 				<text>手机号码</text>
-				<input type="text" placeholder="请输入手机号码" placeholder-class="placeholder">
+				<input type="text" placeholder="请输入手机号码" placeholder-class="placeholder" v-model="phoneNumber">
 			</view>
 			<view>
 				<text>验证码</text>
 				<view class="verification-code">
-					<input type="text" placeholder="请输入验证码" placeholder-class="placeholder">
+					<input type="text" placeholder="请输入验证码" placeholder-class="placeholder" v-model="captcha">
 					<text @click="getCaptcha">获取验证码</text>
 				</view>
 			</view>
 			<view class="password">
 				<text>设置密码</text>
-				<input type="password" placeholder="请输入密码" placeholder-class="placeholder">
+				<input type="password" placeholder="请输入密码" placeholder-class="placeholder" v-model="password">
 			</view>
 
 			<view class="button-wrapper">
@@ -35,29 +38,83 @@
 			</view>
 
 			<view class="sign-in-with">
-				<image src="/static/login/qq.png" mode="" @click="quickLogin"></image>
-				<image src="/static/login/vx.png" mode="" @click="quickLogin"></image>
+				<image src="/static/login/qq.png" mode="" @click="quickLogin('qq')"></image>
+				<image src="/static/login/vx.png" mode="" @click="quickLogin('vx')"></image>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	const phoneNumberReg = /^[1][3,4,5,7,8][0-9]{9}$/
 	export default {
+		data() {
+			return {
+				phoneNumber: '',
+				captcha: '',
+				password: ''
+			}
+		},
 		methods: {
 			getCaptcha() {
-				// this.$axios.getCaptcha('123123123')
+				if (!phoneNumberReg.test(this.captcha)) {
+					uni.showToast({
+						title: '重新输入手机号',
+						icon: 'error'
+					})
+					this.phoneNumber = ''
+				} else {
+					// this.$axios.getCaptcha('123123123')
+				}
+
 			},
 			handleRegister() {
+				if (!this.captcha.trim()) {
+					uni.showToast({
+						title: '请输入验证码',
+						icon: 'error'
+					})
+					return
+				}
+				if (!this.password.trim()) {
+					uni.showToast({
+						title: '请输入密码',
+						icon: 'error'
+					})
+					return
+				}
 				uni.navigateTo({
-					url: '/pages/index/index'
+					url: '/pages/index/fakeIndex'
 				})
 			},
-			quickLogin() {
-				console.log(123123);
-				uni.navigateTo({
-					url: '/pages/login/quickLogin'
-				})
+			quickLogin(provider) {
+				if (provider === 'qq') {
+					uni.login({
+						provider: 'qq', //使用微信登录
+						onlyAuthorize: true,
+						success: function({
+							code
+						}) {
+							console.log(code);
+							uni.navigateTo({
+								url: '/pages/login/quickLogin'
+							})
+						}
+					});
+				} else if (provider === 'vx') {
+					uni.login({
+						provider: 'weixin', //使用微信登录
+						onlyAuthorize: true,
+						success: function({
+							code
+						}) {
+							console.log(code);
+							uni.navigateTo({
+								url: '/pages/login/quickLogin'
+							})
+						}
+					});
+				}
 			}
 		}
 	}
@@ -83,6 +140,14 @@
 			height: calc(336px - 27px - 27px);
 			border-radius: 10px;
 			background: rgba(255, 255, 255, 1);
+
+			& view {
+				margin-top: 10px;
+
+				&:first-of-type {
+					margin-top: 0;
+				}
+			}
 
 			text {
 				font-size: 16px;
@@ -112,6 +177,7 @@
 					font-size: 12px;
 					font-weight: 400;
 					color: rgba(207, 207, 207, 1);
+					z-index: 10;
 				}
 			}
 		}
