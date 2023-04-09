@@ -33,12 +33,11 @@
 			align-items: center;
 
 			.input {
-
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				background-color: #EDF2F2;
-				width: 552.5rpx;
+				width: 81.5vw;
 				height: 45px;
 				border-radius: 10px;
 

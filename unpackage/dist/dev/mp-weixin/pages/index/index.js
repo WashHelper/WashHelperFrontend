@@ -104,13 +104,13 @@ try {
       return __webpack_require__.e(/*! import() | components/indexInput/indexInput */ "components/indexInput/indexInput").then(__webpack_require__.bind(null, /*! @/components/indexInput/indexInput.vue */ 258))
     },
     uniSection: function () {
-      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 284))
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 265))
     },
     uniPopup: function () {
-      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 272))
     },
     uniPopupShare: function () {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share.vue */ 272))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share.vue */ 279))
     },
   }
 } catch (e) {
@@ -232,10 +232,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -262,6 +258,9 @@ var _default = {
     this.wh = sysInfo.windowHeight;
   },
   methods: {
+    change: function change(e) {
+      console.log('当前模式：' + e.type + ',状态：' + e.show);
+    },
     toggle: function toggle(type) {
       this.type = type;
       // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性

@@ -22,31 +22,27 @@
 					{{item.title}}
 				</view>
 			</view>
-
 			<indexInput></indexInput>
 		</view>
 		<uni-section class="ad">
 			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle();toggle('center')">
+			</image>
+			<!-- 分享至 -->
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
 				<uni-popup-share>
-					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
 				</uni-popup-share>
 			</uni-popup>
-		</uni-section>
-		<view>
-			<!-- 分享示例 -->
-			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
-				<uni-popup-share>
-					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
-				</uni-popup-share>
+			<!-- 普通弹窗 -->
+			<uni-popup ref="popup" @change="change" type="dialog">
+				<view class="popup-content" :class="{ 'popup-height': type === 'left' || type === 'right' }">
+					<image src="@/static/index-index/ad.png" mode="aspectFill" class="pop-ad"></image>
+				</view>
 			</uni-popup>
-		</view>
-		<uni-section>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle"></image>
 		</uni-section>
-		<text class=" ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
+		<text class="ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
 		<view class="serve-container">
 			<text class="serve-text">服务类别</text>
 			<view class="serve-choice">
@@ -88,6 +84,9 @@
 			this.wh = sysInfo.windowHeight
 		},
 		methods: {
+			change(e) {
+				console.log('当前模式：' + e.type + ',状态：' + e.show);
+			},
 			toggle(type) {
 				this.type = type
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
@@ -107,16 +106,16 @@
 		padding-top: 20px;
 		background-color: rgba(235, 236, 237, 1);
 		display: flex;
-		flex-direction: column; //水平展示内容
+		flex-direction: column; //竖直展示内容
 		align-items: center;
 
 		.bigbox {
-			width: 692rpx;
+			width: 92.3vw;
 			background-color: #fff;
 
 			.banner {
-				width: 692rpx;
-				height: 350rpx;
+				width: 100%;
+				height: 187px;
 				background-color: #fff;
 				border-radius: 10px;
 
@@ -133,14 +132,15 @@
 
 			.choice-container {
 				margin-top: 5px;
-				width: 692rpx;
+				width: 92.3vw;
 				height: 44px;
 				display: flex;
+				text-align: center;
 				flex-direction: row;
 				justify-content: space-around;
 				font-size: 14px;
 
-				.choice {
+				.item {
 					color: rgba(207, 207, 207, 1);
 
 					&.active {
@@ -155,35 +155,62 @@
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			justify-content: space-around;
-			margin-top: 10px;
-			width: 692rpx;
-			height: 158px;
+			width: 92.3vw;
+			background-color: transparent;
 
 			image {
 				&:nth-child(2n+1) {
-					width: 298rpx;
+					width: 39.7vw;
 					height: 60px;
+				}
+
+				&:first-child {
+					margin-bottom: 5px;
+				}
+
+				&:nth-child(2) {
+					margin-bottom: 5px;
 				}
 
 				&:nth-child(2n) {
-					width: 373rpx;
+					width: 49.74vw;
 					height: 60px;
+					margin-left: 2.8vw;
 				}
 
+				&:nth-child(3) {
+					margin-bottom: 10px;
+				}
+
+				&:nth-child(4) {
+					margin-bottom: 10px;
+				}
+			}
+
+			.popup-content {
+				width: 65.38vw;
+				height: 50.75vh;
+
+				.pop-ad {
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 
 		.ad-text {
+			// margin-top: 15px;
 			color: rgba(166, 166, 166, 1);
 			font-size: 11px;
 		}
 
 		.serve-container {
-			width: 692rpx;
+			width: 92.3vw;
 			height: 63rpx;
+			margin-top: 13px;
 
 			.serve-text {
+				// margin-top: 16px;
 				font-size: 18px;
 				font-family: '黑体';
 				line-height: 24px;
@@ -198,8 +225,12 @@
 
 				button {
 					border-color: transparent;
-					width: 91px;
+					width: 23.59vw;
+					height: 24px;
 					font-size: 14px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 					color: rgba(179, 179, 179, 1);
 				}
 			}
