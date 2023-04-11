@@ -12,12 +12,11 @@
 			<scroll-view class="right-scroll-view" scroll-y="true" :style="{height:wh+'px'}">
 				<!-- <view class="choose-type"></view> -->
 				<uni-grid :column="3" :show-border="false" :square="false">
-					<uni-grid-item v-for="(item,index) in rightList" :index="index" :key="index">
+					<uni-grid-item v-for="(item,index) in clothesList" :index="index" :key="index">
 						<view class="grid-item-box">
 							<view class="background">
 								<image :src="item.url" class="image" mode="aspectFit"></image>
 							</view>
-
 							<text class="text">{{item.text}}</text>
 							<text class="price">{{item.price}}</text>
 						</view>
@@ -53,7 +52,7 @@
 					text: '家纺'
 				}],
 				//二级分类列表
-				rightList: [{
+				clothesList: [{
 					url: '/static/order-types/Artboard 93@3x.png',
 					text: '羽绒服',
 					badge: '0',

@@ -45,7 +45,7 @@
 		methods: {
 			gotoaddress() {
 				uni.navigateTo({
-					url: '/pages/user/settings/address'
+					url: '/packageUser/pages/settings/address'
 				})
 			}
 		}

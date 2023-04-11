@@ -1,34 +1,37 @@
 <template>
 	<view class="container">
 		<view class="banner-box">
-			<view>全部</view>
-			<view>待处理</view>
-			<view>已完成</view>
-			<view>已取消</view>
+			<view class="hed-banner" :class="{active:active==index}" v-for="(item,index) in bannerlist" :key="index"
+				@click="clickbar(index)">{{item.title}}</view>
 		</view>
-
-		<view class="search">
-			<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
-			<text class="placeholder">订单号搜索</text>
-		</view>
-		<view class="order-detail" @click="gotodetail">
-			<header>
-				<text class="text">订单状态：取件成功</text><br>
-				<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
-				<text class="text">下单时间：2023-03-12 8：43：10</text>
-			</header>
-
-			<div-line></div-line>
-			<view class="order-number text">
-				订单号：188888888
+		<view v-if="active==0">
+			<view class="search">
+				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
+				<text class="placeholder">订单号搜索</text>
 			</view>
-			<view class="footer-banner">
-				<view>修改</view>
-				<view>详情</view>
-				<view>取消</view>
-				<view>联系</view>
+			<view class="order-detail" @click="gotodetail()">
+				<header>
+					<text class="text">订单状态：取件成功</text><br>
+					<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
+					<text class="text">下单时间：2023-03-12 8：43：10</text>
+				</header>
+
+				<div-line></div-line>
+				<view class="order-number text">
+					订单号：188888888
+				</view>
+				<view class="footer-banner">
+					<view>修改</view>
+					<view>详情</view>
+					<view>取消</view>
+					<view>联系</view>
+				</view>
 			</view>
+
 		</view>
+		<view v-if="active==1">hello</view>
+		<view v-if="active==2">hello</view>
+		<view v-if="active==3">hello</view>
 	</view>
 </template>
 
@@ -36,14 +39,31 @@
 	export default {
 		data() {
 			return {
-				orderList: {}
+				active: 0,
+				orderList: {},
+				bannerlist: [{
+					id: 0,
+					title: "全部"
+				}, {
+					id: 1,
+					title: "待处理"
+				}, {
+					id: 2,
+					title: "已完成"
+				}, {
+					id: 3,
+					title: "已取消"
+				}]
 			};
 		},
 		methods: {
 			gotodetail() {
 				uni.navigateTo({
-					url: '/pages/order/detail'
+					url: '/packageOrder/pages/detail'
 				})
+			},
+			clickbar(id) {
+				this.active = id;
 			}
 		}
 	}
@@ -100,7 +120,7 @@
 		.order-detail {
 			width: 89.7vw;
 			border-radius: 10px;
-			height: 175px;
+			// height: 175px;
 			// padding21px :
 			// padding-left: 10px;
 			background-color: #fff;
@@ -125,6 +145,7 @@
 
 
 			.footer-banner {
+				padding-bottom: 5px;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-around;

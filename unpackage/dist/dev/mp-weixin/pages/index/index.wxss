@@ -130,15 +130,17 @@
   margin-bottom: 10px;
 }
 .container .ad .popup-content {
-  width: 65.38vw;
-  height: 50.75vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 .container .ad .popup-content .pop-ad {
-  width: 100%;
-  height: 100%;
+  width: 48.38vw;
+  height: 48.75vh;
+}
+.container .ad .popup-content text {
+  border: 1px solid #57b6e6;
+  color: #fff;
 }
 .container .ad-text {
   color: #a6a6a6;

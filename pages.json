@@ -1,117 +1,21 @@
 {
+	"lazyCodeLoading": "requiredComponents",
 	"easycom": {
 		"autoscan": true,
 		"custom": {
-			// uni-ui 规则如下配置
 			"fui-(.*)": "firstui-uni/firstui/fui-$1/fui-$1.vue",
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/index"
-		}, {
-			"path": "pages/login/quickLogin"
-		},
-		{
-			"path": "pages/index/index"
-		},
-		// {
-		// "path": "pages/order/detail"
-		// },
-		// {
-		// 	"path": "pages/order/doorToDoor"
-		// },
-		// {
-		// 	"path": "pages/order/mailingAddress"
-		// },
-		// {
-		// 	"path": "pages/order/pickupAddress"
-		// },
-		// {
-		// 	"path": "pages/order/types"
-		// },
-		{
-			"path": "pages/user/index"
-		},
-		{
-<<<<<<< HEAD
-			"path": "pages/index/index",
+			"path": "pages/login/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
 		}, {
-			"path": "pages/order/detail",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/order/doorToDoor",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/order/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/order/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/order/pickupAddress",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/order/types",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/order/detail",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/order/feedback",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/settings/address",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/settings/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/card",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/chargeMoney",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/cooperate",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/credit",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/feedback",
+			"path": "pages/login/quickLogin",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
 			}
@@ -119,136 +23,104 @@
 			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "洗笑颜开"
+
 			}
 		}, {
-			"path": "pages/user/joinUs",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/recycle",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
-		}, {
-			"path": "pages/user/service",
-			"style": {
-				// "navigationStyle": "custom",
 				"navigationBarTitleText": "洗笑颜开",
-				"app-plus": {
-					"animationType": "fade-in",
-					"background": "transparent",
-					"backgroundColor": "transparent",
-					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
-				}
-			}
-		}, {
-			"path": "pages/user/unused-coupon",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/welcome/index",
-=======
-			"path": "pages/welcome/index",
 			"style": {
-				"navigationBarTitleText": "洗笑颜开"
+				"navigationBarTitleText": "洗笑颜开",
+				"enablePullDownRefresh": true,
+				"backgroundTextStyle": "light"
 			}
-		},
-		{
+		}, {
 			"path": "pages/order/index",
->>>>>>> a14d2204d98f9451979cbd84d9560b97de1be0f0
 			"style": {
-				"navigationBarTitleText": "洗笑颜开"
+				"navigationBarTitleText": "洗笑颜开",
+				"enablePullDownRefresh": true
 			}
 		}
 	],
 	"subpackages": [{
-		"root": "packageOrder",
-		"pages": [{
+			"root": "packageOrder",
+			"pages": [{
 				"path": "pages/detail"
-			},
-			{
+			}, {
 				"path": "pages/types"
-			},
-
-			{
+			}, {
 				"path": "pages/doorToDoor"
-			},
-
-			{
+			}, {
 				"path": "pages/mailingAddress"
-			},
-
-			{
+			}, {
 				"path": "pages/pickupAddress"
-			}
-		]
-	}, {
-		"root": "packageUser",
-		"pages": [{
-				"path": "pages/order/detail"
-			},
-			{
-				"path": "pages/order/feedback"
-			},
-			{
-				"path": "pages/settings/address"
-			},
-			{
-				"path": "pages/settings/index"
-			},
-			{
-				"path": "pages/cooperate"
-			},
-			{
-				"path": "pages/credit"
-			},
-			{
-				"path": "pages/feedback"
-			},
+			}]
+		},
+		{
+			"root": "packageUser",
+			"pages": [{
+					"path": "pages/order/detail"
+				}, {
+					"path": "pages/order/feedback"
+				}, {
+					"path": "pages/settings/address"
+				}, {
+					"path": "pages/settings/index"
+				},
+				{
+					"path": "pages/cooperate"
+				},
+				{
+					"path": "pages/credit"
+				},
+				{
+					"path": "pages/feedback"
+				}, {
+					"path": "pages/joinUs"
+				},
+				{
+					"path": "pages/recycle"
+				},
+				{
+					"path": "pages/service",
+					"style": {
 
-			{
-				"path": "pages/joinUs"
-			},
-			{
-				"path": "pages/recycle"
-			},
-			{
-				"path": "pages/service",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "洗笑颜开",
-					"app-plus": {
-						"animationType": "fade-in",
-						"background": "transparent",
-						"backgroundColor": "transparent",
-						"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+						"navigationBarTitleText": "洗笑颜开",
+						"app-plus": {
+							"animationType": "fade-in",
+							"background": "transparent",
+							"backgroundColor": "transparent",
+							"popGesture": "none"
+						}
+					}
+				}, {
+					"path": "pages/card",
+					"style": {
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "pages/chargeMoney",
+					"style": {
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "pages/unused-coupon",
+					"style": {
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
 					}
 				}
-			}, {
-				"path": "pages/card",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": false
-				}
-			},
-			{
-				"path": "pages/chargeMoney",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": false
-				}
-			},
-			{
-				"path": "pages/unused-coupon",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": false
-				}
-			}
-		]
-	}],
+			]
+		}
+	],
 	"preloadRule": {
 		"pages/order/index": {
 			"network": "all",

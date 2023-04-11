@@ -57,17 +57,18 @@
 			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle();toggle('center')">
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="toggle('center')">
 			</image>
 			<!-- 分享至 -->
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
-				<uni-popup-share>
-				</uni-popup-share>
+				<!-- <uni-popup-share>
+				</uni-popup-share> -->
 			</uni-popup>
 			<!-- 普通弹窗 -->
-			<uni-popup ref="popup" @change="change" type="dialog">
+			<uni-popup ref="popup" @change="change()" type="center">
 				<view class="popup-content" :class="{ 'popup-height': type === 'left' || type === 'right' }">
 					<image src="@/static/index-index/ad.png" mode="aspectFill" class="pop-ad"></image>
+					<text>成功邀请一名好友注册<br>即可获得2元洗护券一张</text>
 				</view>
 			</uni-popup>
 		</uni-section>
@@ -269,16 +270,24 @@
 			}
 
 			.popup-content {
-				width: 65.38vw;
-				height: 50.75vh;
+				// width: 65.38vw;
+				// height: 50.75vh;
 
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				// justify-content: center;
+				align-items: center;
 
 				.pop-ad {
-					width: 100%;
-					height: 100%;
+					// width: 100%;
+					// height: 100%;
+					width: 48.38vw;
+					height: 48.75vh;
+				}
+
+				text {
+					border: 1px solid rgba(87, 182, 230, 1);
+					color: #fff;
 				}
 			}
 		}
