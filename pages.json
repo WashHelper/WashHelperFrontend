@@ -9,6 +9,9 @@
 	},
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// {
+		// 	"path": "packageOrder/pages/types"
+		// },
 		{
 			"path": "pages/login/index",
 			"style": {
@@ -51,7 +54,11 @@
 			"pages": [{
 				"path": "pages/detail"
 			}, {
-				"path": "pages/types"
+				"path": "pages/types",
+				"style": {
+					"enablePullDownRefresh": true
+
+				}
 			}, {
 				"path": "pages/doorToDoor"
 			}, {
@@ -70,22 +77,17 @@
 					"path": "pages/settings/address"
 				}, {
 					"path": "pages/settings/index"
-				},
-				{
+				}, {
 					"path": "pages/cooperate"
-				},
-				{
+				}, {
 					"path": "pages/credit"
-				},
-				{
+				}, {
 					"path": "pages/feedback"
 				}, {
 					"path": "pages/joinUs"
-				},
-				{
+				}, {
 					"path": "pages/recycle"
-				},
-				{
+				}, {
 					"path": "pages/service",
 					"style": {
 

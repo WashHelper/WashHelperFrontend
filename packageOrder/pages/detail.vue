@@ -195,7 +195,9 @@
 					display: flex;
 					flex-direction: row;
 					margin-top: 16px;
-					position: relative;
+					// position: relative;
+					justify-content: space-between;
+					padding-right: 20px;
 
 					.clothes-type {
 						margin-left: 36.5rpx;
@@ -206,8 +208,8 @@
 					.price {
 						font-size: 12px;
 						color: rgba(133, 131, 131, 1);
-						position: absolute;
-						right: 4px;
+						// position: absolute;
+						// right: 4px;
 					}
 				}
 			}

@@ -96,11 +96,9 @@
   margin-right: 18.46vw;
 }
 .container .bigbox .choice-container .indexInput-box .input .placeholder {
+  width: 50%;
   color: #C9C9C9;
   margin-top: 8rpx;
-}
-.container .bigbox .choice-container .indexInput-box .input .placeholder text:first-child {
-  font-size: 13px;
 }
 .container .ad {
   display: flex;
@@ -135,7 +133,7 @@
   align-items: center;
 }
 .container .ad .popup-content .pop-ad {
-  width: 48.38vw;
+  width: 58.38vw;
   height: 48.75vh;
 }
 .container .ad .popup-content text {

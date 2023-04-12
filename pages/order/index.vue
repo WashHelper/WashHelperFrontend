@@ -93,6 +93,10 @@
 				line-height: 40px;
 				font-weight: 400;
 			}
+
+			.active {
+				color: rgba(87, 182, 230, 1);
+			}
 		}
 
 		.search {

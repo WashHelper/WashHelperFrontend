@@ -33,15 +33,15 @@
 						<view class="input">
 							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
 							<view class="placeholder">
-								<text>选择智能鞋柜</text><br>
-								<text style="font-size: 9px;">洗送衣物存哪里</text>
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗送衣物存哪里</text>
 							</view>
 						</view>
 						<view class="input">
 							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
 							<view class="placeholder">
-								<text>选择智能鞋柜</text><br>
-								<text style="font-size: 9px;">洗好衣服送回哪里</text>
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗好衣服送回哪里</text>
 							</view>
 						</view>
 
@@ -54,8 +54,8 @@
 
 		</view>
 		<uni-section class="ad" style="background-color: transparent;">
-			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-first.png" mode="aspectFit" @click="gotocredit()"></image>
+			<image src="@/static/index-index/ad-second.png" mode="aspectFit" @click="gotocard()"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
 			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="toggle('center')">
 			</image>
@@ -128,6 +128,16 @@
 			},
 			clickNav(id) {
 				this.active = id;
+			},
+			gotocard() {
+				uni.navigateTo({
+					url: '/packageUser/pages/card'
+				})
+			},
+			gotocredit() {
+				uni.navigateTo({
+					url: '/packageUser/pages/chargeMoney'
+				})
 			}
 		}
 	}
@@ -217,14 +227,9 @@
 						}
 
 						.placeholder {
+							width: 50%;
 							color: #C9C9C9;
 							margin-top: 8rpx;
-
-							text {
-								&:first-child {
-									font-size: 13px;
-								}
-							}
 
 						}
 					}
@@ -279,9 +284,7 @@
 				align-items: center;
 
 				.pop-ad {
-					// width: 100%;
-					// height: 100%;
-					width: 48.38vw;
+					width: 58.38vw;
 					height: 48.75vh;
 				}
 

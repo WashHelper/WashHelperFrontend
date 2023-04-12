@@ -27,6 +27,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "packageOrder/pages/types",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
