@@ -10,17 +10,34 @@
 
 			</scroll-view>
 			<scroll-view class="right-scroll-view" scroll-y="true" :style="{height:wh+'px'}">
-				<uni-grid v-if="active==0" :column="4" :show-border="false" :square="false" class="wash-shoes">
-					<uni-grid-item v-for="(item,index) in washlist" :index="index" :key="index">
-						<view class="grid-item-box">
-							<view class="background" @click="click(item)">
-								<image :src="item.url||defaultPic" mode="aspectFit"></image>
+				<view class="first" v-if="active==0">
+					<uni-grid :column="4" :show-border="false" :square="false" class="wash-shoes">
+						<uni-grid-item v-for="(item,index) in washlist" :index="index" :key="index">
+							<view class="grid-item-box">
+								<view class="background" @click="click(item)">
+									<image :src="item.url||defaultPic" mode="aspectFit"></image>
+									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
+										:offset="[10, 10]" size="primary"></uni-badge>
+								</view>
+								<text class="text" style="font-size: 14px;">{{item.text}}</text>
+								<text class="price">{{item.price}}元</text>
 							</view>
-							<text class="text" style="font-size: 14px;">{{item.text}}</text>
-							<text class="price">{{item.price}}元</text>
-						</view>
-					</uni-grid-item>
-				</uni-grid>
+						</uni-grid-item>
+					</uni-grid>
+					<uni-section title="增值服务" padding style="font-size: 14px;">
+						<uni-grid :column="4" :show-border="false" :square="false" class="addlist">
+							<uni-grid-item v-for="(item ,index) in addlist" :index="index" :key="index">
+								<view class="grid-item-box">
+									<view class="background" @click="click(item)">
+										<text class="text" style="font-size: 14px;">{{item.text}}</text>
+										<text class="price">{{item.price}}元</text>
+									</view>
+								</view>
+							</uni-grid-item>
+						</uni-grid>
+					</uni-section>
+				</view>
+
 				<view v-if="active==1" class="repair-shoes">
 					<view class="list" v-for="(item,index) in repairlist" :index="index" :key="index"
 						@click="click(item)">
@@ -104,120 +121,160 @@
 				washlist: [{
 					url: '',
 					text: '休闲鞋',
-					price: 19
+					price: 19,
+					badge: 0
 				}, {
 					url: '',
 					text: '运动鞋',
-					price: 23
+					price: 23,
+					badge: 0
 				}, {
 					url: '',
 					text: '足球鞋',
-					price: 23
+					price: 23,
+					badge: 0
 				}, {
 					url: '',
 					text: '篮球鞋',
-					price: 25
+					price: 25,
+					badge: 0
 				}, {
 					url: '',
 					text: '皮鞋（短）',
-					price: 28
+					price: 28,
+					badge: 0
 				}, {
 					url: '',
 					text: '皮面长靴',
-					price: 32
+					price: 32,
+					badge: 0
 				}, {
 					url: '',
 					text: '绒面鞋',
-					price: 25
+					price: 25,
+					badge: 0
 				}, {
 					url: '',
 					text: '布面鞋',
-					price: 19
+					price: 19,
+					badge: 0
+				}],
+				addlist: [{
+					text: '去氧化',
+					badge: 0,
+					price: 18
+				}, {
+					text: '补胶',
+					badge: 0,
+					price: 20
+				}, {
+					text: '香氛',
+					badge: 0,
+					price: 3
+				}, {
+					text: '去霉斑',
+					badge: 0,
+					price: 8
 				}],
 				repairlist: [{
 					text: '更换气垫',
-					price: 169
+					price: 169,
+					badge: 0,
 				}, {
 					text: '更换围边',
-					price: 229
+					price: 229,
+					badge: 0,
 				}, {
 					text: '网面破损织补',
-					price: 35
+					price: 35,
+					badge: 0,
 				}, {
 					text: '破损修复',
-					price: 79
+					price: 79,
+					badge: 0,
 				}, {
 					text: '加后掌耐磨贴',
-					price: 79
+					price: 79,
+					badge: 0,
 				}],
 				repairlist: [{
 					text: '更换气垫',
-					price: 169
+					price: 169,
+					badge: 0,
 				}, {
 					text: '更换围边',
-					price: 229
+					price: 229,
+					badge: 0,
 				}, {
 					text: '网面破损织补',
-					price: 35
+					price: 35,
+					badge: 0,
 				}, {
 					text: '破损修复',
-					price: 79
+					price: 79,
+					badge: 0,
 				}, {
 					text: '加后掌耐磨贴',
-					price: 79
+					price: 79,
+					badge: 0,
 				}],
 				//二级分类列表
 				clothesList: [{
 					url: '/static/order-types/Artboard 93@3x.png',
 					text: '羽绒服',
-					badge: '0',
+					badge: 0,
 					price: 35,
 				}, {
 					url: '/static/order-types/Artboard 71@3x.png',
 					text: '棉服',
-					badge: '0',
+					badge: 0,
 					price: 35,
 				}, {
 					url: '/static/order-types/Artboard 69@3x.png',
 					text: '牛仔',
-					badge: '0',
+					badge: 0,
 					price: 25,
 				}, {
 					url: '/static/order-types/Artboard 97@3x.png',
 					text: '大衣',
-					badge: '0',
+					badge: 0,
 					price: 40,
 				}, {
 					url: '/static/order-types/Artboard 69@3x.png',
 					text: '皮衣',
-					badge: '0',
+					badge: 0,
 					price: 40,
 				}, {
 					url: '/static/order-types/Artboard 73@3x.png',
 					text: '西装',
-					badge: '0',
+					badge: 0,
 					price: 25
 				}],
 				textiles: [{
 					url: '',
 					text: '毛绒玩具',
-					price: 25
+					price: 25,
+					badge: 0,
 				}, {
 					url: '',
 					text: '床单',
-					price: 15
+					price: 15,
+					badge: 0,
 				}, {
 					url: '',
 					text: '被套',
-					price: 20
+					price: 20,
+					badge: 0,
 				}, {
 					url: '',
 					text: '枕头',
-					price: 25
+					price: 25,
+					badge: 0,
 				}, {
 					url: '',
 					text: '毛毯',
-					price: 20
+					price: 20,
+					badge: 0,
 				}],
 				//节流阀
 				isloading: false
@@ -258,6 +315,8 @@
 			click(item) {
 				this.totalNumber++
 				this.totalprice += item.price
+				// item.badge && item.badge++
+				item.badge++
 			}
 		},
 		// onReachBottom() {
@@ -319,6 +378,19 @@
 				padding-left: 3.85vw;
 				padding-right: 3.85vw;
 
+				.grid-dot {
+					position: absolute;
+					top: 5px;
+					right: 15px;
+				}
+
+				.uni-badge {
+					position: absolute;
+
+					right: 2px;
+					top: 2px;
+				}
+
 				.wash-shoes {
 					.grid-item-box {
 						height: 19.9vh;
@@ -335,10 +407,22 @@
 					}
 				}
 
+				.addlist {
+					.grid-item-box {
+						.background {
+							width: 17.7vw;
+							height: 9.8vh;
+							display: flex;
+							flex-direction: column;
+
+							text {
+								line-height: 21px;
+							}
+						}
+					}
+				}
+
 				.repair-shoes {
-					// display: flex;
-					// flex-direction: column;
-					// justify-content: center;
 
 					.list {
 						width: 60.77vw;

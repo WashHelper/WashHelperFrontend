@@ -9,9 +9,9 @@
 	},
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		// {
-		// 	"path": "packageOrder/pages/types"
-		// },
+		{
+			"path": "packageOrder/pages/types"
+		},
 		{
 			"path": "pages/login/index",
 			"style": {
