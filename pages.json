@@ -48,6 +48,7 @@
 				"enablePullDownRefresh": true
 			}
 		}
+<<<<<<< HEAD
 	],
 	"subpackages": [{
 			"root": "packageOrder",
@@ -133,6 +134,17 @@
 			"packages": ["packageUser"]
 		}
 	},
+=======
+	    ,{
+            "path" : "pages/purchase/purchase",
+            "style" : {
+				"navigationBarTitleText": "洗笑颜开",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+>>>>>>> 9ffe77752a8b584b6428d080a62f1b25d53bd14a
 	"tabBar": {
 		"color": "#7a7f82",
 		"selectedColor": "#7a7f82",
