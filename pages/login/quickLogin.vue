@@ -35,7 +35,7 @@
 			padding: 15px 10px;
 			width: 90%;
 			border-top: 2px solid grey;
-
+			
 			text {
 				display: block;
 				font-weight: 400;
@@ -45,7 +45,7 @@
 					font-size: 14px;
 					color: rgba(0, 0, 0, 1);
 				}
-
+				
 				&:last-of-type {
 					margin-top: 16px;
 					font-size: 10px;

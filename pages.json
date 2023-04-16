@@ -146,7 +146,15 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/purchase/purchase",
+            "style" : {
+				"navigationBarTitleText": "洗笑颜开",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7f82",
 		"selectedColor": "#57B6E6",

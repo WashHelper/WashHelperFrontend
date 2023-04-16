@@ -23,7 +23,8 @@
     "pages/order/index",
     "pages/user/card",
     "pages/user/chargeMoney",
-    "pages/user/unused-coupon"
+    "pages/user/unused-coupon",
+    "pages/purchase/purchase"
   ],
   "subPackages": [],
   "window": {
