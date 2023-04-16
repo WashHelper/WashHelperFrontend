@@ -37,7 +37,7 @@
 }
 .container .bigbox .banner {
   width: 100%;
-  height: 187px;
+  height: 30.3vh;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -53,6 +53,38 @@
   margin-top: 5px;
   width: 92.3vw;
   font-size: 14px;
+}
+.container .bigbox .choice-container .indexInput-box {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 24px;
+  flex-direction: column;
+}
+.container .bigbox .choice-container .indexInput-box .input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #EDF2F2;
+  width: 81.5vw;
+  height: 45px;
+  border-radius: 10px;
+}
+.container .bigbox .choice-container .indexInput-box .input:first-child {
+  margin-bottom: 8px;
+}
+.container .bigbox .choice-container .indexInput-box .input:last-child {
+  margin-bottom: 20px;
+}
+.container .bigbox .choice-container .indexInput-box .input image {
+  width: 32px;
+  height: 32px;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+.container .bigbox .choice-container .indexInput-box .input .placeholder {
+  font-size: 15px;
+  color: #C9C9C9;
+  margin-top: 8rpx;
 }
 .container .bigbox .choice-container .ullist {
   display: flex;
@@ -77,7 +109,6 @@
 .container .bigbox .choice-container .indexInput-box .input {
   display: flex;
   flex-direction: row;
-  align-items: center;
   background-color: #EDF2F2;
   width: 81.5vw;
   height: 45px;
@@ -90,16 +121,13 @@
   margin-bottom: 20px;
 }
 .container .bigbox .choice-container .indexInput-box .input image {
-  height: 70rpx;
-  width: 70rpx;
+  width: 32px;
+  height: 32px;
   margin-left: 3.85vw;
   margin-right: 18.46vw;
 }
 .container .bigbox .choice-container .indexInput-box .input .placeholder {
   color: #C9C9C9;
-  margin-top: 8rpx;
-}
-.container .bigbox .choice-container .indexInput-box .input .placeholder text:first-child {
   font-size: 13px;
 }
 .container .ad {
@@ -130,15 +158,17 @@
   margin-bottom: 10px;
 }
 .container .ad .popup-content {
-  width: 65.38vw;
-  height: 50.75vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 .container .ad .popup-content .pop-ad {
-  width: 100%;
-  height: 100%;
+  width: 58.38vw;
+  height: 48.75vh;
+}
+.container .ad .popup-content text {
+  border: 1px solid #57b6e6;
+  color: #fff;
 }
 .container .ad-text {
   color: #a6a6a6;

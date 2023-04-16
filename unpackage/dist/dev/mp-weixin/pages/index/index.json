@@ -1,8 +1,8 @@
 {
+  "navigationBarTitleText": "洗笑颜开",
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "index-input": "/components/indexInput/indexInput",
     "uni-section": "/node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section",
-    "uni-popup": "/node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup",
-    "uni-popup-share": "/node-modules/@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share"
+    "uni-popup": "/node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup"
   }
 }
