@@ -1,16 +1,6 @@
 <template>
 	<view class="indexInput-container">
-		<view class="indexInput-box">
-			<view class="input">
-				<image src="@/static/index-index/分组 2.png" mode=""></image>
-				<text class="placeholder">输入您的取件地址</text>
-			</view>
-			<view class="input">
-				<image src="@/static/index-index/分组 1.png" mode=""></image>
-				<text class="placeholder">输入您的送件地址</text>
-			</view>
 
-		</view>
 	</view>
 </template>
 
@@ -33,12 +23,11 @@
 			align-items: center;
 
 			.input {
-
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				background-color: #EDF2F2;
-				width: 552.5rpx;
+				width: 81.5vw;
 				height: 45px;
 				border-radius: 10px;
 

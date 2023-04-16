@@ -16,7 +16,7 @@
 		<section class="mine-body">
 			<ul class="set-list">
 				<li>
-					<navigator>我的卡劵</navigator>
+					<navigator url="../../packageUser/pages/card" open-type="navigate">我的卡劵</navigator>
 				</li>
 				<div-line></div-line>
 				<li>
@@ -25,14 +25,14 @@
 				<li>
 					<navigator>我的碳积分</navigator>
 				</li><div-line></div-line>
-				<li @click="gotoorder">
-					<navigator>我的订单</navigator>
+				<li>
+					<navigator url="/pages/order/index" open-type="switchTab">我的订单</navigator>
 				</li><div-line></div-line>
 				<li>
-					<navigator url="card.vue">常见问题</navigator>
+					<navigator>常见问题</navigator>
 				</li><div-line></div-line>
-				<li>
-					<navigator>在线客服</navigator>
+				<li @click="makeCall">
+					在线客服
 				</li><div-line></div-line>
 				<li>
 					<navigator>加盟我们</navigator>
@@ -69,17 +69,29 @@
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open(type)
 			},
-			gotoorder() {
-				console.log(123)
-				uni.navigateTo({
-					url: '/pages/order/index'
-				})
-			},
+			// gotoorder() {
+			// 	console.log(123)
+			// 	uni.navigateTo({
+			// 		url: '/pages/order/index'
+			// 	})
+			// },
 			gotosetting() {
 				console.log(123)
 				uni.navigateTo({
-					url: '/pages/user/settings/index'
+					url: '/packageUser/pages/settings/index'
 				})
+			},
+			gotocard() {
+				console.log(123)
+				uni.navigateTo({
+					url: '/pages/user/card'
+				})
+			},
+			makeCall() {
+				uni.makePhoneCall({
+					phoneNumber: '18851187568' //仅为示例
+				});
+				plue.device.dial('18851187568', true)
 			}
 		}
 	}
@@ -123,7 +135,7 @@
 
 				.user-btn {
 					margin-top: 12px;
-					width: 160px;
+					width: 41vw;
 					border: transparent;
 					color: rgba(255, 255, 255, 1);
 					padding-left: 13px;
@@ -149,21 +161,19 @@
 
 			.set-list {
 				list-style: none;
-				padding: 17px;
+				padding-left: 17px;
+				padding-right: 17px;
 
 				li {
 					width: 100%;
 
-					navigator {
-						// height: 100%;
-						font-size: 16px;
-						line-height: 24px;
-						margin: 16px 0px;
-					}
+					// height: 100%;
+					font-size: 16px;
+					line-height: 24px;
+					margin: 16px 0px;
 				}
 			}
+
 		}
-
-
 	}
 </style>

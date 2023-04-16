@@ -27,18 +27,17 @@
 .container {
   width: 100vw;
   padding-top: 20px;
-  background-color: #ebeced;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .container .bigbox {
-  width: 692rpx;
+  width: 92.3vw;
   background-color: #fff;
 }
 .container .bigbox .banner {
-  width: 692rpx;
-  height: 350rpx;
+  width: 100%;
+  height: 30.3vh;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -52,43 +51,133 @@
 }
 .container .bigbox .choice-container {
   margin-top: 5px;
-  width: 692rpx;
-  height: 44px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  width: 92.3vw;
   font-size: 14px;
 }
-.container .bigbox .choice-container .choice {
+.container .bigbox .choice-container .indexInput-box {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 24px;
+  flex-direction: column;
+}
+.container .bigbox .choice-container .indexInput-box .input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #EDF2F2;
+  width: 81.5vw;
+  height: 45px;
+  border-radius: 10px;
+}
+.container .bigbox .choice-container .indexInput-box .input:first-child {
+  margin-bottom: 8px;
+}
+.container .bigbox .choice-container .indexInput-box .input:last-child {
+  margin-bottom: 20px;
+}
+.container .bigbox .choice-container .indexInput-box .input image {
+  width: 32px;
+  height: 32px;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+.container .bigbox .choice-container .indexInput-box .input .placeholder {
+  font-size: 15px;
+  color: #C9C9C9;
+  margin-top: 8rpx;
+}
+.container .bigbox .choice-container .ullist {
+  display: flex;
+  flex-direction: row;
+}
+.container .bigbox .choice-container .ullist .item {
+  width: 25%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #cfcfcf;
 }
-.container .bigbox .choice-container .choice.active {
+.container .bigbox .choice-container .ullist .item.active {
   color: #57B6E6;
+}
+.container .bigbox .choice-container .indexInput-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .bigbox .choice-container .indexInput-box .input {
+  display: flex;
+  flex-direction: row;
+  background-color: #EDF2F2;
+  width: 81.5vw;
+  height: 45px;
+  border-radius: 10px;
+}
+.container .bigbox .choice-container .indexInput-box .input:first-child {
+  margin-bottom: 8px;
+}
+.container .bigbox .choice-container .indexInput-box .input:last-child {
+  margin-bottom: 20px;
+}
+.container .bigbox .choice-container .indexInput-box .input image {
+  width: 32px;
+  height: 32px;
+  margin-left: 3.85vw;
+  margin-right: 18.46vw;
+}
+.container .bigbox .choice-container .indexInput-box .input .placeholder {
+  color: #C9C9C9;
+  font-size: 13px;
 }
 .container .ad {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 10px;
-  width: 692rpx;
-  height: 158px;
+  width: 92.3vw;
 }
 .container .ad image:nth-child(2n+1) {
-  width: 298rpx;
+  width: 39.7vw;
   height: 60px;
 }
+.container .ad image:first-child {
+  margin-bottom: 5px;
+}
+.container .ad image:nth-child(2) {
+  margin-bottom: 5px;
+}
 .container .ad image:nth-child(2n) {
-  width: 373rpx;
+  width: 49.74vw;
   height: 60px;
+  margin-left: 2.8vw;
+}
+.container .ad image:nth-child(3) {
+  margin-bottom: 10px;
+}
+.container .ad image:nth-child(4) {
+  margin-bottom: 10px;
+}
+.container .ad .popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .ad .popup-content .pop-ad {
+  width: 58.38vw;
+  height: 48.75vh;
+}
+.container .ad .popup-content text {
+  border: 1px solid #57b6e6;
+  color: #fff;
 }
 .container .ad-text {
   color: #a6a6a6;
   font-size: 11px;
 }
 .container .serve-container {
-  width: 692rpx;
+  width: 92.3vw;
   height: 63rpx;
+  margin-top: 13px;
 }
 .container .serve-container .serve-text {
   font-size: 18px;
@@ -104,8 +193,12 @@
 }
 .container .serve-container .serve-choice button {
   border-color: transparent;
-  width: 91px;
+  width: 23.59vw;
+  height: 24px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #b3b3b3;
 }
 

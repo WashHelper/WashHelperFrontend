@@ -5,16 +5,16 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": false,
-    "postcss": false,
-    "minified": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
     "newFeature": true,
     "bigPackageSizeSupport": true
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "touristappid",
-  "projectname": "WashHelper",
+  "appid": "wx86812ba3adbd4c65",
+  "projectname": "洗笑颜开",
   "condition": {
     "search": {
       "current": -1,

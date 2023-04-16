@@ -16,37 +16,73 @@
 				</swiper>
 			</view>
 			<view class="choice-container">
+				<view class="ullist">
+					<view class="item" :class="{active:active==index}" v-for="(item,index) in navArr" :key="index"
+						@click="clickNav(index)">
+						{{item.title}}
+					</view>
+				</view>
+				<view v-if="active==0">
+					<view class="indexInput-box">
+						<view class="input">
+							<image src="@/static/index-index/分组 2.png" mode=""></image>
+							<text class="placeholder">输入您的取件地址</text>
+						</view>
+						<view class="input">
+							<image src="@/static/index-index/分组 1.png" mode=""></image>
+							<text class="placeholder">输入您的送件地址</text>
+						</view>
 
-				<view class="item" :class="navIndex==index ? 'active' : ''" v-for="(item,index) in navArr"
-					:key="item.id" @click="clickNav(index)">
-					{{item.title}}
+					</view>
+				</view>
+				<view v-if="active==1">
+					hello
+				</view>
+				<view v-if="active==2">
+					<view class="indexInput-box">
+						<view class="input">
+							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
+							<view class="placeholder">
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗送衣物存哪里</text>
+							</view>
+						</view>
+						<view class="input">
+							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
+							<view class="placeholder">
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗好衣服送回哪里</text>
+							</view>
+						</view>
+
+					</view>
+				</view>
+				<view v-if="active==3">
+					hello
 				</view>
 			</view>
 
-			<indexInput></indexInput>
 		</view>
-		<uni-section class="ad">
-			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
+		<uni-section class="ad" style="background-color: transparent;">
+			<image src="@/static/index-index/ad-first.png" mode="aspectFit" @click="gotocredit()"></image>
+			<image src="@/static/index-index/ad-second.png" mode="aspectFit" @click="gotocard()"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="toggle('center')">
+			</image>
+			<!-- 分享至 -->
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
-				<uni-popup-share>
-					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
-				</uni-popup-share>
+				<!-- <uni-popup-share>
+				</uni-popup-share> -->
+			</uni-popup>
+			<!-- 普通弹窗 -->
+			<uni-popup ref="popup" @change="change()" type="center">
+				<view class="popup-content" :class="{ 'popup-height': type === 'left' || type === 'right' }">
+					<image src="@/static/index-index/ad.png" mode="aspectFill" class="pop-ad"></image>
+					<text>成功邀请一名好友注册<br>即可获得2元洗护券一张</text>
+				</view>
 			</uni-popup>
 		</uni-section>
-		<view>
-			<!-- 分享示例 -->
-			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
-				<uni-popup-share>
-					<image src="@/static/index-index/ad-fourth.png" mode="aspectFit"></image>
-				</uni-popup-share>
-			</uni-popup>
-		</view>
-		<uni-section>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle"></image>
-		</uni-section>
-		<text class=" ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
+		<text class="ad-text">精心呵护|工序质检|全程监控|保价可赔</text>
 		<view class="serve-container">
 			<text class="serve-text">服务类别</text>
 			<view class="serve-choice">
@@ -65,6 +101,7 @@
 	export default {
 		data() {
 			return {
+				active: 0,
 				type: 'center',
 				messageText: '这是一条成功提示',
 				navArr: [{
@@ -88,6 +125,9 @@
 			this.wh = sysInfo.windowHeight
 		},
 		methods: {
+			change(e) {
+				console.log('当前模式：' + e.type + ',状态：' + e.show);
+			},
 			toggle(type) {
 				this.type = type
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
@@ -95,6 +135,19 @@
 			},
 			shareToggle() {
 				this.$refs.share.open()
+			},
+			clickNav(id) {
+				this.active = id;
+			},
+			gotocard() {
+				uni.navigateTo({
+					url: '/packageUser/pages/card'
+				})
+			},
+			gotocredit() {
+				uni.navigateTo({
+					url: '/packageUser/pages/chargeMoney'
+				})
 			}
 		}
 	}
@@ -103,20 +156,20 @@
 <style lang="scss">
 	.container {
 		width: 100vw;
-		// height: 858px;
 		padding-top: 20px;
-		background-color: rgba(235, 236, 237, 1);
+		// background-color: rgba(235, 236, 237, 1);
 		display: flex;
-		flex-direction: column; //水平展示内容
+		flex-direction: column; //竖直展示内容
 		align-items: center;
 
 		.bigbox {
-			width: 692rpx;
+			width: 92.3vw;
 			background-color: #fff;
 
 			.banner {
-				width: 692rpx;
-				height: 350rpx;
+				width: 100%;
+				height: 30.3vh;
+				// 页面高度height: 769px;
 				background-color: #fff;
 				border-radius: 10px;
 
@@ -133,18 +186,101 @@
 
 			.choice-container {
 				margin-top: 5px;
-				width: 692rpx;
-				height: 44px;
-				display: flex;
-				flex-direction: row;
-				justify-content: space-around;
+				width: 92.3vw;
 				font-size: 14px;
 
-				.choice {
-					color: rgba(207, 207, 207, 1);
+				.indexInput-box {
+					display: flex;
+					padding-top: 15px;
+					padding-bottom: 24px;
+					flex-direction: column;
+					// align-items: center;
 
-					&.active {
-						color: #57B6E6;
+					.input {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						background-color: #EDF2F2;
+						width: 81.5vw;
+						height: 45px;
+						border-radius: 10px;
+
+						&:first-child {
+							margin-bottom: 8px;
+						}
+
+						&:last-child {
+							margin-bottom: 20px;
+						}
+
+						image {
+							width: 32px;
+							height: 32px;
+							margin-left: 50rpx;
+							margin-right: 50rpx;
+						}
+
+						.placeholder {
+							font-size: 15px;
+							color: #C9C9C9;
+							margin-top: 8rpx;
+						}
+					}
+				}
+
+				.ullist {
+					display: flex;
+					flex-direction: row;
+
+					.item {
+						width: 25%;
+						height: 44px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						color: rgba(207, 207, 207, 1);
+
+						&.active {
+							color: #57B6E6;
+						}
+					}
+				}
+
+				.indexInput-box {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+
+					.input {
+						display: flex;
+						flex-direction: row;
+						// align-items: center;
+						background-color: #EDF2F2;
+						width: 81.5vw;
+						height: 45px;
+						border-radius: 10px;
+
+						&:first-child {
+							margin-bottom: 8px;
+						}
+
+						&:last-child {
+							margin-bottom: 20px;
+						}
+
+						image {
+							width: 32px;
+							height: 32px;
+							margin-left: 3.85vw;
+							margin-right: 18.46vw;
+						}
+
+						.placeholder {
+							// width: 50%;
+							color: #C9C9C9;
+							// margin-top: 8rpx;
+							font-size: 13px;
+						}
 					}
 				}
 			}
@@ -155,35 +291,72 @@
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			justify-content: space-around;
-			margin-top: 10px;
-			width: 692rpx;
-			height: 158px;
+			width: 92.3vw;
+			// background-color: transparent;
 
 			image {
 				&:nth-child(2n+1) {
-					width: 298rpx;
+					width: 39.7vw;
 					height: 60px;
+				}
+
+				&:first-child {
+					margin-bottom: 5px;
+				}
+
+				&:nth-child(2) {
+					margin-bottom: 5px;
 				}
 
 				&:nth-child(2n) {
-					width: 373rpx;
+					width: 49.74vw;
 					height: 60px;
+					margin-left: 2.8vw;
 				}
 
+				&:nth-child(3) {
+					margin-bottom: 10px;
+				}
+
+				&:nth-child(4) {
+					margin-bottom: 10px;
+				}
+			}
+
+			.popup-content {
+				// width: 65.38vw;
+				// height: 50.75vh;
+
+				display: flex;
+				flex-direction: column;
+				// justify-content: center;
+				align-items: center;
+
+				.pop-ad {
+					width: 58.38vw;
+					height: 48.75vh;
+				}
+
+				text {
+					border: 1px solid rgba(87, 182, 230, 1);
+					color: #fff;
+				}
 			}
 		}
 
 		.ad-text {
+			// margin-top: 15px;
 			color: rgba(166, 166, 166, 1);
 			font-size: 11px;
 		}
 
 		.serve-container {
-			width: 692rpx;
+			width: 92.3vw;
 			height: 63rpx;
+			margin-top: 13px;
 
 			.serve-text {
+				// margin-top: 16px;
 				font-size: 18px;
 				font-family: '黑体';
 				line-height: 24px;
@@ -198,8 +371,12 @@
 
 				button {
 					border-color: transparent;
-					width: 91px;
+					width: 23.59vw;
+					height: 24px;
 					font-size: 14px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 					color: rgba(179, 179, 179, 1);
 				}
 			}

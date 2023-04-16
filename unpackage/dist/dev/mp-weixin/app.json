@@ -3,30 +3,48 @@
     "pages/login/index",
     "pages/login/quickLogin",
     "pages/index/index",
-    "pages/order/detail",
-    "pages/order/doorToDoor",
-    "pages/order/mailingAddress",
-    "pages/order/pickupAddress",
-    "pages/order/types",
-    "pages/user/order/detail",
-    "pages/user/order/feedback",
-    "pages/user/settings/address",
-    "pages/user/settings/index",
-    "pages/user/cooperate",
-    "pages/user/credit",
-    "pages/user/feedback",
     "pages/user/index",
-    "pages/user/joinUs",
-    "pages/user/recycle",
-    "pages/user/service",
     "pages/welcome/index",
+<<<<<<< HEAD
     "pages/order/index",
     "pages/user/card",
     "pages/user/chargeMoney",
     "pages/user/unused-coupon",
     "pages/purchase/purchase"
+=======
+    "pages/order/index"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "packageOrder",
+      "pages": [
+        "pages/detail",
+        "pages/types",
+        "pages/doorToDoor",
+        "pages/mailingAddress",
+        "pages/pickupAddress"
+      ]
+    },
+    {
+      "root": "packageUser",
+      "pages": [
+        "pages/order/detail",
+        "pages/order/feedback",
+        "pages/settings/address",
+        "pages/settings/index",
+        "pages/cooperate",
+        "pages/credit",
+        "pages/feedback",
+        "pages/joinUs",
+        "pages/recycle",
+        "pages/service",
+        "pages/card",
+        "pages/chargeMoney",
+        "pages/unused-coupon"
+      ]
+    }
+>>>>>>> f7f0fa34c21e8ce20c90ec73c119321083fdebf1
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "洗笑颜开",
@@ -35,7 +53,7 @@
   },
   "tabBar": {
     "color": "#7a7f82",
-    "selectedColor": "#57B6E6",
+    "selectedColor": "#7a7f82",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
@@ -46,17 +64,37 @@
         "selectedIconPath": "static/tabbar/first.png"
       },
       {
-        "pagePath": "pages/user/order/index",
+        "pagePath": "pages/order/index",
         "text": "订单",
-        "iconPath": "static/tabbar/second.png"
+        "iconPath": "static/tabbar/second.png",
+        "selectedIconPath": "static/tabbar/second.png"
       },
       {
-        "pagePath": "pages/user/settings/index",
+        "pagePath": "pages/user/index",
         "text": "我的",
         "iconPath": "static/tabbar/third.png",
         "selectedIconPath": "static/tabbar/third.png"
       }
     ]
+  },
+  "preloadRule": {
+    "pages/order/index": {
+      "network": "all",
+      "packages": [
+        "packageOrder"
+      ]
+    },
+    "pages/user/index": {
+      "network": "all",
+      "packages": [
+        "packageUser"
+      ]
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "服务点定位"
+    }
   },
   "usingComponents": {}
 }
