@@ -47,54 +47,6 @@
 					"path": "pages/pickupAddress"
 				}
 			]
-		}, {
-			"root": "packageUser",
-			"pages": [{
-					"path": "pages/order/detail"
-				},
-				{
-					"path": "pages/order/feedback"
-				},
-				{
-					"path": "pages/settings/address"
-				},
-				{
-					"path": "pages/settings/index"
-				},
-				{
-					"path": "pages/cooperate"
-				},
-				{
-					"path": "pages/credit"
-				},
-				{
-					"path": "pages/feedback"
-				},
-
-				{
-					"path": "pages/joinUs"
-				},
-				{
-					"path": "pages/recycle"
-				},
-				{
-					"path": "pages/service",
-					"style": {
-						"app-plus": {
-							"animationType": "fade-in",
-							"background": "transparent",
-							"backgroundColor": "transparent",
-							"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
-						}
-					}
-				}, {
-					"path": "pages/doorToDoor"
-				}, {
-					"path": "pages/mailingAddress"
-				}, {
-					"path": "pages/pickupAddress"
-				}
-			]
 		},
 		{
 			"root": "packageUser",
