@@ -16,7 +16,7 @@
 		<section class="mine-body">
 			<ul class="set-list">
 				<li>
-					<navigator url="/pages/user/card?title=navigate" hover-class="navigator-hover">我的卡劵</navigator>
+					<navigator url="../../packageUser/pages/card" open-type="navigate">我的卡劵</navigator>
 				</li>
 				<div-line></div-line>
 				<li>
@@ -25,7 +25,7 @@
 				<li>
 					<navigator>我的碳积分</navigator>
 				</li><div-line></div-line>
-				<li @click="gotoorder">
+				<li>
 					<navigator url="/pages/order/index" open-type="switchTab">我的订单</navigator>
 				</li><div-line></div-line>
 				<li>
@@ -69,16 +69,16 @@
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open(type)
 			},
-			gotoorder() {
-				console.log(123)
-				uni.navigateTo({
-					url: '/pages/order/index'
-				})
-			},
+			// gotoorder() {
+			// 	console.log(123)
+			// 	uni.navigateTo({
+			// 		url: '/pages/order/index'
+			// 	})
+			// },
 			gotosetting() {
 				console.log(123)
 				uni.navigateTo({
-					url: '/pages/user/settings/index'
+					url: '/packageUser/pages/settings/index'
 				})
 			},
 			gotocard() {
@@ -135,7 +135,7 @@
 
 				.user-btn {
 					margin-top: 12px;
-					width: 160px;
+					width: 41vw;
 					border: transparent;
 					color: rgba(255, 255, 255, 1);
 					padding-left: 13px;
@@ -161,7 +161,8 @@
 
 			.set-list {
 				list-style: none;
-				padding: 17px;
+				padding-left: 17px;
+				padding-right: 17px;
 
 				li {
 					width: 100%;

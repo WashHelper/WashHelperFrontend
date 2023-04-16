@@ -23,7 +23,17 @@
 					</view>
 				</view>
 				<view v-if="active==0">
-					<indexInput></indexInput>
+					<view class="indexInput-box">
+						<view class="input">
+							<image src="@/static/index-index/分组 2.png" mode=""></image>
+							<text class="placeholder">输入您的取件地址</text>
+						</view>
+						<view class="input">
+							<image src="@/static/index-index/分组 1.png" mode=""></image>
+							<text class="placeholder">输入您的送件地址</text>
+						</view>
+
+					</view>
 				</view>
 				<view v-if="active==1">
 					hello
@@ -33,15 +43,15 @@
 						<view class="input">
 							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
 							<view class="placeholder">
-								<text>选择智能鞋柜</text><br>
-								<text style="font-size: 9px;">洗送衣物存哪里</text>
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗送衣物存哪里</text>
 							</view>
 						</view>
 						<view class="input">
 							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
 							<view class="placeholder">
-								<text>选择智能鞋柜</text><br>
-								<text style="font-size: 9px;">洗好衣服送回哪里</text>
+								<text style="font-size: 15px;">选择智能鞋柜</text><br>
+								<text style="font-size: 7px;margin-left: 6px;">洗好衣服送回哪里</text>
 							</view>
 						</view>
 
@@ -54,20 +64,21 @@
 
 		</view>
 		<uni-section class="ad" style="background-color: transparent;">
-			<image src="@/static/index-index/ad-first.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-second.png" mode="aspectFit"></image>
+			<image src="@/static/index-index/ad-first.png" mode="aspectFit" @click="gotocredit()"></image>
+			<image src="@/static/index-index/ad-second.png" mode="aspectFit" @click="gotocard()"></image>
 			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="shareToggle();toggle('center')">
+			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="toggle('center')">
 			</image>
 			<!-- 分享至 -->
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
-				<uni-popup-share>
-				</uni-popup-share>
+				<!-- <uni-popup-share>
+				</uni-popup-share> -->
 			</uni-popup>
 			<!-- 普通弹窗 -->
-			<uni-popup ref="popup" @change="change" type="dialog">
+			<uni-popup ref="popup" @change="change()" type="center">
 				<view class="popup-content" :class="{ 'popup-height': type === 'left' || type === 'right' }">
 					<image src="@/static/index-index/ad.png" mode="aspectFill" class="pop-ad"></image>
+					<text>成功邀请一名好友注册<br>即可获得2元洗护券一张</text>
 				</view>
 			</uni-popup>
 		</uni-section>
@@ -127,6 +138,16 @@
 			},
 			clickNav(id) {
 				this.active = id;
+			},
+			gotocard() {
+				uni.navigateTo({
+					url: '/packageUser/pages/card'
+				})
+			},
+			gotocredit() {
+				uni.navigateTo({
+					url: '/packageUser/pages/chargeMoney'
+				})
 			}
 		}
 	}
@@ -135,7 +156,6 @@
 <style lang="scss">
 	.container {
 		width: 100vw;
-		// height: 858px;
 		padding-top: 20px;
 		// background-color: rgba(235, 236, 237, 1);
 		display: flex;
@@ -148,7 +168,8 @@
 
 			.banner {
 				width: 100%;
-				height: 187px;
+				height: 30.3vh;
+				// 页面高度height: 769px;
 				background-color: #fff;
 				border-radius: 10px;
 
@@ -167,6 +188,45 @@
 				margin-top: 5px;
 				width: 92.3vw;
 				font-size: 14px;
+
+				.indexInput-box {
+					display: flex;
+					padding-top: 15px;
+					padding-bottom: 24px;
+					flex-direction: column;
+					// align-items: center;
+
+					.input {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						background-color: #EDF2F2;
+						width: 81.5vw;
+						height: 45px;
+						border-radius: 10px;
+
+						&:first-child {
+							margin-bottom: 8px;
+						}
+
+						&:last-child {
+							margin-bottom: 20px;
+						}
+
+						image {
+							width: 32px;
+							height: 32px;
+							margin-left: 50rpx;
+							margin-right: 50rpx;
+						}
+
+						.placeholder {
+							font-size: 15px;
+							color: #C9C9C9;
+							margin-top: 8rpx;
+						}
+					}
+				}
 
 				.ullist {
 					display: flex;
@@ -194,7 +254,7 @@
 					.input {
 						display: flex;
 						flex-direction: row;
-						align-items: center;
+						// align-items: center;
 						background-color: #EDF2F2;
 						width: 81.5vw;
 						height: 45px;
@@ -209,22 +269,17 @@
 						}
 
 						image {
-							height: 70rpx;
-							width: 70rpx;
+							width: 32px;
+							height: 32px;
 							margin-left: 3.85vw;
 							margin-right: 18.46vw;
 						}
 
 						.placeholder {
+							// width: 50%;
 							color: #C9C9C9;
-							margin-top: 8rpx;
-
-							text {
-								&:first-child {
-									font-size: 13px;
-								}
-							}
-
+							// margin-top: 8rpx;
+							font-size: 13px;
 						}
 					}
 				}
@@ -269,16 +324,22 @@
 			}
 
 			.popup-content {
-				width: 65.38vw;
-				height: 50.75vh;
+				// width: 65.38vw;
+				// height: 50.75vh;
 
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				// justify-content: center;
+				align-items: center;
 
 				.pop-ad {
-					width: 100%;
-					height: 100%;
+					width: 58.38vw;
+					height: 48.75vh;
+				}
+
+				text {
+					border: 1px solid rgba(87, 182, 230, 1);
+					color: #fff;
 				}
 			}
 		}
