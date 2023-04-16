@@ -1,12 +1,8 @@
 {
   "description": "项目配置文件。",
   "packOptions": {
-<<<<<<< HEAD
-    "ignore": []
-=======
     "ignore": [],
     "include": []
->>>>>>> a228d8458802127112c1231d3cf219bf09933de1
   },
   "setting": {
     "urlCheck": false,
@@ -14,31 +10,6 @@
     "postcss": true,
     "minified": true,
     "newFeature": true,
-<<<<<<< HEAD
-    "bigPackageSizeSupport": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "wx86812ba3adbd4c65",
-  "projectname": "洗笑颜开",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
-=======
     "bigPackageSizeSupport": true,
     "babelSetting": {
       "ignore": [],
@@ -49,7 +20,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.30.4",
   "appid": "wx86812ba3adbd4c65",
-  "projectname": "WashHelper",
+  "projectname": "洗笑颜开",
   "condition": {
     "search": {
       "current": -1,
@@ -71,6 +42,5 @@
   "editorSetting": {
     "tabIndent": "auto",
     "tabSize": 2
->>>>>>> a228d8458802127112c1231d3cf219bf09933de1
   }
 }

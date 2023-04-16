@@ -1,6 +1,4 @@
 {
-  "navigationBarTitleText": "洗笑颜开",
-  "enablePullDownRefresh": true,
   "usingComponents": {
     "uni-section": "/node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section",
     "uni-popup": "/node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup"
