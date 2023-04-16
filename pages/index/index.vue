@@ -23,7 +23,17 @@
 					</view>
 				</view>
 				<view v-if="active==0">
-					<indexInput></indexInput>
+					<view class="indexInput-box">
+						<view class="input">
+							<image src="@/static/index-index/分组 2.png" mode=""></image>
+							<text class="placeholder">输入您的取件地址</text>
+						</view>
+						<view class="input">
+							<image src="@/static/index-index/分组 1.png" mode=""></image>
+							<text class="placeholder">输入您的送件地址</text>
+						</view>
+
+					</view>
 				</view>
 				<view v-if="active==1">
 					hello
@@ -146,7 +156,6 @@
 <style lang="scss">
 	.container {
 		width: 100vw;
-		// height: 858px;
 		padding-top: 20px;
 		// background-color: rgba(235, 236, 237, 1);
 		display: flex;
@@ -159,7 +168,8 @@
 
 			.banner {
 				width: 100%;
-				height: 187px;
+				height: 30.3vh;
+				// 页面高度height: 769px;
 				background-color: #fff;
 				border-radius: 10px;
 
@@ -178,6 +188,45 @@
 				margin-top: 5px;
 				width: 92.3vw;
 				font-size: 14px;
+
+				.indexInput-box {
+					display: flex;
+					padding-top: 15px;
+					padding-bottom: 24px;
+					flex-direction: column;
+					// align-items: center;
+
+					.input {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						background-color: #EDF2F2;
+						width: 81.5vw;
+						height: 45px;
+						border-radius: 10px;
+
+						&:first-child {
+							margin-bottom: 8px;
+						}
+
+						&:last-child {
+							margin-bottom: 20px;
+						}
+
+						image {
+							width: 32px;
+							height: 32px;
+							margin-left: 50rpx;
+							margin-right: 50rpx;
+						}
+
+						.placeholder {
+							font-size: 15px;
+							color: #C9C9C9;
+							margin-top: 8rpx;
+						}
+					}
+				}
 
 				.ullist {
 					display: flex;
@@ -205,7 +254,7 @@
 					.input {
 						display: flex;
 						flex-direction: row;
-						align-items: center;
+						// align-items: center;
 						background-color: #EDF2F2;
 						width: 81.5vw;
 						height: 45px;
@@ -220,17 +269,17 @@
 						}
 
 						image {
-							height: 70rpx;
-							width: 70rpx;
+							width: 32px;
+							height: 32px;
 							margin-left: 3.85vw;
 							margin-right: 18.46vw;
 						}
 
 						.placeholder {
-							width: 50%;
+							// width: 50%;
 							color: #C9C9C9;
-							margin-top: 8rpx;
-
+							// margin-top: 8rpx;
+							font-size: 13px;
 						}
 					}
 				}

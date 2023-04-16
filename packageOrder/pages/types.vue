@@ -18,6 +18,8 @@
 									<image :src="item.url||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
 										:offset="[10, 10]" size="primary"></uni-badge>
+									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="24"
+										@click="minus(item)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
 								<text class="text" style="font-size: 14px;">{{item.text}}</text>
 								<text class="price">{{item.price}}元</text>
@@ -31,6 +33,8 @@
 									<view class="background" @click="click(item)">
 										<text class="text" style="font-size: 14px;">{{item.text}}</text>
 										<text class="price">{{item.price}}元</text>
+										<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
+											:offset="[10, 10]" size="primary"></uni-badge>
 									</view>
 								</view>
 							</uni-grid-item>
@@ -50,6 +54,8 @@
 						<view class="grid-item-box">
 							<view class="background" @click="click(item)">
 								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
+									size="primary"></uni-badge>
 							</view>
 							<text class="text">{{item.text}}</text>
 							<text class="price">{{item.price}}元</text>
@@ -57,10 +63,12 @@
 					</uni-grid-item>
 				</uni-grid>
 				<uni-grid v-if="active==3" :column="3" :show-border="false" class="textiles">
-					<uni-grid-item v-for="(item,index) in textiles" :index="index" :key="index">
-						<view class="grid-item-box">
+					<uni-grid-item v-for="(item,index) in textiles" :index="index" :key="index" style="height: 169px;">
+						<view class="grid-item-box" style="height: 169px;margin-top: 0px;">
 							<view class="background" @click="click(item)">
 								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
+									size="primary"></uni-badge>
 							</view>
 							<text class="text">{{item.text}}</text>
 							<text class="price">{{item.price}}元</text>
@@ -317,6 +325,11 @@
 				this.totalprice += item.price
 				// item.badge && item.badge++
 				item.badge++
+			},
+			minus(item) {
+				item.badge--;
+				this.totalNumber--;
+				this.totalprice -= item.price
 			}
 		},
 		// onReachBottom() {
@@ -386,9 +399,15 @@
 
 				.uni-badge {
 					position: absolute;
-
 					right: 2px;
 					top: 2px;
+				}
+
+				.minus {
+					position: absolute;
+					top: 0px;
+					left: 2px;
+					z-index: 10;
 				}
 
 				.wash-shoes {
@@ -464,13 +483,17 @@
 				}
 
 				.textiles {
-					.background {
-						width: 90px;
-						height: 106px;
-					}
+					.grid-item-box {
+						height: 195px;
 
-					.text {
-						font-size: 18px;
+						.background {
+							width: 90px;
+							height: 106px;
+						}
+
+						.text {
+							font-size: 18px;
+						}
 					}
 				}
 

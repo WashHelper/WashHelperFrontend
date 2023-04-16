@@ -9,9 +9,9 @@
 	},
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "packageOrder/pages/types"
-		},
+		// {
+		// 	"path": "pages/index/index"
+		// },
 		{
 			"path": "pages/login/index",
 			"style": {
@@ -47,8 +47,13 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": true
 			}
+		}, {
+			"path": "pages/purchase/purchase",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开",
+				"enablePullDownRefresh": false
+			}
 		}
-<<<<<<< HEAD
 	],
 	"subpackages": [{
 			"root": "packageOrder",
@@ -58,7 +63,6 @@
 				"path": "pages/types",
 				"style": {
 					"enablePullDownRefresh": true
-
 				}
 			}, {
 				"path": "pages/doorToDoor"
@@ -113,8 +117,7 @@
 						"navigationBarTitleText": "",
 						"enablePullDownRefresh": false
 					}
-				},
-				{
+				}, {
 					"path": "pages/unused-coupon",
 					"style": {
 						"navigationBarTitleText": "",
@@ -134,17 +137,6 @@
 			"packages": ["packageUser"]
 		}
 	},
-=======
-	    ,{
-            "path" : "pages/purchase/purchase",
-            "style" : {
-				"navigationBarTitleText": "洗笑颜开",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
->>>>>>> 9ffe77752a8b584b6428d080a62f1b25d53bd14a
 	"tabBar": {
 		"color": "#7a7f82",
 		"selectedColor": "#7a7f82",

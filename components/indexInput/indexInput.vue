@@ -1,16 +1,6 @@
 <template>
 	<view class="indexInput-container">
-		<view class="indexInput-box">
-			<view class="input">
-				<image src="@/static/index-index/分组 2.png" mode=""></image>
-				<text class="placeholder">输入您的取件地址</text>
-			</view>
-			<view class="input">
-				<image src="@/static/index-index/分组 1.png" mode=""></image>
-				<text class="placeholder">输入您的送件地址</text>
-			</view>
 
-		</view>
 	</view>
 </template>
 

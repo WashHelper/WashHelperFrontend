@@ -96,18 +96,34 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 var _default = {
-  onLaunch: function onLaunch() {},
-  onShow: function onShow() {},
+  onLaunch: function onLaunch() {
+    uni.getSystemInfo({
+      success: function success(res) {
+        var height = res.windowHeight - res.statusBarHeight;
+      }
+    });
+  },
+  onShow: function onShow() {
+    uni.getSystemInfo({
+      success: function success(e) {
+        /* 窗口宽度大于420px且不在PC页面且不在移动设备时跳转至 PC.html 页面 */
+        if (e.windowWidth > 420 && !window.top.isPC && !/iOS|Android/i.test(e.system)) {
+          console.log('跳转到html页面');
+        }
+      }
+    });
+  },
   onHide: function onHide() {}
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
