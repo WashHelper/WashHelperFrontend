@@ -10,42 +10,21 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/login/index"
-		}, {
+		},
+		{
 			"path": "pages/login/quickLogin"
 		},
 		{
 			"path": "pages/index/index"
 		},
-		// {
-		// "path": "pages/order/detail"
-		// },
-		// {
-		// 	"path": "pages/order/doorToDoor"
-		// },
-		// {
-		// 	"path": "pages/order/mailingAddress"
-		// },
-		// {
-		// 	"path": "pages/order/pickupAddress"
-		// },
-		// {
-		// 	"path": "pages/order/types"
-		// },
 		{
 			"path": "pages/user/index"
 		},
 		{
-			"path": "pages/welcome/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开"
-			}
+			"path": "pages/welcome/index"
 		},
 		{
-			"path": "pages/order/index",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
-			}
+			"path": "pages/order/index"
 		}
 	],
 	"subpackages": [{
@@ -56,7 +35,6 @@
 			{
 				"path": "pages/types"
 			},
-
 			{
 				"path": "pages/doorToDoor"
 			},
@@ -102,8 +80,6 @@
 			{
 				"path": "pages/service",
 				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "洗笑颜开",
 					"app-plus": {
 						"animationType": "fade-in",
 						"background": "transparent",
@@ -171,6 +147,5 @@
 		"navigationBarTitleText": "洗笑颜开",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
-	},
-	"uniIdRouter": {}
+	}
 }

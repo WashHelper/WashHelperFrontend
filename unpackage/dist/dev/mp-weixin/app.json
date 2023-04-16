@@ -83,5 +83,10 @@
       ]
     }
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "服务点定位"
+    }
+  },
   "usingComponents": {}
 }
