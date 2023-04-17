@@ -1,20 +1,37 @@
 import request from '@/utils/service.js'
 
 export default {
-	// 密码登录
-	login(params) {
-		return request('/user/login', 'post', params)
+	/**
+	 * @param {String} params 
+	 * @description 登录接口 
+	 */
+	login(code) {
+		return request({
+			url: '/login',
+			method: 'post',
+			data: {
+				code
+			}
+		})
 	},
 
-	// 注册
+	/**
+	 * @param {Object} params
+	 */
 	register(params) {
 		return request('/user/register', 'post', params)
 	},
 
-	// 获取验证码
+	/**
+	 * @param {String} phoneNum
+	 * @description 获取验证码
+	 */
 	getCaptcha(phoneNum) {
-		const data = new FormData()
-		data.append('phone', phoneNum)
+		// const data = new FormData()
+		// data.append('phone', phoneNum)
+		const data = {
+			'phone': phoneNum
+		}
 
 		return request({
 			url: '/getCaptcha',

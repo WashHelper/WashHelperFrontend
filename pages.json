@@ -9,7 +9,7 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/index"
+			"path": "packageOrder/pages/types"
 		},
 		{
 			"path": "pages/login/quickLogin"
@@ -31,8 +31,7 @@
 			"root": "packageOrder",
 			"pages": [{
 					"path": "pages/detail"
-				},
-				{
+				}, {
 					"path": "pages/types"
 				},
 				{
@@ -67,7 +66,6 @@
 				}, {
 					"path": "pages/service",
 					"style": {
-
 						"navigationBarTitleText": "洗笑颜开",
 						"app-plus": {
 							"animationType": "fade-in",
@@ -85,12 +83,6 @@
 				},
 				{
 					"path": "pages/chargeMoney",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
-				}, {
-					"path": "pages/unused-coupon",
 					"style": {
 						"navigationBarTitleText": "",
 						"enablePullDownRefresh": false
