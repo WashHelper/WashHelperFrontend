@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uniSection: function () {
-      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 264))
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 261))
     },
     uniPopup: function () {
-      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 271))
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 268))
     },
   }
 } catch (e) {
