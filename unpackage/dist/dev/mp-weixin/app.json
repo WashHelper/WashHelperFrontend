@@ -5,6 +5,13 @@
     "pages/index/index",
     "pages/user/index",
     "pages/welcome/index",
+<<<<<<< HEAD
+    "pages/order/index",
+    "pages/user/card",
+    "pages/user/chargeMoney",
+    "pages/user/unused-coupon",
+    "pages/purchase/purchase"
+=======
     "pages/order/index"
   ],
   "subPackages": [
@@ -36,6 +43,7 @@
         "pages/unused-coupon"
       ]
     }
+>>>>>>> f7f0fa34c21e8ce20c90ec73c119321083fdebf1
   ],
   "window": {
     "navigationBarTextStyle": "black",

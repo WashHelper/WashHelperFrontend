@@ -26,7 +26,15 @@
 		{
 			"path": "pages/order/index"
 		}
-	],
+	    ,{
+            "path" : "pages/purchase/purchase",
+            "style" : {
+				"navigationBarTitleText": "洗笑颜开",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{
