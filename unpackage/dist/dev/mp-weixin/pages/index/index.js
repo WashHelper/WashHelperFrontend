@@ -211,11 +211,15 @@ try {
       return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module '@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; })
 =======
     uniSection: function () {
-      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 264))
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section */ "node-modules/@dcloudio/uni-ui/lib/uni-section/uni-section").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-section/uni-section.vue */ 261))
     },
     uniPopup: function () {
+<<<<<<< HEAD
       return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 271))
 >>>>>>> f7f0fa34c21e8ce20c90ec73c119321083fdebf1
+=======
+      return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup */ "node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-popup/uni-popup.vue */ 268))
+>>>>>>> 8e6735b38c37132ba627bf078b86dd83b5564d20
     },
   }
 } catch (e) {
