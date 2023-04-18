@@ -10950,18 +10950,35 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _service = _interopRequireDefault(__webpack_require__(/*! @/utils/service.js */ 36));
 var _default = {
-  // 密码登录
-  login: function login(params) {
-    return (0, _service.default)('/user/login', 'post', params);
+  /**
+   * @param {String} params 
+   * @description 登录接口 
+   */
+  login: function login(code) {
+    return (0, _service.default)({
+      url: '/login',
+      method: 'post',
+      data: {
+        code: code
+      }
+    });
   },
-  // 注册
+  /**
+   * @param {Object} params
+   */
   register: function register(params) {
     return (0, _service.default)('/user/register', 'post', params);
   },
-  // 获取验证码
+  /**
+   * @param {String} phoneNum
+   * @description 获取验证码
+   */
   getCaptcha: function getCaptcha(phoneNum) {
-    var data = new FormData();
-    data.append('phone', phoneNum);
+    // const data = new FormData()
+    // data.append('phone', phoneNum)
+    var data = {
+      'phone': phoneNum
+    };
     return (0, _service.default)({
       url: '/getCaptcha',
       method: 'post',
@@ -11009,33 +11026,35 @@ var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 37));
 var service = _axios.default.create({
   // 超时
   timeout: 5000,
-  baseURL: 'http: //127.0.0.1:4523/m1/2475051-0-default'
+  baseURL: 'http://192.168.50.35'
 });
-_axios.default.defaults.adapter = function (config) {
-  return new Promise(function (resolve, reject) {
-    var settle = __webpack_require__(/*! axios/lib/core/settle */ 69);
-    var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 42);
-    uni.request({
-      method: config.method.toUpperCase(),
-      url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
-      header: config.headers,
-      data: config.data,
-      dataType: config.dataType,
-      responseType: config.responseType,
-      sslVerify: config.sslVerify,
-      complete: function complete(response) {
-        response = {
-          data: response.data,
-          status: response.statusCode,
-          errMsg: response.errMsg,
-          header: response.header,
-          config: config
-        };
-        settle(resolve, reject, response);
-      }
-    });
-  });
-};
+
+// axios.defaults.adapter = function(config) {
+// 	return new Promise((resolve, reject) => {
+// 		var settle = require('axios/lib/core/settle');
+// 		var buildURL = require('axios/lib/helpers/buildURL');
+// 		uni.request({
+// 			method: config.method.toUpperCase(),
+// 			url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
+// 			header: config.headers,
+// 			data: config.data,
+// 			dataType: config.dataType,
+// 			responseType: config.responseType,
+// 			sslVerify: config.sslVerify,
+// 			complete: function complete(response) {
+// 				response = {
+// 					data: response.data,
+// 					status: response.statusCode,
+// 					errMsg: response.errMsg,
+// 					header: response.header,
+// 					config: config
+// 				};
+
+// 				settle(resolve, reject, response);
+// 			}
+// 		})
+// 	})
+// }
 
 // request 拦截器
 service.interceptors.request.use(function (config) {

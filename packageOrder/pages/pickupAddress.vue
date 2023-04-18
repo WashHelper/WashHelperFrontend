@@ -1,7 +1,6 @@
 <template>
 	<view class="pickupAddress-section">
 		<text class="text1">送回地址</text>
-
 		<view class="input-wrapper">
 
 			<view class="main-item">
@@ -14,7 +13,10 @@
 			</view>
 			<view class="main-item">
 				<text>送回方式</text>
-				<input type="text" placeholder="送回网点/上门配送" placeholder-class="placeholder" @click="shareToggle">
+				<view class="cover">
+					<input type="text" placeholder="送回网点/上门配送" placeholder-class="placeholder" @click="showPopup"
+						v-model="selected">
+				</view>
 			</view>
 			<view class="main-item">
 				<text>网点选择</text>
@@ -26,36 +28,62 @@
 			</view>
 			<view class="default">
 				<text>设为默认</text>
-				<img src="../../static/order-pickup/choose.png" alt="">
 			</view>
-
 		</view>
 		<button @click="handleRegister">注册并登录</button>
 
+		<!-- cover -->
+		<view class="cover">
+			<view class="popup" :class="{show: isPopup}">
+				<view class="popup-content">
 
-		<view>
-
+					<view class="popup-body">
+						<ul>
+							<li v-for="(item, index) in list" :key="index" @click="handleStore(index)" id="item">
+								{{item}}
+							</li>
+						</ul>
+					</view>
+					<view class="popup-bottom" @click="handleSelect()">
+						<button>确定</button>
+					</view>
+				</view>
+			</view>
 		</view>
+
 
 	</view>
 </template>
 
 <script>
 	export default {
+		data() {
+			return {
+				baseUsed: false,
+				// cover
+				isPopup: false,
+				title: "请选择",
+				list: ["送回网点", "上门配送"],
+				selected: ""
+			}
+		},
+
 		methods: {
-			shareToggle() {
-			
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+			//cover
+			showPopup() {
+				this.isPopup = true;
 			},
+			hidePopup() {
+				this.isPopup = false;
+			},
+			handleSelect() {
+				this.hidePopup();
+			},
+			handleStore(index) {
+				this.selected = this.list[index];
+				console.log(this.selected);
+			}
+
 		}
 	}
 </script>
@@ -91,8 +119,8 @@
 			}
 
 			input {
-				margin-top: 10px;
-				width: 330rpx;
+				margin-top: 26rpx;
+				width: 500rpx;
 				height: 26px;
 			}
 
@@ -127,18 +155,20 @@
 
 			.default {
 				text {
-					float: left;
+					float: right;
 					font-size: 23.08rpx;
-					margin-left: 520rpx;
 					margin-top: -12rpx;
 					color: rgba(0, 0, 0, 1);
+					margin-right: 29rpx;
 				}
 
-				img {
-					float: right;
+				text:after {
+					content: '';
+					display: inline-block;
+					background: url('../../static/order-pickup/choose.png');
+					background-size: cover;
 					width: 30.77rpx;
-					margin-right: 29rpx;
-					margin-top: 27rpx;
+					height: 30.77rpx;
 				}
 			}
 		}
@@ -156,6 +186,103 @@
 			margin-top: 31rpx;
 		}
 
+	}
+
+	// cover
+	.cover {
+
+		button {
+			width: 128px;
+			height: 67rpx;
+			border: transparent;
+			border-radius: 10px;
+			line-height: 67rpx;
+			color: rgba(255, 255, 255, 1);
+			background: rgba(131, 195, 230, 1);
+			margin-top: 33rpx;
+			margin-bottom: 65rpx;
+			font-size: 34.62rpx;
+			font-weight: 400;
+			letter-spacing: 0px;
+		}
+
+		.popup {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			top: 0;
+			background: rgba(0, 0, 0, 0.6);
+			display: none;
+			z-index: 9999;
+		}
+
+		.popup.show {
+			display: block;
+		}
+
+		.popup .popup-content {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			opacity: 1;
+			background: rgba(255, 255, 255, 1);
+			transform: translateY(100%);
+			transition: all 0.3s ease;
+			overflow: hidden;
+		}
+
+		.popup.show .popup-content {
+			transform: translateY(0);
+		}
+
+		.popup .popup-header {
+			background: #f0f0f0;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: bold;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.popup .popup-body {
+			width: 628.85rpx;
+			margin: 0 auto;
+		}
+
+		.popup .popup-body ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.popup .popup-body li {
+			padding: 33rpx 20px;
+			cursor: pointer;
+			border-bottom: 1px solid #ddd;
+			transition: all 0.3s ease;
+			font-size: 26.92rpx;
+			font-weight: 400;
+			letter-spacing: 0px;
+			color: rgba(0, 0, 0, 0.9);
+			text-align: center;
+		}
+
+		.popup .popup-body li:first-child {
+			padding-top: 35rpx;
+		}
+
+		.popup .popup-body li:hover {
+			color: rgba(254, 61, 47, 1);
+			background: #eee;
+		}
+
+		.choose {
+			background: #eee;
+		}
 
 	}
 </style>

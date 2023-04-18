@@ -10,7 +10,7 @@
 		<view class="button-wrapper">
 			<button>授权登录</button>
 			<navigator url="">我再看看</navigator>
-		</view>
+		</view><!--  -->
 
 		<view class="footer">
 			<text>授权登录表示您已经同意我们的服务条款</text>

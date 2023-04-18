@@ -57,14 +57,14 @@
 		},
 		methods: {
 			getCaptcha() {
-				if (!phoneNumberReg.test(this.captcha)) {
+				if (!phoneNumberReg.test(this.phoneNumber)) {
 					uni.showToast({
 						title: '重新输入手机号',
 						icon: 'error'
 					})
 					this.phoneNumber = ''
 				} else {
-					// this.$axios.getCaptcha('123123123')
+					this.$axios.getCaptcha(this.phoneNumber)
 				}
 
 			},
@@ -105,13 +105,13 @@
 					uni.login({
 						provider: 'weixin', //使用微信登录
 						onlyAuthorize: true,
-						success: function({
+						success: ({
 							code
-						}) {
-							console.log(code);
-							uni.navigateTo({
-								url: '/pages/login/quickLogin'
-							})
+						}) => {
+							this.$axios.login(code)
+							// uni.navigateTo({
+							// 	url: '/pages/login/quickLogin'
+							// })
 						}
 					});
 				}
