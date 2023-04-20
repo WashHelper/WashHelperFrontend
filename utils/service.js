@@ -6,42 +6,44 @@ import axios from 'axios';
 const service = axios.create({
 	// 超时
 	timeout: 5000,
-	baseURL: 'http://192.168.50.35',
+	baseURL: 'http://1.13.80.178:9000',
 });
 
-// axios.defaults.adapter = function(config) {
-// 	return new Promise((resolve, reject) => {
-// 		var settle = require('axios/lib/core/settle');
-// 		var buildURL = require('axios/lib/helpers/buildURL');
-// 		uni.request({
-// 			method: config.method.toUpperCase(),
-// 			url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
-// 			header: config.headers,
-// 			data: config.data,
-// 			dataType: config.dataType,
-// 			responseType: config.responseType,
-// 			sslVerify: config.sslVerify,
-// 			complete: function complete(response) {
-// 				response = {
-// 					data: response.data,
-// 					status: response.statusCode,
-// 					errMsg: response.errMsg,
-// 					header: response.header,
-// 					config: config
-// 				};
+axios.defaults.adapter = function(config) {
+	return new Promise((resolve, reject) => {
+		var settle = require('axios/lib/core/settle');
+		var buildURL = require('axios/lib/helpers/buildURL');
+		uni.request({
+			method: config.method.toUpperCase(),
+			url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
+			header: config.headers,
+			data: config.data,
+			dataType: config.dataType,
+			responseType: config.responseType,
+			sslVerify: config.sslVerify,
+			complete: function complete(response) {
+				response = {
+					data: response.data,
+					status: response.statusCode,
+					errMsg: response.errMsg,
+					header: response.header,
+					config: config
+				};
 
-// 				settle(resolve, reject, response);
-// 			}
-// 		})
-// 	})
-// }
+				settle(resolve, reject, response);
+			}
+		})
+	})
+}
 
 // request 拦截器
 service.interceptors.request.use(
 	(config) => {
+		uni.showLoading({
+			title: '加载中'
+		})
 		config.headers['token'] = uni.getStorageSync('token')
 		return config
-
 	},
 	(error) => {
 		if (error.request.status == 500) {
@@ -65,12 +67,15 @@ service.interceptors.request.use(
 
 // 响应拦截器
 service.interceptors.response.use((res) => {
+		uni.hideLoading()
 		let {
 			code,
 			message
 		} = res.data
 
-		if (code === 200) {} else {
+		if (code === 200) {
+
+		} else {
 			uni.showToast({
 				title: message,
 				icon: 'error',
