@@ -2,7 +2,7 @@
 	<view class="card savings">
 		<header>
 			<view class="card-type ">储蓄银卡</view>
-			<view class="money">余额：124元</view>
+			<view class="money">{{msg}}</view>
 		</header>
 		<footer>
 			<view class="first-charge">
@@ -22,7 +22,8 @@
 			return {
 
 			};
-		}
+		},
+		props: ['msg']
 	}
 </script>
 
@@ -97,6 +98,6 @@
 	}
 
 	.savings {
-		background: linear-gradient(135.87deg, rgba(225, 235, 237, 1) 0%, rgba(97, 76, 76, 0.2)61.39%, rgba(97, 76, 76, 0.01) 100%);
+		background: linear-gradient(135.87deg, rgba(225, 235, 237, 1) 0%, rgba(97, 76, 76, 0.2)100%);
 	}
 </style>

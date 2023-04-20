@@ -2,8 +2,8 @@
 	<view class="card VIP">
 		<header>
 			<view class="card-type ">VIP卡</view>
-			<view class="warn">每年最低可省150元！</view>
-			<view class="money">已支付99元</view>
+			<view class="warn">{{warn}}</view>
+			<view class="money">{{msg}}</view>
 		</header>
 		<footer>
 			<view class="first-charge">
@@ -13,7 +13,7 @@
 				洗护享7.5折
 			</view>
 			<view class="time">
-				有效期：2023/3/25-2024/3/25
+				有效期：{{time}}
 			</view>
 		</footer>
 	</view>
@@ -26,7 +26,10 @@
 			return {
 
 			};
-		}
+		},
+		props: [
+			'warn', 'msg', 'time'
+		]
 	}
 </script>
 
@@ -102,7 +105,6 @@
 
 
 	.VIP {
-		background: linear-gradient(135.87deg, rgba(240, 255, 217, 1) 0.56%, rgba(12, 162, 199, 0.39) 61.39%,
-				rgba(137, 145, 42, 0.01) 100%);
+		background: linear-gradient(135.87deg, rgba(240, 255, 217, 1) 0.56%, rgba(12, 162, 199, 0.39) 100%);
 	}
 </style>

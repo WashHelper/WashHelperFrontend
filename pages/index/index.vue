@@ -168,7 +168,7 @@
 
 			.banner {
 				width: 100%;
-				height: 30.3vh;
+				height: 27.3vh;
 				// 页面高度height: 769px;
 				background-color: #fff;
 				border-radius: 10px;
@@ -192,7 +192,7 @@
 				.indexInput-box {
 					display: flex;
 					padding-top: 15px;
-					padding-bottom: 24px;
+					// padding-bottom: 24px;
 					flex-direction: column;
 					// align-items: center;
 
