@@ -14,12 +14,12 @@
 					<uni-grid :column="4" :show-border="false" :square="false" class="wash-shoes">
 						<uni-grid-item v-for="(item,index) in washlist" :index="index" :key="index">
 							<view class="grid-item-box">
-								<view class="background" @click="click(item)">
+								<view class="background" @click="click(index)">
 									<image :src="item.url||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
 										:offset="[10, 10]" size="primary"></uni-badge>
 									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="24"
-										@click="minus(item)" color="rgba(166, 166, 166, 1)"></uni-icons>
+										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
 								<text class="text" style="font-size: 14px;">{{item.text}}</text>
 								<text class="price">{{item.price}}元</text>
@@ -292,18 +292,20 @@
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
-			this.getGoodsList()
+			this.getGoodsList(0)
 		},
 		methods: {
 			// ...mapMutations('m_cart', ['addToCart']),
-			...mapMutations('m_cart', ['addToCart']),
+			// ...mapMutations('m_cart', ['addToCart']),
 			//获取商品列表数据的方法
-			getGoodsList(cb) {
+			getGoodsList(i) {
+				this.goodsList = this.$axios.getTypeList(i)
+				console.log(this.goodsList)
 				//打开节流阀
 				// 	this.isloading = true
 				// async const {
 				// 	data: res
-				// } = await uni.$http.get(''，
+				// } = await uni.$http.get(''
 				// 	this.queryObj)
 				// if (res.meta.status !== 200) {
 				// 	retrun uni.$showMsg()
@@ -315,28 +317,36 @@
 			},
 			activeChange(i) {
 				this.active = i;
+				this.getGoodsList(i)
 
 				//重新为二级分类赋值
 				// this.rightList = this.leftscrollList[i].
 			},
 			//添加购物车并计算价格
-			click(item) {
+			click(index) {
+				this.$axios.add(index)
+				console.log(123);
+				this.washlist[index].badge++
 				this.totalNumber++
-				this.totalprice += item.price
+				this.totalprice += this.washlist[index].price
 				// item.badge && item.badge++
-				item.badge++
+				// item.badge++
 			},
-			minus(item) {
-				item.badge--;
+			minus(index) {
+				// uni.event.stopPropagation();
+				this.washlist[index].badge = this.washlist[index].badge - 1
+				console.log(this.washlist[index].badge);
 				this.totalNumber--;
-				this.totalprice -= item.price
+				this.totalprice -= this.washlist[index].price
+				// this.washlist[index].
 			},
 			//确认下单
 			admit() {
 				uni.navigateTo({
 					url: ''
 				})
-			}
+			},
+
 		},
 		// onReachBottom() {
 
