@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+Component({})
+=======
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/welcome/index"],{
 
 /***/ 121:
@@ -141,3 +144,4 @@ __webpack_require__.r(__webpack_exports__);
 
 },[[121,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/welcome/index.js.map
+>>>>>>> 6de9dcacb0b8a064d1d2221386fb454b09ffd413

@@ -85,7 +85,7 @@
 			</uni-badge>
 
 			<text>{{totalprice}}元</text>
-			<button>确认下单</button>
+			<button @click="admit()">确认下单</button>
 		</footer>
 	</view>
 </template>
@@ -330,6 +330,12 @@
 				item.badge--;
 				this.totalNumber--;
 				this.totalprice -= item.price
+			},
+			//确认下单
+			admit() {
+				uni.navigateTo({
+					url: ''
+				})
 			}
 		},
 		// onReachBottom() {

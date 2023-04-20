@@ -37,7 +37,7 @@
 }
 .container .bigbox .banner {
   width: 100%;
-  height: 30.3vh;
+  height: 27.3vh;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -57,7 +57,6 @@
 .container .bigbox .choice-container .indexInput-box {
   display: flex;
   padding-top: 15px;
-  padding-bottom: 24px;
   flex-direction: column;
 }
 .container .bigbox .choice-container .indexInput-box .input {

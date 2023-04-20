@@ -9323,9 +9323,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 26:
-/*!*****************************************!*\
-  !*** D:/Projects/WashHelper/pages.json ***!
-  \*****************************************/
+/*!*************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/pages.json ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9364,10 +9364,12 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 308:
-/*!***********************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
-  \***********************************************************************************/
+
+/***/ 311:
+/*!*******************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
+  \*******************************************************************************************/
+
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10519,9 +10521,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 33:
-/*!*******************************************!*\
-  !*** D:/Projects/WashHelper/api/index.js ***!
-  \*******************************************/
+/*!***************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/index.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10546,10 +10548,48 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 337:
-/*!**************************************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/@dcloudio/uni-ui/lib/uni-transition/createAnimation.js ***!
-  \**************************************************************************************************/
+
+/***/ 34:
+/*!*****************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api sync \.js$ ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./index.js": 33,
+	"./login.js": 35,
+	"./order.js": 84,
+	"./user.js": 85
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 34;
+
+/***/ }),
+
+/***/ 340:
+/*!**********************************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-transition/createAnimation.js ***!
+  \**********************************************************************************************************/
+
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10718,9 +10758,9 @@ webpackContext.id = 34;
 /***/ }),
 
 /***/ 35:
-/*!*******************************************!*\
-  !*** D:/Projects/WashHelper/api/login.js ***!
-  \*******************************************/
+/*!***************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/login.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10782,9 +10822,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 36:
-/*!***********************************************!*\
-  !*** D:/Projects/WashHelper/utils/service.js ***!
-  \***********************************************/
+/*!*******************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/utils/service.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10880,9 +10920,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 37:
-/*!**********************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/index.js ***!
-  \**********************************************************/
+/*!******************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/index.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10891,9 +10931,9 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 38);
 /***/ }),
 
 /***/ 38:
-/*!**************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/axios.js ***!
-  \**************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/axios.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10964,9 +11004,9 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ 39:
-/*!**************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/utils.js ***!
-  \**************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/utils.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11424,6 +11464,10 @@ module.exports = {
   isFileList: isFileList
 };
 
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
+
+
 /***/ }),
 
 /***/ 4:
@@ -11443,9 +11487,9 @@ module.exports = _interopRequireDefault, module.exports.__esModule = true, modul
 /***/ }),
 
 /***/ 40:
-/*!*********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/bind.js ***!
-  \*********************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/bind.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11465,9 +11509,9 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ 41:
-/*!*******************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/Axios.js ***!
-  \*******************************************************************/
+/*!***************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/Axios.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11614,9 +11658,9 @@ module.exports = Axios;
 /***/ }),
 
 /***/ 42:
-/*!*************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/buildURL.js ***!
-  \*************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/buildURL.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11680,9 +11724,11 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ 43:
-/*!********************************************************!*\
-  !*** ./node_modules/node-libs-browser/mock/process.js ***!
-  \********************************************************/
+
+/*!*********************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/AxiosURLSearchParams.js ***!
+  \*********************************************************************************************/
+
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11725,9 +11771,9 @@ exports.features = {};
 /***/ }),
 
 /***/ 44:
-/*!***************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/toFormData.js ***!
-  \***************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toFormData.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11790,8 +11836,11 @@ function toFormData(obj, formData) {
   build(obj);
   return formData;
 }
-module.exports = toFormData;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Program Files/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 45).Buffer))
+
+var _default = toFormData;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 45).Buffer))
+
 
 /***/ }),
 
@@ -13872,9 +13921,9 @@ module.exports = Array.isArray || function (arr) {
 /***/ }),
 
 /***/ 49:
-/*!************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/AxiosError.js ***!
-  \************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosError.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13971,9 +14020,9 @@ module.exports = _slicedToArray, module.exports.__esModule = true, module.export
 /***/ }),
 
 /***/ 50:
-/*!*********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/null.js ***!
-  \*********************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/null.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13983,9 +14032,9 @@ module.exports = null;
 /***/ }),
 
 /***/ 51:
-/*!********************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/InterceptorManager.js ***!
-  \********************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14046,9 +14095,9 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ 52:
-/*!*****************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/dispatchRequest.js ***!
-  \*****************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14116,9 +14165,9 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ 53:
-/*!***************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/transformData.js ***!
-  \***************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/transformData.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14148,9 +14197,9 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ 54:
-/*!***********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/defaults/index.js ***!
-  \***********************************************************************/
+/*!*******************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/index.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14276,9 +14325,9 @@ module.exports = defaults;
 /***/ }),
 
 /***/ 55:
-/*!******************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/defaults/transitional.js ***!
-  \******************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/transitional.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14294,9 +14343,11 @@ module.exports = {
 /***/ }),
 
 /***/ 56:
-/*!***********************************************!*\
-  !*** ./node_modules/path-browserify/index.js ***!
-  \***********************************************/
+
+/*!*****************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toURLEncodedForm.js ***!
+  \*****************************************************************************************/
+
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14370,9 +14421,42 @@ exports.resolve = function() {
       continue;
     }
 
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
+
+/***/ }),
+
+/***/ 57:
+/*!*******************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/index.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _index.default;
   }
+});
+var _index = _interopRequireDefault(__webpack_require__(/*! ./node/index.js */ 58));
+
+/***/ }),
+
+/***/ 58:
+/*!***************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/index.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
   // At this point the path should be resolved to a full absolute path, but
   // handle relative paths to be safe (might happen when process.cwd() fails)
@@ -14385,11 +14469,16 @@ exports.resolve = function() {
   return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
 };
 
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
+
+/***/ }),
+
+/***/ 59:
+/*!*********************************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/URLSearchParams.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
 
   // Normalize the path
   path = normalizeArray(filter(path.split('/'), function(p) {
@@ -14429,11 +14518,14 @@ exports.relative = function(from, to) {
   from = exports.resolve(from).substr(1);
   to = exports.resolve(to).substr(1);
 
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
+
+/***/ 60:
+/*!**************************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/FormData.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
 
     var end = arr.length - 1;
     for (; end >= 0; end--) {
@@ -14456,10 +14548,14 @@ exports.relative = function(from, to) {
     }
   }
 
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
+
+/***/ 61:
+/*!**********************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/Blob.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
 
   outputParts = outputParts.concat(toParts.slice(samePartsLength));
 
@@ -14498,8 +14594,14 @@ exports.dirname = function (path) {
   return path.slice(0, end);
 };
 
-function basename(path) {
-  if (typeof path !== 'string') path = path + '';
+
+/***/ 62:
+/*!***************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/formDataToJSON.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
 
   var start = 0;
   var end = -1;
@@ -14607,10 +14709,12 @@ var substr = 'ab'.substr(-1) === 'b'
 
 /***/ }),
 
-/***/ 57:
-/*!************************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
-  \************************************************************************************/
+
+/***/ 63:
+/*!**********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosHeaders.js ***!
+  \**********************************************************************************/
+
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14644,9 +14748,9 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 /***/ }),
 
 /***/ 64:
-/*!*****************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \*****************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14701,17 +14805,128 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ 65:
-/*!************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/isCancel.js ***!
-  \************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/isCancel.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = function isCancel(value) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = isCancel;
+function isCancel(value) {
   return !!(value && value.__CANCEL__);
+}
+
+/***/ }),
+
+/***/ 66:
+/*!*************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CanceledError.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
+/**
+ * A `CanceledError` is an object that is thrown when an operation is canceled.
+ *
+ * @param {string=} message The message.
+ * @param {Object=} config The config.
+ * @param {Object=} request The request.
+ *
+ * @returns {CanceledError} The created error.
+ */
+function CanceledError(message, config, request) {
+  // eslint-disable-next-line no-eq-null,eqeqeq
+  _AxiosError.default.call(this, message == null ? 'canceled' : message, _AxiosError.default.ERR_CANCELED, config, request);
+  this.name = 'CanceledError';
+}
+_utils.default.inherits(CanceledError, _AxiosError.default, {
+  __CANCEL__: true
+});
+var _default = CanceledError;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 67:
+/*!**********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/adapters.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
+var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 50));
+var _xhr = _interopRequireDefault(__webpack_require__(/*! ./xhr.js */ 68));
+var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
+var knownAdapters = {
+  http: _http.default,
+  xhr: _xhr.default
+};
+_utils.default.forEach(knownAdapters, function (fn, value) {
+  if (fn) {
+    try {
+      Object.defineProperty(fn, 'name', {
+        value: value
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-empty
+    }
+    Object.defineProperty(fn, 'adapterName', {
+      value: value
+    });
+  }
+});
+var _default = {
+  getAdapter: function getAdapter(adapters) {
+    adapters = _utils.default.isArray(adapters) ? adapters : [adapters];
+    var _adapters = adapters,
+      length = _adapters.length;
+    var nameOrAdapter;
+    var adapter;
+    for (var i = 0; i < length; i++) {
+      nameOrAdapter = adapters[i];
+      if (adapter = _utils.default.isString(nameOrAdapter) ? knownAdapters[nameOrAdapter.toLowerCase()] : nameOrAdapter) {
+        break;
+      }
+    }
+    if (!adapter) {
+      if (adapter === false) {
+        throw new _AxiosError.default("Adapter ".concat(nameOrAdapter, " is not supported by the environment"), 'ERR_NOT_SUPPORT');
+      }
+      throw new Error(_utils.default.hasOwnProp(knownAdapters, nameOrAdapter) ? "Adapter '".concat(nameOrAdapter, "' is not available in the build") : "Unknown adapter '".concat(nameOrAdapter, "'"));
+    }
+    if (!_utils.default.isFunction(adapter)) {
+      throw new TypeError('adapter is not a function');
+    }
+    return adapter;
+  },
+  adapters: knownAdapters
+
 };
 
 /***/ }),
@@ -14748,9 +14963,9 @@ module.exports = CanceledError;
 /***/ }),
 
 /***/ 68:
-/*!*********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/adapters/xhr.js ***!
-  \*********************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/xhr.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14958,9 +15173,9 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ 69:
-/*!********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/settle.js ***!
-  \********************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/settle.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15028,9 +15243,9 @@ module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module
 /***/ }),
 
 /***/ 70:
-/*!************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/cookies.js ***!
-  \************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/cookies.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15082,9 +15297,9 @@ function nonStandardBrowserEnv() {
 /***/ }),
 
 /***/ 71:
-/*!***************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/buildFullPath.js ***!
-  \***************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/buildFullPath.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15113,9 +15328,9 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ 72:
-/*!******************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \******************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15138,9 +15353,9 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ 73:
-/*!****************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \****************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15161,9 +15376,9 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ 74:
-/*!********************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \********************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15229,9 +15444,9 @@ function nonStandardBrowserEnv() {
 /***/ }),
 
 /***/ 75:
-/*!******************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/parseProtocol.js ***!
-  \******************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseProtocol.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15241,14 +15456,74 @@ function nonStandardBrowserEnv() {
 module.exports = function parseProtocol(url) {
   var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
   return match && match[1] || '';
-};
+
+}
+
+/***/ }),
+
+/***/ 76:
+/*!************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/speedometer.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Calculate data maxRate
+ * @param {Number} [samplesCount= 10]
+ * @param {Number} [min= 1000]
+ * @returns {Function}
+ */
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+function speedometer(samplesCount, min) {
+  samplesCount = samplesCount || 10;
+  var bytes = new Array(samplesCount);
+  var timestamps = new Array(samplesCount);
+  var head = 0;
+  var tail = 0;
+  var firstSampleTS;
+  min = min !== undefined ? min : 1000;
+  return function push(chunkLength) {
+    var now = Date.now();
+    var startedAt = timestamps[tail];
+    if (!firstSampleTS) {
+      firstSampleTS = now;
+    }
+    bytes[head] = chunkLength;
+    timestamps[head] = now;
+    var i = tail;
+    var bytesCount = 0;
+    while (i !== head) {
+      bytesCount += bytes[i++];
+      i = i % samplesCount;
+    }
+    head = (head + 1) % samplesCount;
+    if (head === tail) {
+      tail = (tail + 1) % samplesCount;
+    }
+    if (now - firstSampleTS < min) {
+      return;
+    }
+    var passed = startedAt && now - startedAt;
+    return passed ? Math.round(bytesCount * 1000 / passed) : undefined;
+  };
+}
+var _default = speedometer;
+exports.default = _default;
+
 
 /***/ }),
 
 /***/ 77:
-/*!*************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/core/mergeConfig.js ***!
-  \*************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/mergeConfig.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15353,9 +15628,9 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ 78:
-/*!**************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/validator.js ***!
-  \**************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/validator.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15438,9 +15713,9 @@ module.exports = {
 /***/ }),
 
 /***/ 79:
-/*!*****************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/env/data.js ***!
-  \*****************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/env/data.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15471,9 +15746,9 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 /***/ }),
 
 /***/ 80:
-/*!***************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/CancelToken.js ***!
-  \***************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15590,9 +15865,9 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ 81:
-/*!***********************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/spread.js ***!
-  \***********************************************************************/
+/*!*******************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/spread.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15628,9 +15903,9 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ 82:
-/*!*****************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/helpers/isAxiosError.js ***!
-  \*****************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15645,16 +15920,102 @@ var utils = __webpack_require__(/*! ./../utils */ 39);
  * @param {*} payload The value to test
  * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
  */
-module.exports = function isAxiosError(payload) {
-  return utils.isObject(payload) && payload.isAxiosError === true;
+
+function isAxiosError(payload) {
+  return _utils.default.isObject(payload) && payload.isAxiosError === true;
+}
+
+/***/ }),
+
+/***/ 83:
+/*!***************************************************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/HttpStatusCode.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
+var HttpStatusCode = {
+  Continue: 100,
+  SwitchingProtocols: 101,
+  Processing: 102,
+  EarlyHints: 103,
+  Ok: 200,
+  Created: 201,
+  Accepted: 202,
+  NonAuthoritativeInformation: 203,
+  NoContent: 204,
+  ResetContent: 205,
+  PartialContent: 206,
+  MultiStatus: 207,
+  AlreadyReported: 208,
+  ImUsed: 226,
+  MultipleChoices: 300,
+  MovedPermanently: 301,
+  Found: 302,
+  SeeOther: 303,
+  NotModified: 304,
+  UseProxy: 305,
+  Unused: 306,
+  TemporaryRedirect: 307,
+  PermanentRedirect: 308,
+  BadRequest: 400,
+  Unauthorized: 401,
+  PaymentRequired: 402,
+  Forbidden: 403,
+  NotFound: 404,
+  MethodNotAllowed: 405,
+  NotAcceptable: 406,
+  ProxyAuthenticationRequired: 407,
+  RequestTimeout: 408,
+  Conflict: 409,
+  Gone: 410,
+  LengthRequired: 411,
+  PreconditionFailed: 412,
+  PayloadTooLarge: 413,
+  UriTooLong: 414,
+  UnsupportedMediaType: 415,
+  RangeNotSatisfiable: 416,
+  ExpectationFailed: 417,
+  ImATeapot: 418,
+  MisdirectedRequest: 421,
+  UnprocessableEntity: 422,
+  Locked: 423,
+  FailedDependency: 424,
+  TooEarly: 425,
+  UpgradeRequired: 426,
+  PreconditionRequired: 428,
+  TooManyRequests: 429,
+  RequestHeaderFieldsTooLarge: 431,
+  UnavailableForLegalReasons: 451,
+  InternalServerError: 500,
+  NotImplemented: 501,
+  BadGateway: 502,
+  ServiceUnavailable: 503,
+  GatewayTimeout: 504,
+  HttpVersionNotSupported: 505,
+  VariantAlsoNegotiates: 506,
+  InsufficientStorage: 507,
+  LoopDetected: 508,
+  NotExtended: 510,
+  NetworkAuthenticationRequired: 511
+
 };
 
 /***/ }),
 
 /***/ 84:
-/*!*******************************************!*\
-  !*** D:/Projects/WashHelper/api/order.js ***!
-  \*******************************************/
+/*!***************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/order.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15690,9 +16051,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 85:
-/*!******************************************!*\
-  !*** D:/Projects/WashHelper/api/user.js ***!
-  \******************************************/
+/*!**************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/user.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15724,9 +16085,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 86:
-/*!*********************************************!*\
-  !*** D:/Projects/WashHelper/store/store.js ***!
-  \*********************************************/
+/*!*****************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/store/store.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17013,9 +17374,9 @@ module.exports = index_cjs;
 /***/ }),
 
 /***/ 88:
-/*!********************************************!*\
-  !*** D:/Projects/WashHelper/store/cart.js ***!
-  \********************************************/
+/*!****************************************************!*\
+  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/store/cart.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
