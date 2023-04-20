@@ -36,7 +36,7 @@
 
 <style lang="scss" scoped>
 	.purchase {
-		padding: 20px 15px;
+		padding: 38rpx 29rpx;
 
 		image {
 			width: 100%;
@@ -44,7 +44,7 @@
 
 		.text1 {
 			margin: 0 auto;
-			padding: 15px 10px;
+			padding: 42rpx 0;
 			width: 90%;
 
 			text {
@@ -59,23 +59,24 @@
 		.button-wrapper {
 			display: flex;
 			justify-content: space-around;
-			margin-top: 20px;
+			margin-top: 42rpx;
 
 			button {
 				color: rgba(145, 145, 145, 1);
 				font-size: 12px;
-				width: 76px;
-				height: 23px;
+				width: 140rpx;
+				height: 44rpx;
 				border-radius: 10px;
-				line-height: 23px;
+				line-height: 44rpx;
 				border: transparent;
 				background: rgba(255, 255, 255, 1);
+				padding: 0rpx 11rpx;
 			}
 		}
 
 		.text2 {
 			margin: 0 auto;
-			padding: 70px 10px;
+			padding: 137rpx 0px;
 			width: 90%;
 
 			text {

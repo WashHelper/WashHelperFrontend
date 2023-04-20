@@ -10,7 +10,7 @@
 		<view class="button-wrapper">
 			<button>授权登录</button>
 			<navigator url="">我再看看</navigator>
-		</view>
+		</view><!--  -->
 
 		<view class="footer">
 			<text>授权登录表示您已经同意我们的服务条款</text>
@@ -35,7 +35,7 @@
 			padding: 15px 10px;
 			width: 90%;
 			border-top: 2px solid grey;
-
+			
 			text {
 				display: block;
 				font-weight: 400;
@@ -45,7 +45,7 @@
 					font-size: 14px;
 					color: rgba(0, 0, 0, 1);
 				}
-
+				
 				&:last-of-type {
 					margin-top: 16px;
 					font-size: 10px;
