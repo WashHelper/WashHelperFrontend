@@ -21,7 +21,9 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	// @import 'sadais-piui/scss/index.scss';
+
 	page {
 		/*每个页面公共css */
 		background: rgba(245, 245, 245, 1);

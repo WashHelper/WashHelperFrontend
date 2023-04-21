@@ -1,6 +1,6 @@
 <template>
-	<view class="pickupAddress-section">
-		<text class="text1">送回地址</text>
+	<view class="mailingAddress-section">
+		<text class="text1">网点自送</text>
 		<view class="input-wrapper">
 
 			<view class="main-item">
@@ -12,25 +12,25 @@
 				<input type="text" placeholder="请输入电话" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>所在地区</text>
+				<text>网点选择</text>
+				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder">
+			</view>
+			<view class="main-item">
+				<text>实物图片</text>
 				<view class="cover">
-					<input type="text" placeholder="请选择省市区" placeholder-class="placeholder" @click="showPopup"
+					<input type="text" placeholder="点击上传图片" placeholder-class="placeholder" @click="showPopup"
 						v-model="selected">
 				</view>
 			</view>
 			<view class="main-item">
-				<text>详细地址</text>
-				<input type="text" placeholder="请填写具体地址" placeholder-class="placeholder">
-			</view>
-			<view class="main-item">
-				<text>取件时间</text>
-				<input type="text" placeholder="请选择具体时间" placeholder-class="placeholder">
+				<text>备注</text>
+				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
 			</view>
 			<view class="default">
 				<text>设为默认</text>
 			</view>
 		</view>
-		<button @click="handleRegister">保存</button>
+		<button @click="handleRegister">注册并登录</button>
 
 		<!-- cover -->
 		<view class="cover">
@@ -45,7 +45,7 @@
 						</ul>
 					</view>
 					<view class="popup-bottom" @click="handleSelect()">
-						<button>保存</button>
+						<button>确定</button>
 					</view>
 				</view>
 			</view>
@@ -63,7 +63,7 @@
 				// cover
 				isPopup: false,
 				title: "请选择",
-				list: ["桂苑", "荷苑", "李苑", "柳苑"],
+				list: ["拍照上传", "图库选择"],
 				selected: ""
 			}
 		},
@@ -88,7 +88,7 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.pickupAddress-section {
+	.mailingAddress-section {
 		padding: 38rpx 29rpx;
 
 
@@ -143,6 +143,9 @@
 					margin-left: 30rpx;
 				}
 
+				.input5 {
+					margin-left: 60rpx;
+				}
 
 				.placeholder {
 					font-size: 26.92rpx;
@@ -197,8 +200,8 @@
 			border: transparent;
 			border-radius: 10px;
 			line-height: 67rpx;
-			background: rgba(131, 195, 230, 1);
 			color: rgba(255, 255, 255, 1);
+			background: rgba(131, 195, 230, 1);
 			margin-top: 33rpx;
 			margin-bottom: 65rpx;
 			font-size: 34.62rpx;

@@ -6,10 +6,11 @@ export default {
 	 * @description 登录接口 
 	 */
 	login(code) {
+		console.log(code);
 		return request({
 			url: '/login',
 			method: 'post',
-			data: {
+			params: {
 				code
 			}
 		})

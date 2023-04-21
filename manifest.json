@@ -27,5 +27,23 @@
 	"uniStatistics": {
 		"enable": false
 	},
-	"vueVersion": "2"
+	"vueVersion": "2",
+	"app-plus": {
+		"modules": {},
+		"distribute": {
+			"sdkConfigs": {
+				"oauth": {
+					"weixin": {
+						"appid": "wx86812ba3adbd4c65",
+						"UniversalLinks": ""
+					},
+					"univerify": {},
+					"qq": {
+						"appid": "wx86812ba3adbd4c65",
+						"UniversalLinks": ""
+					}
+				}
+			}
+		}
+	}
 }
