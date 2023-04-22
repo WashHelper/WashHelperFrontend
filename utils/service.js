@@ -1,7 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
 
-
 // 创建axios实例
 const service = axios.create({
 	// 超时
@@ -73,8 +72,8 @@ service.interceptors.response.use((res) => {
 			message
 		} = res.data
 
-		if (code === 200) {
-
+		if (code === 200 || code === 5000 || code === 0) {
+			console.log(123)
 		} else {
 			uni.showToast({
 				title: message,

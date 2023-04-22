@@ -1,6 +1,6 @@
 import App from './App'
 import api from 'api/index.js'
-import piui from "sadais-piui";
+// import piui from "sadais-piui";
 
 import store from '@/store/store.js'
 // #ifndef VUE3
