@@ -48,8 +48,7 @@
 							}
 						} = await this.$axios.login(code)
 
-						this.getUserProfile()
-
+						await this.getUserProfile()
 						uni.setStorageSync('token', token);
 
 						uni.switchTab({
@@ -69,7 +68,7 @@
 					if (res.confirm) {
 						this.login();
 					} else if (res.cancel) {
-						this.failToLogin('拒绝登录');
+						this.failToLogin('拒绝一键登录');
 					}
 				}
 			});

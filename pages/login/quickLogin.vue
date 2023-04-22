@@ -23,38 +23,7 @@
 		data() {
 			return {}
 		},
-		onShow() {
-			// uni.getUserInfo({
-			// 	provider: 'weixin',
-			// 	success: (infoRes) => {
-			// 		let nickName = infoRes.userInfo.nickName; //获取用户登录昵称
-			// 		let avatarUrl = infoRes.userInfo.avatarUrl; //获取用户头像
-			// 		try {
-			// 			uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
-			// 		} catch (e) {
-			// 			console.log(e);
-			// 		}
-			// 	},
-			// 	fail(err) {
-			// 		console.log(err);
-			// 	}
-			// });
-			wx.getUserProfile({
-				desc: '获取你的昵称、头像',
-				success: res => {
-					//本地存储userInfo
-					uni.setStorageSync('userInfo', res.userInfo);
-					uni.setStorageSync('phonenumber', "请在“个人中心”页面获取");
-					wx.showToast({
-						title: '登录成功',
-						icon: 'success',
-						duration: 1000
-					});
-				},
-				fail: res => {}
-			});
-
-		},
+		onShow() {},
 		methods: {
 			handleLogin() {
 				wx.login({
