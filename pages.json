@@ -26,7 +26,46 @@
 		{
 			"path": "pages/order/index"
 		}
-	],
+
+        ,{
+            "path" : "pages/order/maps",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+
+        ,{
+            "path" : "pages/order/map2",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+
+        ,{
+            "path" : "pages/order/xiadan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order/page",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{

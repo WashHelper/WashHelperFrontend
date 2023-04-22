@@ -449,22 +449,22 @@ function removeInterceptor(method, option) {
     removeInterceptorHook(globalInterceptors, method);
   }
 }
-function wrapperHook(hook) {
+function wrapperHook(hook, params) {
   return function (data) {
-    return hook(data) || data;
+    return hook(data, params) || data;
   };
 }
 function isPromise(obj) {
   return !!obj && ((0, _typeof2.default)(obj) === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
-function queue(hooks, data) {
+function queue(hooks, data, params) {
   var promise = false;
   for (var i = 0; i < hooks.length; i++) {
     var hook = hooks[i];
     if (promise) {
-      promise = Promise.resolve(wrapperHook(hook));
+      promise = Promise.resolve(wrapperHook(hook, params));
     } else {
-      var res = hook(data);
+      var res = hook(data, params);
       if (isPromise(res)) {
         promise = Promise.resolve(res);
       }
@@ -487,7 +487,7 @@ function wrapperOptions(interceptor) {
     if (Array.isArray(interceptor[name])) {
       var oldCallback = options[name];
       options[name] = function callbackInterceptor(res) {
-        queue(interceptor[name], res).then(function (res) {
+        queue(interceptor[name], res, options).then(function (res) {
           /* eslint-disable no-mixed-operators */
           return isFn(oldCallback) && oldCallback(res) || res;
         });
@@ -536,7 +536,8 @@ function invokeApi(method, api, options) {
     if (Array.isArray(interceptor.invoke)) {
       var res = queue(interceptor.invoke, options);
       return res.then(function (options) {
-        return api.apply(void 0, [wrapperOptions(interceptor, options)].concat(params));
+        // 重新访问 getApiInterceptorHooks, 允许 invoke 中再次调用 addInterceptor,removeInterceptor
+        return api.apply(void 0, [wrapperOptions(getApiInterceptorHooks(method), options)].concat(params));
       });
     } else {
       return api.apply(void 0, [wrapperOptions(interceptor, options)].concat(params));
@@ -980,8 +981,8 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.7.9",
-    uniRuntimeVersion: "3.7.9",
+    uniCompileVersion: "3.7.13",
+    uniRuntimeVersion: "3.7.13",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -1757,7 +1758,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2183,38 +2184,54 @@ function initEventChannel() {
 function initScopedSlotsParams() {
   var center = {};
   var parents = {};
-  _vue.default.prototype.$hasScopedSlotsParams = function (vueId) {
-    var has = center[vueId];
-    if (!has) {
-      parents[vueId] = this;
-      this.$on('hook:destroyed', function () {
-        delete parents[vueId];
-      });
-    }
-    return has;
-  };
-  _vue.default.prototype.$getScopedSlotsParams = function (vueId, name, key) {
-    var data = center[vueId];
-    if (data) {
-      var object = data[name] || {};
-      return key ? object[key] : object;
-    } else {
-      parents[vueId] = this;
-      this.$on('hook:destroyed', function () {
-        delete parents[vueId];
-      });
-    }
-  };
-  _vue.default.prototype.$setScopedSlotsParams = function (name, value) {
+  function currentId(fn) {
     var vueIds = this.$options.propsData.vueId;
     if (vueIds) {
       var vueId = vueIds.split(',')[0];
-      var object = center[vueId] = center[vueId] || {};
-      object[name] = value;
+      fn(vueId);
+    }
+  }
+  _vue.default.prototype.$hasSSP = function (vueId) {
+    var slot = center[vueId];
+    if (!slot) {
+      parents[vueId] = this;
+      this.$on('hook:destroyed', function () {
+        delete parents[vueId];
+      });
+    }
+    return slot;
+  };
+  _vue.default.prototype.$getSSP = function (vueId, name, needAll) {
+    var slot = center[vueId];
+    if (slot) {
+      var params = slot[name] || [];
+      if (needAll) {
+        return params;
+      }
+      return params[0];
+    }
+  };
+  _vue.default.prototype.$setSSP = function (name, value) {
+    var index = 0;
+    currentId.call(this, function (vueId) {
+      var slot = center[vueId];
+      var params = slot[name] = slot[name] || [];
+      params.push(value);
+      index = params.length - 1;
+    });
+    return index;
+  };
+  _vue.default.prototype.$initSSP = function () {
+    currentId.call(this, function (vueId) {
+      center[vueId] = {};
+    });
+  };
+  _vue.default.prototype.$callSSP = function () {
+    currentId.call(this, function (vueId) {
       if (parents[vueId]) {
         parents[vueId].$forceUpdate();
       }
-    }
+    });
   };
   _vue.default.mixin({
     destroyed: function destroyed() {
@@ -2366,6 +2383,7 @@ function parseBaseComponent(vueComponentOptions) {
     vueOptions = _initVueComponent2[1];
   var options = _objectSpread({
     multipleSlots: true,
+    // styleIsolation: 'apply-shared',
     addGlobalClass: true
   }, vueOptions.options || {});
   {
@@ -2693,7 +2711,6 @@ var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runt
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var isArray = Array.isArray;
 var isObject = function isObject(val) {
   return val !== null && (0, _typeof2.default)(val) === 'object';
 };
@@ -2772,7 +2789,7 @@ function parse(format, _ref) {
 function compile(tokens, values) {
   var compiled = [];
   var index = 0;
-  var mode = isArray(values) ? 'list' : isObject(values) ? 'named' : 'unknown';
+  var mode = Array.isArray(values) ? 'list' : isObject(values) ? 'named' : 'unknown';
   if (mode === 'unknown') {
     return compiled;
   }
@@ -2838,6 +2855,10 @@ function normalizeLocale(locale, messages) {
     return locale;
   }
   locale = locale.toLowerCase();
+  if (locale === 'chinese') {
+    // 支付宝
+    return LOCALE_ZH_HANS;
+  }
   if (locale.indexOf('zh') === 0) {
     if (locale.indexOf('-hans') > -1) {
       return LOCALE_ZH_HANS;
@@ -2850,7 +2871,11 @@ function normalizeLocale(locale, messages) {
     }
     return LOCALE_ZH_HANS;
   }
-  var lang = startsWith(locale, [LOCALE_EN, LOCALE_FR, LOCALE_ES]);
+  var locales = [LOCALE_EN, LOCALE_FR, LOCALE_ES];
+  if (messages && Object.keys(messages).length > 0) {
+    locales = Object.keys(messages);
+  }
+  var lang = startsWith(locale, locales);
   if (lang) {
     return lang;
   }
@@ -3157,7 +3182,7 @@ function compileJsonObj(jsonObj, localeValues, delimiters) {
   return jsonObj;
 }
 function walkJsonObj(jsonObj, walk) {
-  if (isArray(jsonObj)) {
+  if (Array.isArray(jsonObj)) {
     for (var i = 0; i < jsonObj.length; i++) {
       if (walk(jsonObj, i)) {
         return true;
@@ -3252,7 +3277,7 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.6.11
- * (c) 2014-2022 Evan You
+ * (c) 2014-2023 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -8780,7 +8805,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8801,14 +8826,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8904,7 +8929,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"洗笑颜开","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9262,12 +9287,13 @@ var LIFECYCLE_HOOKS$1 = [
     'onNavigationBarSearchInputChanged',
     'onNavigationBarSearchInputConfirmed',
     'onNavigationBarSearchInputClicked',
+    'onUploadDouyinVideo',
+    'onNFCReadMessage',
     //Component
     // 'onReady', // 兼容旧版本，应该移除该事件
     'onPageShow',
     'onPageHide',
-    'onPageResize',
-    'onUploadDouyinVideo'
+    'onPageResize'
 ];
 function lifecycleMixin$1(Vue) {
 
@@ -9323,9 +9349,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 26:
-/*!*************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/pages.json ***!
-  \*************************************************/
+/*!************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/pages.json ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9333,43 +9359,10 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-
-/***/ 311:
-/*!*******************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
-  \*******************************************************************************************/
-
+/***/ 276:
+/*!******************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10388,6 +10381,37 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ 32:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -10521,9 +10545,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 33:
-/*!***************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/index.js ***!
-  \***************************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/api/index.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10548,19 +10572,18 @@ exports.default = _default;
 
 /***/ }),
 
-
 /***/ 34:
-/*!*****************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api sync \.js$ ***!
-  \*****************************************************/
+/*!****************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/api sync \.js$ ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"./index.js": 33,
 	"./login.js": 35,
-	"./order.js": 84,
-	"./user.js": 85
+	"./order.js": 75,
+	"./user.js": 76
 };
 
 
@@ -10586,10 +10609,9 @@ webpackContext.id = 34;
 /***/ }),
 
 /***/ 340:
-/*!**********************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-transition/createAnimation.js ***!
-  \**********************************************************************************************************/
-
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/@dcloudio/uni-ui/lib/uni-transition/createAnimation.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10721,46 +10743,10 @@ function createAnimation(option, _this) {
 
 /***/ }),
 
-/***/ 34:
-/*!*********************************************!*\
-  !*** D:/Projects/WashHelper/api sync \.js$ ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./index.js": 33,
-	"./login.js": 35,
-	"./order.js": 84,
-	"./user.js": 85
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 34;
-
-/***/ }),
-
 /***/ 35:
-/*!***************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/login.js ***!
-  \***************************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/api/login.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10822,9 +10808,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 36:
-/*!*******************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/utils/service.js ***!
-  \*******************************************************/
+/*!******************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/utils/service.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10847,7 +10833,7 @@ var service = _axios.default.create({
 });
 _axios.default.defaults.adapter = function (config) {
   return new Promise(function (resolve, reject) {
-    var settle = __webpack_require__(/*! axios/lib/core/settle */ 69);
+    var settle = __webpack_require__(/*! axios/lib/core/settle */ 58);
     var buildURL = __webpack_require__(/*! axios/lib/helpers/buildURL */ 42);
     uni.request({
       method: config.method.toUpperCase(),
@@ -10920,9 +10906,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 37:
-/*!******************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/index.js ***!
-  \******************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/index.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10931,9 +10917,9 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 38);
 /***/ }),
 
 /***/ 38:
-/*!**********************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/axios.js ***!
-  \**********************************************************************/
+/*!*********************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/axios.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10943,8 +10929,8 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 38);
 var utils = __webpack_require__(/*! ./utils */ 39);
 var bind = __webpack_require__(/*! ./helpers/bind */ 40);
 var Axios = __webpack_require__(/*! ./core/Axios */ 41);
-var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ 77);
-var defaults = __webpack_require__(/*! ./defaults */ 54);
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ 69);
+var defaults = __webpack_require__(/*! ./defaults */ 46);
 
 /**
  * Create an instance of Axios
@@ -10976,14 +10962,14 @@ var axios = createInstance(defaults);
 axios.Axios = Axios;
 
 // Expose Cancel & CancelToken
-axios.CanceledError = __webpack_require__(/*! ./cancel/CanceledError */ 66);
-axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 80);
-axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 65);
-axios.VERSION = __webpack_require__(/*! ./env/data */ 79).version;
-axios.toFormData = __webpack_require__(/*! ./helpers/toFormData */ 44);
+axios.CanceledError = __webpack_require__(/*! ./cancel/CanceledError */ 65);
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 72);
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 68);
+axios.VERSION = __webpack_require__(/*! ./env/data */ 71).version;
+axios.toFormData = __webpack_require__(/*! ./helpers/toFormData */ 52);
 
 // Expose AxiosError class
-axios.AxiosError = __webpack_require__(/*! ../lib/core/AxiosError */ 49);
+axios.AxiosError = __webpack_require__(/*! ../lib/core/AxiosError */ 50);
 
 // alias for CanceledError for backward compatibility
 axios.Cancel = axios.CanceledError;
@@ -10992,10 +10978,10 @@ axios.Cancel = axios.CanceledError;
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(/*! ./helpers/spread */ 81);
+axios.spread = __webpack_require__(/*! ./helpers/spread */ 73);
 
 // Expose isAxiosError
-axios.isAxiosError = __webpack_require__(/*! ./helpers/isAxiosError */ 82);
+axios.isAxiosError = __webpack_require__(/*! ./helpers/isAxiosError */ 74);
 module.exports = axios;
 
 // Allow use of default import syntax in TypeScript
@@ -11004,9 +10990,9 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ 39:
-/*!**********************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/utils.js ***!
-  \**********************************************************************/
+/*!*********************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/utils.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11464,10 +11450,6 @@ module.exports = {
   isFileList: isFileList
 };
 
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
-
-
 /***/ }),
 
 /***/ 4:
@@ -11487,9 +11469,9 @@ module.exports = _interopRequireDefault, module.exports.__esModule = true, modul
 /***/ }),
 
 /***/ 40:
-/*!*****************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/bind.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/bind.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11509,9 +11491,9 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ 41:
-/*!***************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/Axios.js ***!
-  \***************************************************************************/
+/*!**************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/Axios.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11520,11 +11502,11 @@ module.exports = function bind(fn, thisArg) {
 
 var utils = __webpack_require__(/*! ./../utils */ 39);
 var buildURL = __webpack_require__(/*! ../helpers/buildURL */ 42);
-var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 51);
-var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 52);
-var mergeConfig = __webpack_require__(/*! ./mergeConfig */ 77);
-var buildFullPath = __webpack_require__(/*! ./buildFullPath */ 71);
-var validator = __webpack_require__(/*! ../helpers/validator */ 78);
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 43);
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 44);
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ 69);
+var buildFullPath = __webpack_require__(/*! ./buildFullPath */ 60);
+var validator = __webpack_require__(/*! ../helpers/validator */ 70);
 var validators = validator.validators;
 /**
  * Create a new instance of Axios
@@ -11658,9 +11640,9 @@ module.exports = Axios;
 /***/ }),
 
 /***/ 42:
-/*!*********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/buildURL.js ***!
-  \*********************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/buildURL.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11724,11 +11706,302 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ 43:
+/*!***************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-/*!*********************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/AxiosURLSearchParams.js ***!
-  \*********************************************************************************************/
+"use strict";
 
+
+var utils = __webpack_require__(/*! ./../utils */ 39);
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected,
+    synchronous: options ? options.synchronous : false,
+    runWhen: options ? options.runWhen : null
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+module.exports = InterceptorManager;
+
+/***/ }),
+
+/***/ 44:
+/*!************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 39);
+var transformData = __webpack_require__(/*! ./transformData */ 45);
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 68);
+var defaults = __webpack_require__(/*! ../defaults */ 46);
+var CanceledError = __webpack_require__(/*! ../cancel/CanceledError */ 65);
+
+/**
+ * Throws a `CanceledError` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+  if (config.signal && config.signal.aborted) {
+    throw new CanceledError();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData.call(config, config.data, config.headers, config.transformRequest);
+
+  // Flatten headers
+  config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
+  utils.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
+    delete config.headers[method];
+  });
+  var adapter = config.adapter || defaults.adapter;
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData.call(config, response.data, response.headers, config.transformResponse);
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData.call(config, reason.response.data, reason.response.headers, config.transformResponse);
+      }
+    }
+    return Promise.reject(reason);
+  });
+};
+
+/***/ }),
+
+/***/ 45:
+/*!**********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/transformData.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 39);
+var defaults = __webpack_require__(/*! ../defaults */ 46);
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  var context = this || defaults;
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn.call(context, data, headers);
+  });
+  return data;
+};
+
+/***/ }),
+
+/***/ 46:
+/*!******************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/defaults/index.js ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(/*! ../utils */ 39);
+var normalizeHeaderName = __webpack_require__(/*! ../helpers/normalizeHeaderName */ 49);
+var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 50);
+var transitionalDefaults = __webpack_require__(/*! ./transitional */ 51);
+var toFormData = __webpack_require__(/*! ../helpers/toFormData */ 52);
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ../adapters/xhr */ 57);
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ../adapters/http */ 57);
+  }
+  return adapter;
+}
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils.trim(rawValue);
+    } catch (e) {
+      if (e.name !== 'SyntaxError') {
+        throw e;
+      }
+    }
+  }
+  return (encoder || JSON.stringify)(rawValue);
+}
+var defaults = {
+  transitional: transitionalDefaults,
+  adapter: getDefaultAdapter(),
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    var isObjectPayload = utils.isObject(data);
+    var contentType = headers && headers['Content-Type'];
+    var isFileList;
+    if ((isFileList = utils.isFileList(data)) || isObjectPayload && contentType === 'multipart/form-data') {
+      var _FormData = this.env && this.env.FormData;
+      return toFormData(isFileList ? {
+        'files[]': data
+      } : data, _FormData && new _FormData());
+    } else if (isObjectPayload || contentType === 'application/json') {
+      setContentTypeIfUnset(headers, 'application/json');
+      return stringifySafely(data);
+    }
+    return data;
+  }],
+  transformResponse: [function transformResponse(data) {
+    var transitional = this.transitional || defaults.transitional;
+    var silentJSONParsing = transitional && transitional.silentJSONParsing;
+    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
+    if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === 'SyntaxError') {
+            throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
+          }
+          throw e;
+        }
+      }
+    }
+    return data;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: __webpack_require__(/*! ./env/FormData */ 67)
+  },
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  },
+  headers: {
+    common: {
+      'Accept': 'application/json, text/plain, */*'
+    }
+  }
+};
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+module.exports = defaults;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 47)))
+
+/***/ }),
+
+/***/ 47:
+/*!********************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/process.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11756,7 +12029,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 56);
+        if (!path) path = __webpack_require__(/*! path */ 48);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -11770,10 +12043,463 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 44:
-/*!***********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toFormData.js ***!
-  \***********************************************************************************/
+/***/ 48:
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 47)))
+
+/***/ }),
+
+/***/ 49:
+/*!*******************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ 39);
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+/***/ }),
+
+/***/ 5:
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 6);
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 7);
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 10);
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 50:
+/*!*******************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/AxiosError.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ 39);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [config] The config.
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+function AxiosError(message, code, config, request, response) {
+  Error.call(this);
+  this.message = message;
+  this.name = 'AxiosError';
+  code && (this.code = code);
+  config && (this.config = config);
+  request && (this.request = request);
+  response && (this.response = response);
+}
+utils.inherits(AxiosError, Error, {
+  toJSON: function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  }
+});
+var prototype = AxiosError.prototype;
+var descriptors = {};
+['ERR_BAD_OPTION_VALUE', 'ERR_BAD_OPTION', 'ECONNABORTED', 'ETIMEDOUT', 'ERR_NETWORK', 'ERR_FR_TOO_MANY_REDIRECTS', 'ERR_DEPRECATED', 'ERR_BAD_RESPONSE', 'ERR_BAD_REQUEST', 'ERR_CANCELED'
+// eslint-disable-next-line func-names
+].forEach(function (code) {
+  descriptors[code] = {
+    value: code
+  };
+});
+Object.defineProperties(AxiosError, descriptors);
+Object.defineProperty(prototype, 'isAxiosError', {
+  value: true
+});
+
+// eslint-disable-next-line func-names
+AxiosError.from = function (error, code, config, request, response, customProps) {
+  var axiosError = Object.create(prototype);
+  utils.toFlatObject(error, axiosError, function filter(obj) {
+    return obj !== Error.prototype;
+  });
+  AxiosError.call(axiosError, error.message, code, config, request, response);
+  axiosError.name = error.name;
+  customProps && Object.assign(axiosError, customProps);
+  return axiosError;
+};
+module.exports = AxiosError;
+
+/***/ }),
+
+/***/ 51:
+/*!*************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/defaults/transitional.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  silentJSONParsing: true,
+  forcedJSONParsing: true,
+  clarifyTimeoutError: false
+};
+
+/***/ }),
+
+/***/ 52:
+/*!**********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/toFormData.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11836,15 +12562,12 @@ function toFormData(obj, formData) {
   build(obj);
   return formData;
 }
-
-var _default = toFormData;
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 45).Buffer))
-
+module.exports = toFormData;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/buffer/index.js */ 53).Buffer))
 
 /***/ }),
 
-/***/ 45:
+/***/ 53:
 /*!**************************************!*\
   !*** ./node_modules/buffer/index.js ***!
   \**************************************/
@@ -11862,9 +12585,9 @@ exports.default = _default;
 
 
 
-var base64 = __webpack_require__(/*! base64-js */ 46)
-var ieee754 = __webpack_require__(/*! ieee754 */ 47)
-var isArray = __webpack_require__(/*! isarray */ 48)
+var base64 = __webpack_require__(/*! base64-js */ 54)
+var ieee754 = __webpack_require__(/*! ieee754 */ 55)
+var isArray = __webpack_require__(/*! isarray */ 56)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -13646,7 +14369,7 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 54:
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
   \*****************************************/
@@ -13808,7 +14531,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 47:
+/***/ 55:
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
   \***************************************/
@@ -13904,7 +14627,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 48:
+/***/ 56:
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
   \***************************************/
@@ -13920,120 +14643,9 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ 49:
-/*!********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosError.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ../utils */ 39);
-
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [config] The config.
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-function AxiosError(message, code, config, request, response) {
-  Error.call(this);
-  this.message = message;
-  this.name = 'AxiosError';
-  code && (this.code = code);
-  config && (this.config = config);
-  request && (this.request = request);
-  response && (this.response = response);
-}
-utils.inherits(AxiosError, Error, {
-  toJSON: function toJSON() {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: this.config,
-      code: this.code,
-      status: this.response && this.response.status ? this.response.status : null
-    };
-  }
-});
-var prototype = AxiosError.prototype;
-var descriptors = {};
-['ERR_BAD_OPTION_VALUE', 'ERR_BAD_OPTION', 'ECONNABORTED', 'ETIMEDOUT', 'ERR_NETWORK', 'ERR_FR_TOO_MANY_REDIRECTS', 'ERR_DEPRECATED', 'ERR_BAD_RESPONSE', 'ERR_BAD_REQUEST', 'ERR_CANCELED'
-// eslint-disable-next-line func-names
-].forEach(function (code) {
-  descriptors[code] = {
-    value: code
-  };
-});
-Object.defineProperties(AxiosError, descriptors);
-Object.defineProperty(prototype, 'isAxiosError', {
-  value: true
-});
-
-// eslint-disable-next-line func-names
-AxiosError.from = function (error, code, config, request, response, customProps) {
-  var axiosError = Object.create(prototype);
-  utils.toFlatObject(error, axiosError, function filter(obj) {
-    return obj !== Error.prototype;
-  });
-  AxiosError.call(axiosError, error.message, code, config, request, response);
-  axiosError.name = error.name;
-  customProps && Object.assign(axiosError, customProps);
-  return axiosError;
-};
-module.exports = AxiosError;
-
-/***/ }),
-
-/***/ 5:
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 6);
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 7);
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 10);
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 50:
-/*!*****************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/null.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// eslint-disable-next-line strict
-module.exports = null;
-
-/***/ }),
-
-/***/ 51:
+/***/ 57:
 /*!****************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/InterceptorManager.js ***!
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/adapters/xhr.js ***!
   \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -14042,947 +14654,16 @@ module.exports = null;
 
 
 var utils = __webpack_require__(/*! ./../utils */ 39);
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
- * Add a new interceptor to the stack
- *
- * @param {Function} fulfilled The function to handle `then` for a `Promise`
- * @param {Function} rejected The function to handle `reject` for a `Promise`
- *
- * @return {Number} An ID used to remove interceptor later
- */
-InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected,
-    synchronous: options ? options.synchronous : false,
-    runWhen: options ? options.runWhen : null
-  });
-  return this.handlers.length - 1;
-};
-
-/**
- * Remove an interceptor from the stack
- *
- * @param {Number} id The ID that was returned by `use`
- */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
- * Iterate over all the registered interceptors
- *
- * This method is particularly useful for skipping over any
- * interceptors that may have become `null` calling `eject`.
- *
- * @param {Function} fn The function to call for each interceptor
- */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-module.exports = InterceptorManager;
-
-/***/ }),
-
-/***/ 52:
-/*!*************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/dispatchRequest.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 39);
-var transformData = __webpack_require__(/*! ./transformData */ 53);
-var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 65);
-var defaults = __webpack_require__(/*! ../defaults */ 54);
-var CanceledError = __webpack_require__(/*! ../cancel/CanceledError */ 66);
-
-/**
- * Throws a `CanceledError` if cancellation has been requested.
- */
-function throwIfCancellationRequested(config) {
-  if (config.cancelToken) {
-    config.cancelToken.throwIfRequested();
-  }
-  if (config.signal && config.signal.aborted) {
-    throw new CanceledError();
-  }
-}
-
-/**
- * Dispatch a request to the server using the configured adapter.
- *
- * @param {object} config The config that is to be used for the request
- * @returns {Promise} The Promise to be fulfilled
- */
-module.exports = function dispatchRequest(config) {
-  throwIfCancellationRequested(config);
-
-  // Ensure headers exist
-  config.headers = config.headers || {};
-
-  // Transform request data
-  config.data = transformData.call(config, config.data, config.headers, config.transformRequest);
-
-  // Flatten headers
-  config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
-  utils.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
-    delete config.headers[method];
-  });
-  var adapter = config.adapter || defaults.adapter;
-  return adapter(config).then(function onAdapterResolution(response) {
-    throwIfCancellationRequested(config);
-
-    // Transform response data
-    response.data = transformData.call(config, response.data, response.headers, config.transformResponse);
-    return response;
-  }, function onAdapterRejection(reason) {
-    if (!isCancel(reason)) {
-      throwIfCancellationRequested(config);
-
-      // Transform response data
-      if (reason && reason.response) {
-        reason.response.data = transformData.call(config, reason.response.data, reason.response.headers, config.transformResponse);
-      }
-    }
-    return Promise.reject(reason);
-  });
-};
-
-/***/ }),
-
-/***/ 53:
-/*!***********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/transformData.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 39);
-var defaults = __webpack_require__(/*! ../defaults */ 54);
-
-/**
- * Transform the data for a request or a response
- *
- * @param {Object|String} data The data to be transformed
- * @param {Array} headers The headers for the request or response
- * @param {Array|Function} fns A single function or Array of functions
- * @returns {*} The resulting transformed data
- */
-module.exports = function transformData(data, headers, fns) {
-  var context = this || defaults;
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn.call(context, data, headers);
-  });
-  return data;
-};
-
-/***/ }),
-
-/***/ 54:
-/*!*******************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/index.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(/*! ../utils */ 39);
-var normalizeHeaderName = __webpack_require__(/*! ../helpers/normalizeHeaderName */ 57);
-var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 49);
-var transitionalDefaults = __webpack_require__(/*! ./transitional */ 55);
-var toFormData = __webpack_require__(/*! ../helpers/toFormData */ 44);
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(/*! ../adapters/xhr */ 68);
-  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(/*! ../adapters/http */ 68);
-  }
-  return adapter;
-}
-function stringifySafely(rawValue, parser, encoder) {
-  if (utils.isString(rawValue)) {
-    try {
-      (parser || JSON.parse)(rawValue);
-      return utils.trim(rawValue);
-    } catch (e) {
-      if (e.name !== 'SyntaxError') {
-        throw e;
-      }
-    }
-  }
-  return (encoder || JSON.stringify)(rawValue);
-}
-var defaults = {
-  transitional: transitionalDefaults,
-  adapter: getDefaultAdapter(),
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Accept');
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    var isObjectPayload = utils.isObject(data);
-    var contentType = headers && headers['Content-Type'];
-    var isFileList;
-    if ((isFileList = utils.isFileList(data)) || isObjectPayload && contentType === 'multipart/form-data') {
-      var _FormData = this.env && this.env.FormData;
-      return toFormData(isFileList ? {
-        'files[]': data
-      } : data, _FormData && new _FormData());
-    } else if (isObjectPayload || contentType === 'application/json') {
-      setContentTypeIfUnset(headers, 'application/json');
-      return stringifySafely(data);
-    }
-    return data;
-  }],
-  transformResponse: [function transformResponse(data) {
-    var transitional = this.transitional || defaults.transitional;
-    var silentJSONParsing = transitional && transitional.silentJSONParsing;
-    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
-    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
-    if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
-      try {
-        return JSON.parse(data);
-      } catch (e) {
-        if (strictJSONParsing) {
-          if (e.name === 'SyntaxError') {
-            throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
-          }
-          throw e;
-        }
-      }
-    }
-    return data;
-  }],
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: __webpack_require__(/*! ./env/FormData */ 50)
-  },
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  },
-  headers: {
-    common: {
-      'Accept': 'application/json, text/plain, */*'
-    }
-  }
-};
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-module.exports = defaults;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Program Files/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 43)))
-
-/***/ }),
-
-/***/ 55:
-/*!**************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/defaults/transitional.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-  silentJSONParsing: true,
-  forcedJSONParsing: true,
-  clarifyTimeoutError: false
-};
-
-/***/ }),
-
-/***/ 56:
-
-/*!*****************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/toURLEncodedForm.js ***!
-  \*****************************************************************************************/
-
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
-// backported and transplited with Babel, with backwards-compat fixes
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-
-/***/ }),
-
-/***/ 57:
-/*!*******************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/index.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _index.default;
-  }
-});
-var _index = _interopRequireDefault(__webpack_require__(/*! ./node/index.js */ 58));
-
-/***/ }),
-
-/***/ 58:
-/*!***************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/index.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-
-/***/ }),
-
-/***/ 59:
-/*!*********************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/URLSearchParams.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-
-/***/ 60:
-/*!**************************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/FormData.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-
-/***/ 61:
-/*!**********************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/platform/browser/classes/Blob.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  if (path.length === 0) return '.';
-  var code = path.charCodeAt(0);
-  var hasRoot = code === 47 /*/*/;
-  var end = -1;
-  var matchedSlash = true;
-  for (var i = path.length - 1; i >= 1; --i) {
-    code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        if (!matchedSlash) {
-          end = i;
-          break;
-        }
-      } else {
-      // We saw the first non-path separator
-      matchedSlash = false;
-    }
-  }
-
-  if (end === -1) return hasRoot ? '/' : '.';
-  if (hasRoot && end === 1) {
-    // return '//';
-    // Backwards-compat fix:
-    return '/';
-  }
-  return path.slice(0, end);
-};
-
-
-/***/ 62:
-/*!***************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/formDataToJSON.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-  var start = 0;
-  var end = -1;
-  var matchedSlash = true;
-  var i;
-
-  for (i = path.length - 1; i >= 0; --i) {
-    if (path.charCodeAt(i) === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          start = i + 1;
-          break;
-        }
-      } else if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // path component
-      matchedSlash = false;
-      end = i + 1;
-    }
-  }
-
-  if (end === -1) return '';
-  return path.slice(start, end);
-}
-
-// Uses a mixed approach for backwards-compatibility, as ext behavior changed
-// in new Node.js versions, so only basename() above is backported here
-exports.basename = function (path, ext) {
-  var f = basename(path);
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-exports.extname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  var startDot = -1;
-  var startPart = 0;
-  var end = -1;
-  var matchedSlash = true;
-  // Track the state of characters (if any) we see before our first dot and
-  // after any path separator we find
-  var preDotState = 0;
-  for (var i = path.length - 1; i >= 0; --i) {
-    var code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          startPart = i + 1;
-          break;
-        }
-        continue;
-      }
-    if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // extension
-      matchedSlash = false;
-      end = i + 1;
-    }
-    if (code === 46 /*.*/) {
-        // If this is our first dot, mark it as the start of our extension
-        if (startDot === -1)
-          startDot = i;
-        else if (preDotState !== 1)
-          preDotState = 1;
-    } else if (startDot !== -1) {
-      // We saw a non-dot and non-path separator before our dot, so we should
-      // have a good chance at having a non-empty extension
-      preDotState = -1;
-    }
-  }
-
-  if (startDot === -1 || end === -1 ||
-      // We saw a non-dot character immediately before the dot
-      preDotState === 0 ||
-      // The (right-most) trimmed path component is exactly '..'
-      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-    return '';
-  }
-  return path.slice(startDot, end);
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 43)))
-
-/***/ }),
-
-
-/***/ 63:
-/*!**********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/AxiosHeaders.js ***!
-  \**********************************************************************************/
-
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ../utils */ 39);
-module.exports = function normalizeHeaderName(headers, normalizedName) {
-  utils.forEach(headers, function processHeader(value, name) {
-    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-      headers[normalizedName] = value;
-      delete headers[name];
-    }
-  });
-};
-
-/***/ }),
-
-/***/ 6:
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 64:
-/*!*************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 39);
-
-// Headers whose duplicates are ignored by node
-// c.f. https://nodejs.org/api/http.html#http_message_headers
-var ignoreDuplicateOf = ['age', 'authorization', 'content-length', 'content-type', 'etag', 'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since', 'last-modified', 'location', 'max-forwards', 'proxy-authorization', 'referer', 'retry-after', 'user-agent'];
-
-/**
- * Parse headers into an object
- *
- * ```
- * Date: Wed, 27 Aug 2014 08:58:49 GMT
- * Content-Type: application/json
- * Connection: keep-alive
- * Transfer-Encoding: chunked
- * ```
- *
- * @param {String} headers Headers needing to be parsed
- * @returns {Object} Headers parsed into an object
- */
-module.exports = function parseHeaders(headers) {
-  var parsed = {};
-  var key;
-  var val;
-  var i;
-  if (!headers) {
-    return parsed;
-  }
-  utils.forEach(headers.split('\n'), function parser(line) {
-    i = line.indexOf(':');
-    key = utils.trim(line.substr(0, i)).toLowerCase();
-    val = utils.trim(line.substr(i + 1));
-    if (key) {
-      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
-        return;
-      }
-      if (key === 'set-cookie') {
-        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
-      } else {
-        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-      }
-    }
-  });
-  return parsed;
-};
-
-/***/ }),
-
-/***/ 65:
-/*!********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/isCancel.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = isCancel;
-function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-}
-
-/***/ }),
-
-/***/ 66:
-/*!*************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CanceledError.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
-var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
-/**
- * A `CanceledError` is an object that is thrown when an operation is canceled.
- *
- * @param {string=} message The message.
- * @param {Object=} config The config.
- * @param {Object=} request The request.
- *
- * @returns {CanceledError} The created error.
- */
-function CanceledError(message, config, request) {
-  // eslint-disable-next-line no-eq-null,eqeqeq
-  _AxiosError.default.call(this, message == null ? 'canceled' : message, _AxiosError.default.ERR_CANCELED, config, request);
-  this.name = 'CanceledError';
-}
-_utils.default.inherits(CanceledError, _AxiosError.default, {
-  __CANCEL__: true
-});
-var _default = CanceledError;
-exports.default = _default;
-
-/***/ }),
-
-/***/ 67:
-/*!**********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/adapters.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _utils = _interopRequireDefault(__webpack_require__(/*! ../utils.js */ 39));
-var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 50));
-var _xhr = _interopRequireDefault(__webpack_require__(/*! ./xhr.js */ 68));
-var _AxiosError = _interopRequireDefault(__webpack_require__(/*! ../core/AxiosError.js */ 49));
-var knownAdapters = {
-  http: _http.default,
-  xhr: _xhr.default
-};
-_utils.default.forEach(knownAdapters, function (fn, value) {
-  if (fn) {
-    try {
-      Object.defineProperty(fn, 'name', {
-        value: value
-      });
-    } catch (e) {
-      // eslint-disable-next-line no-empty
-    }
-    Object.defineProperty(fn, 'adapterName', {
-      value: value
-    });
-  }
-});
-var _default = {
-  getAdapter: function getAdapter(adapters) {
-    adapters = _utils.default.isArray(adapters) ? adapters : [adapters];
-    var _adapters = adapters,
-      length = _adapters.length;
-    var nameOrAdapter;
-    var adapter;
-    for (var i = 0; i < length; i++) {
-      nameOrAdapter = adapters[i];
-      if (adapter = _utils.default.isString(nameOrAdapter) ? knownAdapters[nameOrAdapter.toLowerCase()] : nameOrAdapter) {
-        break;
-      }
-    }
-    if (!adapter) {
-      if (adapter === false) {
-        throw new _AxiosError.default("Adapter ".concat(nameOrAdapter, " is not supported by the environment"), 'ERR_NOT_SUPPORT');
-      }
-      throw new Error(_utils.default.hasOwnProp(knownAdapters, nameOrAdapter) ? "Adapter '".concat(nameOrAdapter, "' is not available in the build") : "Unknown adapter '".concat(nameOrAdapter, "'"));
-    }
-    if (!_utils.default.isFunction(adapter)) {
-      throw new TypeError('adapter is not a function');
-    }
-    return adapter;
-  },
-  adapters: knownAdapters
-
-};
-
-/***/ }),
-
-/***/ 66:
-/*!*****************************************************************************!*\
-  !*** D:/Projects/WashHelper/node_modules/axios/lib/cancel/CanceledError.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 49);
-var utils = __webpack_require__(/*! ../utils */ 39);
-
-/**
- * A `CanceledError` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function CanceledError(message) {
-  // eslint-disable-next-line no-eq-null,eqeqeq
-  AxiosError.call(this, message == null ? 'canceled' : message, AxiosError.ERR_CANCELED);
-  this.name = 'CanceledError';
-}
-utils.inherits(CanceledError, AxiosError, {
-  __CANCEL__: true
-});
-module.exports = CanceledError;
-
-/***/ }),
-
-/***/ 68:
-/*!*****************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/adapters/xhr.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 39);
-var settle = __webpack_require__(/*! ./../core/settle */ 69);
-var cookies = __webpack_require__(/*! ./../helpers/cookies */ 70);
+var settle = __webpack_require__(/*! ./../core/settle */ 58);
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ 59);
 var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 42);
-var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ 71);
-var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 64);
-var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 74);
-var transitionalDefaults = __webpack_require__(/*! ../defaults/transitional */ 55);
-var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 49);
-var CanceledError = __webpack_require__(/*! ../cancel/CanceledError */ 66);
-var parseProtocol = __webpack_require__(/*! ../helpers/parseProtocol */ 75);
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ 60);
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 63);
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 64);
+var transitionalDefaults = __webpack_require__(/*! ../defaults/transitional */ 51);
+var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 50);
+var CanceledError = __webpack_require__(/*! ../cancel/CanceledError */ 65);
+var parseProtocol = __webpack_require__(/*! ../helpers/parseProtocol */ 66);
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     var requestData = config.data;
@@ -15172,17 +14853,17 @@ module.exports = function xhrAdapter(config) {
 
 /***/ }),
 
-/***/ 69:
-/*!****************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/settle.js ***!
-  \****************************************************************************/
+/***/ 58:
+/*!***************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/settle.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var AxiosError = __webpack_require__(/*! ./AxiosError */ 49);
+var AxiosError = __webpack_require__(/*! ./AxiosError */ 50);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -15202,50 +14883,10 @@ module.exports = function settle(resolve, reject, response) {
 
 /***/ }),
 
-/***/ 7:
-/*!*********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
-    try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) {
-        ;
-      }
-    } catch (err) {
-      _d = !0, _e = err;
-    } finally {
-      try {
-        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-    return _arr;
-  }
-}
-module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 70:
-/*!********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/cookies.js ***!
-  \********************************************************************************/
+/***/ 59:
+/*!*******************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/cookies.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15296,18 +14937,32 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 71:
-/*!***********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/buildFullPath.js ***!
-  \***********************************************************************************/
+/***/ 6:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 60:
+/*!**********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/buildFullPath.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ 72);
-var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ 73);
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ 61);
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ 62);
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -15327,10 +14982,10 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 
 /***/ }),
 
-/***/ 72:
-/*!**************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \**************************************************************************************/
+/***/ 61:
+/*!*************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15352,10 +15007,10 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ 73:
-/*!************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \************************************************************************************/
+/***/ 62:
+/*!***********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15375,10 +15030,67 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 
-/***/ 74:
-/*!****************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \****************************************************************************************/
+/***/ 63:
+/*!************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 39);
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = ['age', 'authorization', 'content-length', 'content-type', 'etag', 'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since', 'last-modified', 'location', 'max-forwards', 'proxy-authorization', 'referer', 'retry-after', 'user-agent'];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+  if (!headers) {
+    return parsed;
+  }
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+  return parsed;
+};
+
+/***/ }),
+
+/***/ 64:
+/*!***************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15443,10 +15155,41 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 75:
-/*!**************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/parseProtocol.js ***!
-  \**************************************************************************************/
+/***/ 65:
+/*!************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/cancel/CanceledError.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 50);
+var utils = __webpack_require__(/*! ../utils */ 39);
+
+/**
+ * A `CanceledError` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function CanceledError(message) {
+  // eslint-disable-next-line no-eq-null,eqeqeq
+  AxiosError.call(this, message == null ? 'canceled' : message, AxiosError.ERR_CANCELED);
+  this.name = 'CanceledError';
+}
+utils.inherits(CanceledError, AxiosError, {
+  __CANCEL__: true
+});
+module.exports = CanceledError;
+
+/***/ }),
+
+/***/ 66:
+/*!*************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/parseProtocol.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15456,74 +15199,42 @@ function nonStandardBrowserEnv() {
 module.exports = function parseProtocol(url) {
   var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
   return match && match[1] || '';
-
-}
+};
 
 /***/ }),
 
-/***/ 76:
-/*!************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/speedometer.js ***!
-  \************************************************************************************/
+/***/ 67:
+/*!****************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/null.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// eslint-disable-next-line strict
+module.exports = null;
+
+/***/ }),
+
+/***/ 68:
+/*!*******************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/cancel/isCancel.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/**
- * Calculate data maxRate
- * @param {Number} [samplesCount= 10]
- * @param {Number} [min= 1000]
- * @returns {Function}
- */
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-function speedometer(samplesCount, min) {
-  samplesCount = samplesCount || 10;
-  var bytes = new Array(samplesCount);
-  var timestamps = new Array(samplesCount);
-  var head = 0;
-  var tail = 0;
-  var firstSampleTS;
-  min = min !== undefined ? min : 1000;
-  return function push(chunkLength) {
-    var now = Date.now();
-    var startedAt = timestamps[tail];
-    if (!firstSampleTS) {
-      firstSampleTS = now;
-    }
-    bytes[head] = chunkLength;
-    timestamps[head] = now;
-    var i = tail;
-    var bytesCount = 0;
-    while (i !== head) {
-      bytesCount += bytes[i++];
-      i = i % samplesCount;
-    }
-    head = (head + 1) % samplesCount;
-    if (head === tail) {
-      tail = (tail + 1) % samplesCount;
-    }
-    if (now - firstSampleTS < min) {
-      return;
-    }
-    var passed = startedAt && now - startedAt;
-    return passed ? Math.round(bytesCount * 1000 / passed) : undefined;
-  };
-}
-var _default = speedometer;
-exports.default = _default;
-
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
 
 /***/ }),
 
-/***/ 77:
-/*!*********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/core/mergeConfig.js ***!
-  \*********************************************************************************/
+/***/ 69:
+/*!********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/core/mergeConfig.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15627,10 +15338,50 @@ module.exports = function mergeConfig(config1, config2) {
 
 /***/ }),
 
-/***/ 78:
-/*!**********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/validator.js ***!
-  \**********************************************************************************/
+/***/ 7:
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) {
+        ;
+      }
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 70:
+/*!*********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/validator.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15638,8 +15389,8 @@ module.exports = function mergeConfig(config1, config2) {
 
 
 var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
-var VERSION = __webpack_require__(/*! ../env/data */ 79).version;
-var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 49);
+var VERSION = __webpack_require__(/*! ../env/data */ 71).version;
+var AxiosError = __webpack_require__(/*! ../core/AxiosError */ 50);
 var validators = {};
 
 // eslint-disable-next-line func-names
@@ -15712,10 +15463,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ 79:
-/*!*************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/env/data.js ***!
-  \*************************************************************************/
+/***/ 71:
+/*!************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/env/data.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15725,37 +15476,17 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8:
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 80:
-/*!***********************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/cancel/CancelToken.js ***!
-  \***********************************************************************************/
+/***/ 72:
+/*!**********************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var CanceledError = __webpack_require__(/*! ./CanceledError */ 66);
+var CanceledError = __webpack_require__(/*! ./CanceledError */ 65);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -15864,10 +15595,10 @@ module.exports = CancelToken;
 
 /***/ }),
 
-/***/ 81:
-/*!*******************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/spread.js ***!
-  \*******************************************************************************/
+/***/ 73:
+/*!******************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/spread.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15902,10 +15633,10 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 82:
-/*!*************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/isAxiosError.js ***!
-  \*************************************************************************************/
+/***/ 74:
+/*!************************************************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15920,102 +15651,16 @@ var utils = __webpack_require__(/*! ./../utils */ 39);
  * @param {*} payload The value to test
  * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
  */
-
-function isAxiosError(payload) {
-  return _utils.default.isObject(payload) && payload.isAxiosError === true;
-}
-
-/***/ }),
-
-/***/ 83:
-/*!***************************************************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/node_modules/axios/lib/helpers/HttpStatusCode.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
-var HttpStatusCode = {
-  Continue: 100,
-  SwitchingProtocols: 101,
-  Processing: 102,
-  EarlyHints: 103,
-  Ok: 200,
-  Created: 201,
-  Accepted: 202,
-  NonAuthoritativeInformation: 203,
-  NoContent: 204,
-  ResetContent: 205,
-  PartialContent: 206,
-  MultiStatus: 207,
-  AlreadyReported: 208,
-  ImUsed: 226,
-  MultipleChoices: 300,
-  MovedPermanently: 301,
-  Found: 302,
-  SeeOther: 303,
-  NotModified: 304,
-  UseProxy: 305,
-  Unused: 306,
-  TemporaryRedirect: 307,
-  PermanentRedirect: 308,
-  BadRequest: 400,
-  Unauthorized: 401,
-  PaymentRequired: 402,
-  Forbidden: 403,
-  NotFound: 404,
-  MethodNotAllowed: 405,
-  NotAcceptable: 406,
-  ProxyAuthenticationRequired: 407,
-  RequestTimeout: 408,
-  Conflict: 409,
-  Gone: 410,
-  LengthRequired: 411,
-  PreconditionFailed: 412,
-  PayloadTooLarge: 413,
-  UriTooLong: 414,
-  UnsupportedMediaType: 415,
-  RangeNotSatisfiable: 416,
-  ExpectationFailed: 417,
-  ImATeapot: 418,
-  MisdirectedRequest: 421,
-  UnprocessableEntity: 422,
-  Locked: 423,
-  FailedDependency: 424,
-  TooEarly: 425,
-  UpgradeRequired: 426,
-  PreconditionRequired: 428,
-  TooManyRequests: 429,
-  RequestHeaderFieldsTooLarge: 431,
-  UnavailableForLegalReasons: 451,
-  InternalServerError: 500,
-  NotImplemented: 501,
-  BadGateway: 502,
-  ServiceUnavailable: 503,
-  GatewayTimeout: 504,
-  HttpVersionNotSupported: 505,
-  VariantAlsoNegotiates: 506,
-  InsufficientStorage: 507,
-  LoopDetected: 508,
-  NotExtended: 510,
-  NetworkAuthenticationRequired: 511
-
+module.exports = function isAxiosError(payload) {
+  return utils.isObject(payload) && payload.isAxiosError === true;
 };
 
 /***/ }),
 
-/***/ 84:
-/*!***************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/order.js ***!
-  \***************************************************/
+/***/ 75:
+/*!**************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/api/order.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16050,10 +15695,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 85:
-/*!**************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/api/user.js ***!
-  \**************************************************/
+/***/ 76:
+/*!*************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/api/user.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16084,10 +15729,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 86:
-/*!*****************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/store/store.js ***!
-  \*****************************************************/
+/***/ 77:
+/*!****************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/store/store.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16100,8 +15745,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 87));
-var _cart = _interopRequireDefault(__webpack_require__(/*! @/store/cart.js */ 88));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 78));
+var _cart = _interopRequireDefault(__webpack_require__(/*! @/store/cart.js */ 79));
 _vue.default.use(_vuex.default);
 var store = new _vuex.default.Store({
   modules: {
@@ -16116,7 +15761,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 87:
+/***/ 78:
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
   \**************************************************************************************/
@@ -17373,10 +17018,10 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 88:
-/*!****************************************************!*\
-  !*** D:/洗鞋宝/洗笑颜开/WashHelperFrontend/store/cart.js ***!
-  \****************************************************/
+/***/ 79:
+/*!***************************************************************!*\
+  !*** C:/Users/86134/Desktop/WashHelperFrontend/store/cart.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17414,6 +17059,26 @@ var _default = {
   getters: {}
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ 8:
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 

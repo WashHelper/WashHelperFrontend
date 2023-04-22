@@ -1,11 +1,13 @@
 {
   "pages": [
-    "pages/login/index",
+    "packageOrder/pages/types",
     "pages/login/quickLogin",
     "pages/index/index",
     "pages/user/index",
     "pages/welcome/index",
-    "pages/order/index"
+    "pages/order/index",
+    "pages/order/map",
+    "pages/order/maps"
   ],
   "subPackages": [
     {
@@ -32,8 +34,7 @@
         "pages/recycle",
         "pages/service",
         "pages/card",
-        "pages/chargeMoney",
-        "pages/unused-coupon"
+        "pages/chargeMoney"
       ]
     }
   ],
