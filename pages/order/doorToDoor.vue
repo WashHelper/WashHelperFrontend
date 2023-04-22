@@ -1,6 +1,6 @@
 <template>
-	<view class="pickupAddress-section">
-		<text class="text1">送回地址</text>
+	<view class="doorToDoor-section">
+		<text class="text1">上门取件</text>
 		<view class="input-wrapper">
 
 			<view class="main-item">
@@ -88,7 +88,7 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.pickupAddress-section {
+	.doorToDoor-section {
 		padding: 38rpx 29rpx;
 
 

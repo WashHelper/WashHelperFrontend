@@ -24,19 +24,18 @@
 				</view>
 				<view v-if="active==0">
 					<view class="indexInput-box">
-						<view class="input">
-							<image src="@/static/index-index/分组 2.png" mode=""></image>
+						<view class="input" @click="gotopickupAddress()">
+							<image src="@/static/index-index/get.png" mode=""></image>
 							<text class="placeholder">输入您的取件地址</text>
 						</view>
 						<view class="input">
-							<image src="@/static/index-index/分组 1.png" mode=""></image>
+							<image src="@/static/index-index/send.png" mode=""></image>
 							<text class="placeholder">输入您的送件地址</text>
 						</view>
 
 					</view>
 				</view>
-				<view v-if="active==1">
-					hello
+				<view v-if="active==1" @click="doortodoor()">
 				</view>
 				<view v-if="active==2">
 					<view class="indexInput-box">
@@ -58,7 +57,6 @@
 					</view>
 				</view>
 				<view v-if="active==3">
-					hello
 				</view>
 			</view>
 
@@ -114,7 +112,7 @@
 					id: 2,
 					title: '智能鞋柜'
 				}, {
-					id: 3,
+					// id: 3,
 					title: '邮寄取送'
 				}],
 				navIndex: 0,
@@ -147,6 +145,16 @@
 			gotocredit() {
 				uni.navigateTo({
 					url: '/packageUser/pages/chargeMoney'
+				})
+			},
+			doortodoor() {
+				uni.navigateTo({
+					url: ''
+				})
+			},
+			gotopickupAddress() {
+				uni.navigateTo({
+					url: '/pages/login/quickLogin'
 				})
 			}
 		}
@@ -293,6 +301,7 @@
 			flex-wrap: wrap;
 			width: 92.3vw;
 			// background-color: transparent;
+			background-color: rgba(235, 236, 237, 1);
 
 			image {
 				&:nth-child(2n+1) {

@@ -13,7 +13,7 @@
 				<header>
 					<text class="text">订单状态：取件成功</text><br>
 					<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
-					<text class="text">下单时间：2023-03-12 8：43：10</text>
+					<text class="text">下单时间：{{dateFormat(date)}}</text>
 				</header>
 
 				<div-line></div-line>
@@ -29,9 +29,9 @@
 			</view>
 
 		</view>
-		<view v-if="active==1">hello</view>
-		<view v-if="active==2">hello</view>
-		<view v-if="active==3">hello</view>
+		<view v-if="active==1"></view>
+		<view v-if="active==2"></view>
+		<view v-if="active==3"></view>
 	</view>
 </template>
 
@@ -39,6 +39,7 @@
 	export default {
 		data() {
 			return {
+				date: new Date().toISOString(),
 				active: 0,
 				orderList: {},
 				bannerlist: [{
@@ -56,6 +57,12 @@
 				}]
 			};
 		},
+		mounted() {
+			let _this = this;
+			setInterval(function() {
+				_this.data = Date.parse(new Date())
+			}, 1000)
+		},
 		methods: {
 			gotodetail() {
 				uni.navigateTo({
@@ -64,6 +71,17 @@
 			},
 			clickbar(id) {
 				this.active = id;
+			},
+			dateFormat(time) {
+				let date = new Date(time);
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+				let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+				let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+				let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+				// 拼接
+				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 			}
 		}
 	}

@@ -1,8 +1,11 @@
 {
-	"dependencies": {
-		"@dcloudio/uni-ui": "^1.4.26",
-		"@vant/weapp": "^1.10.14",
-		"axios": "^0.27.2",
-		"firstui-uni": "^1.9.0"
-	}
+  "dependencies": {
+    "@dcloudio/uni-ui": "^1.4.26",
+    "@sadais/piui-tool": "^0.0.28",
+    "@vant/weapp": "^1.10.14",
+    "axios": "^0.27.2",
+    "currency.js": "^2.0.4",
+    "firstui-uni": "^1.9.0",
+    "sadais-piui": "^1.2.7-beta68"
+  }
 }

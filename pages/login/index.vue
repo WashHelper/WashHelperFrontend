@@ -52,8 +52,12 @@
 			return {
 				phoneNumber: '',
 				captcha: '',
-				password: ''
+				password: '',
+				isloading: uni.getStorageSync('isloading') || true
 			}
+		},
+		created() {
+
 		},
 		methods: {
 			getCaptcha() {

@@ -8,7 +8,9 @@
 			<view class="user-name">
 				<text>柚小宝</text>
 				<text>18888</text>
-				<button class="user-btn">开通会员立享优惠</button>
+				<button class="user-btn" @click="gotoCharge()">
+					开通会员立享优惠
+				</button>
 			</view>
 			<image class="set-icon" src="@/static/user-order-index/setting.png" mode="aspectFit" @click="gotosetting">
 			</image>
@@ -16,7 +18,7 @@
 		<section class="mine-body">
 			<ul class="set-list">
 				<li>
-					<navigator url="../../packageUser/pages/card" open-type="navigate">我的卡劵</navigator>
+					<navigator url="@/packageUser/pages/card" open-type="navigate">我的卡劵</navigator>
 				</li>
 				<div-line></div-line>
 				<li>
@@ -69,12 +71,6 @@
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open(type)
 			},
-			// gotoorder() {
-			// 	console.log(123)
-			// 	uni.navigateTo({
-			// 		url: '/pages/order/index'
-			// 	})
-			// },
 			gotosetting() {
 				console.log(123)
 				uni.navigateTo({
@@ -92,6 +88,12 @@
 					phoneNumber: '18851187568' //仅为示例
 				});
 				plue.device.dial('18851187568', true)
+			},
+			gotoCharge() {
+				uni.navigateTo({
+					url: '/packageUser/pages/chargeMoney'
+				})
+				console.log(123)
 			}
 		}
 	}
