@@ -5,7 +5,7 @@ import api from 'api/index.js'
 //货币的计算方式
 import currency from 'currency.js'
 
-import store from '@/store/store.js'
+// import store from '@/store/store.js'
 // #ifndef VUE3
 import Vue from 'vue'
 
@@ -17,8 +17,8 @@ Vue.prototype.$axios = api
 
 App.mpType = 'app'
 const app = new Vue({
-	...App,
-	store
+	...App
+	// store
 })
 app.$mount()
 // #endif
