@@ -93,9 +93,6 @@
 
 <script>
 	export default {
-		// computed: {
-		// 	...mapState('m_cart', [addToCart])
-		// },
 		data() {
 			return {
 				totalNumber: 0, // 下单数量
@@ -135,8 +132,6 @@
 			this.getGoodsList(0)
 		},
 		methods: {
-			// ...mapMutations('m_cart', ['addToCart']),
-			// ...mapMutations('m_cart', ['addToCart']),
 			//获取商品列表数据的方法
 			async getGoodsList(i) {
 				const {

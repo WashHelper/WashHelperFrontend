@@ -34,9 +34,22 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/order/doorToDoor",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/order/mailingAddress",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
-
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{
