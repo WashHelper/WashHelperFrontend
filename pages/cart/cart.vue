@@ -241,8 +241,6 @@
 						color: rgba(87, 182, 230, 1);
 					}
 				}
-
-
 			}
 
 			.right-scroll-view {

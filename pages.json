@@ -8,9 +8,12 @@
 		}
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "packageOrder/pages/detail"
-		},
+		// {
+		// 	"path": "pages/cart/cart"
+		// },
+		// {
+		// 	"path": "pages/login/quickLogin"
+		// },
 		{
 			"path": "pages/login/index"
 		},
@@ -48,23 +51,26 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "洗笑颜开",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{
-					"path": "pages/detail"
-				}, {
-					"path": "pages/types"
-				},
-				{
-					"path": "pages/doorToDoor"
-				}, {
-					"path": "pages/mailingAddress"
-				}, {
-					"path": "pages/pickupAddress"
-				}
-			]
+				"path": "pages/detail"
+			}, {
+				"path": "pages/doorToDoor"
+			}, {
+				"path": "pages/mailingAddress"
+			}, {
+				"path": "pages/pickupAddress"
+			}]
 		},
 		{
 			"root": "packageUser",
@@ -139,6 +145,11 @@
 			"text": "订单",
 			"iconPath": "static/tabbar/second.png",
 			"selectedIconPath": "static/tabbar/second.png"
+		}, {
+			"pagePath": "pages/cart/cart",
+			"text": "购物车",
+			"iconPath": "",
+			"selectedIconPath": ""
 		}, {
 			"pagePath": "pages/user/index",
 			"text": "我的",

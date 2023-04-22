@@ -20,4 +20,14 @@ export default {
 	getAppointmentsByDate_pass(params) {
 		return request('/order/getorderbydate/no', 'get', params)
 	},
+
+	getOrderList(status) {
+		retrun request({
+			url: '/order/getOrderList',
+			method: 'get',
+			params: {
+				status
+			}
+		})
+	}
 }

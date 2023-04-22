@@ -39,18 +39,18 @@
 				</view>
 				<view v-if="active==2">
 					<view class="indexInput-box">
-						<view class="input">
+						<view class="input" @click="gotopickupAddress()">
 							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
 							<view class="placeholder">
 								<text style="font-size: 15px;">选择智能鞋柜</text><br>
-								<text style="font-size: 7px;margin-left: 6px;">洗送衣物存哪里</text>
+								<text style="font-size: 4px;margin-left: 6px;">洗送衣物存哪里</text>
 							</view>
 						</view>
 						<view class="input">
 							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
 							<view class="placeholder">
 								<text style="font-size: 15px;">选择智能鞋柜</text><br>
-								<text style="font-size: 7px;margin-left: 6px;">洗好衣服送回哪里</text>
+								<text style="font-size: 4px;margin-left: 6px;">洗好衣服送回哪里</text>
 							</view>
 						</view>
 
@@ -154,7 +154,7 @@
 			},
 			gotopickupAddress() {
 				uni.navigateTo({
-					url: '/pages/login/quickLogin'
+					url: '/packageOrder/pages/pickupAddress'
 				})
 			}
 		}
@@ -229,7 +229,7 @@
 						}
 
 						.placeholder {
-							font-size: 15px;
+							font-size: 17px;
 							color: #C9C9C9;
 							margin-top: 8rpx;
 						}

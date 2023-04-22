@@ -41,6 +41,7 @@
 			return {
 				date: new Date().toISOString(),
 				active: 0,
+				status: 0,
 				orderList: {},
 				bannerlist: [{
 					id: 0,
@@ -82,6 +83,10 @@
 				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 				// 拼接
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+			},
+			getItemList() {
+				uni.$axios.getOrderList(status)
+				console.log(123)
 			}
 		}
 	}
