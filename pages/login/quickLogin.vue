@@ -8,8 +8,8 @@
 			<text>您的公开信息（您的昵称、头像等）</text>
 		</view>
 		<view class="button-wrapper">
-			<button>授权登录</button>
-			<navigator url="">我再看看</navigator>
+			<button @click="handleLogin">授权登录</button>
+			<navigator url="">其他方式登录</navigator>
 		</view><!--  -->
 
 		<view class="footer">
@@ -19,6 +19,58 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {}
+		},
+		onShow() {
+			// uni.getUserInfo({
+			// 	provider: 'weixin',
+			// 	success: (infoRes) => {
+			// 		let nickName = infoRes.userInfo.nickName; //获取用户登录昵称
+			// 		let avatarUrl = infoRes.userInfo.avatarUrl; //获取用户头像
+			// 		try {
+			// 			uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
+			// 		} catch (e) {
+			// 			console.log(e);
+			// 		}
+			// 	},
+			// 	fail(err) {
+			// 		console.log(err);
+			// 	}
+			// });
+			wx.getUserProfile({
+				desc: '获取你的昵称、头像',
+				success: res => {
+					//本地存储userInfo
+					uni.setStorageSync('userInfo', res.userInfo);
+					uni.setStorageSync('phonenumber', "请在“个人中心”页面获取");
+					wx.showToast({
+						title: '登录成功',
+						icon: 'success',
+						duration: 1000
+					});
+				},
+				fail: res => {}
+			});
+
+		},
+		methods: {
+			handleLogin() {
+				wx.login({
+					success: (res) => {
+						if (res.code) {
+							//发起网络请求
+							this.$axios.login(res.code)
+
+						} else {
+							console.log('登录失败！' + res.errMsg)
+						}
+					}
+				});
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +87,7 @@
 			padding: 15px 10px;
 			width: 90%;
 			border-top: 2px solid grey;
-			
+
 			text {
 				display: block;
 				font-weight: 400;
@@ -45,7 +97,7 @@
 					font-size: 14px;
 					color: rgba(0, 0, 0, 1);
 				}
-				
+
 				&:last-of-type {
 					margin-top: 16px;
 					font-size: 10px;
