@@ -9,7 +9,7 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "packageOrder/pages/types"
+			"path": "packageOrder/pages/detail"
 		},
 		{
 			"path": "pages/login/index"
@@ -34,10 +34,7 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
-		} <<
-		<< << < HEAD
-
-		, {
+		}, {
 			"path": "pages/order/doorToDoor",
 			"style": {
 				"navigationBarTitleText": "",
@@ -53,35 +50,6 @@
 
 		}
 	],
-	===
-	=== =
-],
-// }, {
-// 	"path": "pages/order/pickupAddress",
-// 	"style": {
-// 		"navigationBarTitleText": "",
-// 		"enablePullDownRefresh": false
-// 	}
-
-// }
-
-// , {
-// 	"path": "pages/order/doorToDoor",
-// 	"style": {
-// 		"navigationBarTitleText": "",
-// 		"enablePullDownRefresh": false
-// 	}
-
-// }, {
-// 	"path": "pages/order/mailingAddress",
-// 	"style": {
-// 		"navigationBarTitleText": "",
-// 		"enablePullDownRefresh": false
-// 	}
-
-// }
->>>
->>> > 9 a702b149864a0a4195e5837d4851dd4147d8a0e
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{

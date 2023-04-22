@@ -72,15 +72,6 @@ service.interceptors.response.use((res) => {
 			message
 		} = res.data
 
-		if (code === 200 || code === 5000 || code === 0) {
-			console.log(123)
-		} else {
-			uni.showToast({
-				title: message,
-				icon: 'error',
-				duration: 2000
-			});
-		}
 		return res.data
 
 	},

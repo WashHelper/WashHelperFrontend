@@ -107,4 +107,8 @@
 		height: var(--status-bar-height);
 		width: 100%;
 	}
+
+	::-webkit-scrollbar {
+		width: 0;
+	}
 </style>
