@@ -24,7 +24,7 @@
 				</view>
 				<view v-if="active==0">
 					<view class="indexInput-box">
-						<view class="input">
+						<view class="input" @click="gotopickupAddress()">
 							<image src="@/static/index-index/get.png" mode=""></image>
 							<text class="placeholder">输入您的取件地址</text>
 						</view>
@@ -150,6 +150,11 @@
 			doortodoor() {
 				uni.navigateTo({
 					url: ''
+				})
+			},
+			gotopickupAddress() {
+				uni.navigateTo({
+					url: '/pages/login/quickLogin'
 				})
 			}
 		}

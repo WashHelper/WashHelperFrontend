@@ -2,10 +2,16 @@ import App from './App'
 import api from 'api/index.js'
 // import piui from "sadais-piui";
 
+//货币的计算方式
+import currency from 'currency.js'
+
 import store from '@/store/store.js'
 // #ifndef VUE3
 import Vue from 'vue'
+
+Vue.prototype.currency = currency
 Vue.config.productionTip = false
+
 
 Vue.prototype.$axios = api
 
@@ -26,7 +32,12 @@ uni.$showMeg = function(title = '数据请求失败', duration = 1500) {
 		icon: 'none'
 	})
 }
-
+// uni.$showPrompt = function(title = '购物车为空', duration = 1500) {
+// 	uni.$showToast({
+// 		title,
+// 		duration
+// 	})
+// }
 
 import {
 	createSSRApp
