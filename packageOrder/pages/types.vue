@@ -18,7 +18,7 @@
 								<view class="background" @click="clickItem(index)">
 									<image :src="item.pictureUrl||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
-										:offset="[10, 10]" size="primary"></uni-badge>
+										:offset="[-3, -3]" size="primary"></uni-badge>
 									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="22"
 										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
@@ -54,7 +54,7 @@
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
 						<view class="grid-item-box">
 							<view class="background" @click="clickItem(item)">
-								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
@@ -67,7 +67,7 @@
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index" style="height: 169px;">
 						<view class="grid-item-box" style="height: 169px;margin-top: 0px;">
 							<view class="background" @click="clickItem(item)">
-								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
@@ -92,11 +92,6 @@
 </template>
 
 <script>
-	import {
-		mapState,
-		mapMutations
-	} from 'vuex'
-
 	export default {
 		// computed: {
 		// 	...mapState('m_cart', [addToCart])

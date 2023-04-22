@@ -32,12 +32,6 @@ uni.$showMeg = function(title = '数据请求失败', duration = 1500) {
 		icon: 'none'
 	})
 }
-// uni.$showPrompt = function(title = '购物车为空', duration = 1500) {
-// 	uni.$showToast({
-// 		title,
-// 		duration
-// 	})
-// }
 
 import {
 	createSSRApp

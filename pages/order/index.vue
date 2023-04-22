@@ -12,7 +12,7 @@
 			<view class="order-detail" @click="gotodetail()">
 				<header>
 					<text class="text">订单状态：取件成功</text><br>
-					<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
+					<text class="text"> 预约时间：{{FormData}}2023-03-12 8：00-9：00</text><br>
 					<text class="text">下单时间：2023-03-12 8：43：10</text>
 				</header>
 
@@ -39,6 +39,7 @@
 	export default {
 		data() {
 			return {
+				date: new Date().toISOString(),
 				active: 0,
 				orderList: {},
 				bannerlist: [{

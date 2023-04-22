@@ -301,6 +301,7 @@
 			flex-wrap: wrap;
 			width: 92.3vw;
 			// background-color: transparent;
+			background-color: rgba(235, 236, 237, 1);
 
 			image {
 				&:nth-child(2n+1) {
