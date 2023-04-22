@@ -1,5 +1,4 @@
 <template>
-	<!-- <<<<<<< HEAD -->
 	<view class="mine-container">
 		<header class="header-box">
 			<view class="head-picture">

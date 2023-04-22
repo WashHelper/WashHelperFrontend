@@ -29,7 +29,7 @@
 			<div-line></div-line>
 			<!-- 衣服类型和图片 -->
 			<view class="item-detail">
-				<image src="@/static/order-detail/Artboard.png" mode="aspectFit"></image>
+				<image src="@/static/order-types/clothes/Artboard 73@3x.png" mode="aspectFit"></image>
 				<!-- 衣服类型和价格 -->
 				<view class="type-container">
 					<text class="clothes-type">西服</text>

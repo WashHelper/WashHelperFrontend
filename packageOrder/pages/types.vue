@@ -5,34 +5,35 @@
 		<view class="scroll-view-container">
 			<scroll-view class="left-scroll-view" scroll-y="true" :style="{height:wh+'px','width':'58px'}">
 				<block v-for="(item,i) in leftscrollList" :index="i" :key="i">
-					<view :class="['choice',i===active?'active':'']" @click="activeChange(i)">{{item.text}}</view>
+					<view :class="['choice',i===active?'active':'']" @click="activeChange(i)">{{item.text}}
+					</view>
 				</block>
 
 			</scroll-view>
 			<scroll-view class="right-scroll-view" scroll-y="true" :style="{height:wh+'px'}">
 				<view class="first" v-if="active==0">
 					<uni-grid :column="4" :show-border="false" :square="false" class="wash-shoes">
-						<uni-grid-item v-for="(item,index) in washlist" :index="index" :key="index">
-							<view class="grid-item-box">
-								<view class="background" @click="click(item)">
-									<image :src="item.url||defaultPic" mode="aspectFit"></image>
+						<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
+							<view v-if="index<=7" class="grid-item-box">
+								<view class="background" @click="clickItem(index)">
+									<image :src="item.pictureUrl||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
 										:offset="[10, 10]" size="primary"></uni-badge>
 									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="24"
-										@click="minus(item)" color="rgba(166, 166, 166, 1)"></uni-icons>
+										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
-								<text class="text" style="font-size: 14px;">{{item.text}}</text>
-								<text class="price">{{item.price}}元</text>
+								<text class="text" style="font-size: 14px;">{{item.productName }}</text>
+								<text class="price">{{item.originalPrice }}元</text>
 							</view>
 						</uni-grid-item>
 					</uni-grid>
 					<uni-section title="增值服务" padding style="font-size: 14px;">
 						<uni-grid :column="4" :show-border="false" :square="false" class="addlist">
-							<uni-grid-item v-for="(item ,index) in addlist" :index="index" :key="index">
-								<view class="grid-item-box">
-									<view class="background" @click="click(item)">
-										<text class="text" style="font-size: 14px;">{{item.text}}</text>
-										<text class="price">{{item.price}}元</text>
+							<uni-grid-item v-for="(item ,index) in goodsList" :index="index" :key="index">
+								<view v-if="index>7" class="grid-item-box">
+									<view class="background" @click="clickItem(index)">
+										<text class="text" style="font-size: 14px;">{{item.productName}}</text>
+										<text class="price">{{item.originalPrice}}元</text>
 										<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
 											:offset="[10, 10]" size="primary"></uni-badge>
 									</view>
@@ -43,35 +44,35 @@
 				</view>
 
 				<view v-if="active==1" class="repair-shoes">
-					<view class="list" v-for="(item,index) in repairlist" :index="index" :key="index"
+					<view class="list" v-for="(item,index) in goodsList" :index="index" :key="index"
 						@click="click(item)">
-						<text class="text">{{item.text}}</text>
-						<text class="price">{{item.price}}元</text>
+						<text class="text">{{item.productName }}</text>
+						<text class="price">{{item.originalPrice}}元</text>
 					</view>
 				</view>
 				<uni-grid v-if="active==2" :column="3" :show-border="false" :square="false" class="clothes">
-					<uni-grid-item v-for="(item,index) in clothesList" :index="index" :key="index">
+					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
 						<view class="grid-item-box">
 							<view class="background" @click="click(item)">
 								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
-							<text class="text">{{item.text}}</text>
-							<text class="price">{{item.price}}元</text>
+							<text class="text">{{item.productName }}</text>
+							<text class="price">{{item.originalPrice}}元</text>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
 				<uni-grid v-if="active==3" :column="3" :show-border="false" class="textiles">
-					<uni-grid-item v-for="(item,index) in textiles" :index="index" :key="index" style="height: 169px;">
+					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index" style="height: 169px;">
 						<view class="grid-item-box" style="height: 169px;margin-top: 0px;">
 							<view class="background" @click="click(item)">
 								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
-							<text class="text">{{item.text}}</text>
-							<text class="price">{{item.price}}元</text>
+							<text class="text">{{item.productName}}</text>
+							<text class="price">{{item.originalPrice}}元</text>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
@@ -84,7 +85,7 @@
 				<uni-icons class="cart" type="cart" size="30" color="rgba(255, 195, 0, 1)"></uni-icons>
 			</uni-badge>
 
-			<text>{{totalprice}}元</text>
+			<text>{{this.totalprice}}元</text>
 			<button @click="admit()">确认下单</button>
 		</footer>
 	</view>
@@ -125,64 +126,6 @@
 				}, {
 					id: 3,
 					text: '家纺'
-				}],
-				washlist: [{
-					url: '',
-					text: '休闲鞋',
-					price: 19,
-					badge: 0
-				}, {
-					url: '',
-					text: '运动鞋',
-					price: 23,
-					badge: 0
-				}, {
-					url: '',
-					text: '足球鞋',
-					price: 23,
-					badge: 0
-				}, {
-					url: '',
-					text: '篮球鞋',
-					price: 25,
-					badge: 0
-				}, {
-					url: '',
-					text: '皮鞋（短）',
-					price: 28,
-					badge: 0
-				}, {
-					url: '',
-					text: '皮面长靴',
-					price: 32,
-					badge: 0
-				}, {
-					url: '',
-					text: '绒面鞋',
-					price: 25,
-					badge: 0
-				}, {
-					url: '',
-					text: '布面鞋',
-					price: 19,
-					badge: 0
-				}],
-				addlist: [{
-					text: '去氧化',
-					badge: 0,
-					price: 18
-				}, {
-					text: '补胶',
-					badge: 0,
-					price: 20
-				}, {
-					text: '香氛',
-					badge: 0,
-					price: 3
-				}, {
-					text: '去霉斑',
-					badge: 0,
-					price: 8
 				}],
 				repairlist: [{
 					text: '更换气垫',
@@ -292,18 +235,25 @@
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
-			this.getGoodsList()
+			this.getGoodsList(0)
 		},
 		methods: {
 			// ...mapMutations('m_cart', ['addToCart']),
-			...mapMutations('m_cart', ['addToCart']),
+			// ...mapMutations('m_cart', ['addToCart']),
 			//获取商品列表数据的方法
-			getGoodsList(cb) {
+			async getGoodsList(i) {
+				// this.goodsList;
+				const {
+					data: res
+				} = await this.$axios.getTypeList(i)
+				this.goodsList = res.productList;
+				console.log(this.goodsList)
+
 				//打开节流阀
 				// 	this.isloading = true
 				// async const {
 				// 	data: res
-				// } = await uni.$http.get(''，
+				// } = await uni.$http.get(''
 				// 	this.queryObj)
 				// if (res.meta.status !== 200) {
 				// 	retrun uni.$showMsg()
@@ -315,28 +265,37 @@
 			},
 			activeChange(i) {
 				this.active = i;
+				this.getGoodsList(i)
 
 				//重新为二级分类赋值
 				// this.rightList = this.leftscrollList[i].
 			},
 			//添加购物车并计算价格
-			click(item) {
+			clickItem(index) {
+				this.$axios.add(index)
+				console.log(123);
+				this.goodsList[index].badge++
+				console.log(this.goodsList[index])
 				this.totalNumber++
-				this.totalprice += item.price
+				this.totalprice += this.goodsList[index].originalPrice
 				// item.badge && item.badge++
-				item.badge++
+				// item.badge++
 			},
-			minus(item) {
-				item.badge--;
+			minus(index) {
+				// uni.event.stopPropagation();
+				this.goodsList[index].badge = this.goodsList[index].badge - 1
+				console.log(this.goodsList[index].badge);
 				this.totalNumber--;
-				this.totalprice -= item.price
+				this.totalprice -= this.goodsList[index].originalPrice
+				// this.washlist[index].
 			},
 			//确认下单
 			admit() {
 				uni.navigateTo({
 					url: ''
 				})
-			}
+			},
+
 		},
 		// onReachBottom() {
 

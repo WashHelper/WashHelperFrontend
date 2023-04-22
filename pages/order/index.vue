@@ -29,9 +29,9 @@
 			</view>
 
 		</view>
-		<view v-if="active==1">hello</view>
-		<view v-if="active==2">hello</view>
-		<view v-if="active==3">hello</view>
+		<view v-if="active==1"></view>
+		<view v-if="active==2"></view>
+		<view v-if="active==3"></view>
 	</view>
 </template>
 

@@ -12,6 +12,9 @@
 			"path": "packageOrder/pages/types"
 		},
 		{
+			"path": "pages/login/index"
+		},
+		{
 			"path": "pages/login/quickLogin"
 		},
 		{
@@ -31,35 +34,32 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
-
-		}, {
-			"path": "pages/order/pickupAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}
-        
-        ,{
-            "path" : "pages/order/doorToDoor",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/mailingAddress",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
+	// }, {
+	// 	"path": "pages/order/pickupAddress",
+	// 	"style": {
+	// 		"navigationBarTitleText": "",
+	// 		"enablePullDownRefresh": false
+	// 	}
+
+	// }
+
+	// , {
+	// 	"path": "pages/order/doorToDoor",
+	// 	"style": {
+	// 		"navigationBarTitleText": "",
+	// 		"enablePullDownRefresh": false
+	// 	}
+
+	// }, {
+	// 	"path": "pages/order/mailingAddress",
+	// 	"style": {
+	// 		"navigationBarTitleText": "",
+	// 		"enablePullDownRefresh": false
+	// 	}
+
+	// }
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{

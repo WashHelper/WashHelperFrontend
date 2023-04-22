@@ -22,7 +22,7 @@
 </script>
 
 <style lang="scss">
-	@import 'sadais-piui/scss/index.scss';
+	// @import 'sadais-piui/scss/index.scss';
 
 	page {
 		/*每个页面公共css */
