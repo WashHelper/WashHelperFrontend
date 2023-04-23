@@ -4,14 +4,23 @@ export default {
 
 	/**
 	 * @param {String} productId 
-	 * @description 添加购物车接口 
+	 * @description 往购物车内加入商品
 	 */
-	add(productId) {
+	add(productList) {
 		return request({
 			url: '/cart/add',
+			data: {
+				// picture,
+				productList
+			},
 			method: 'post',
-			params: {
-				productId
+			header: {
+				// Authorization,
+				'Content-Type': 'application/form-data;'
+				// productList: {
+				// 	productId,
+				// 	productNum
+				// }
 			}
 		})
 	},
@@ -31,5 +40,8 @@ export default {
 		})
 
 	},
-
+	/**
+	 * @param {Object} productList
+	 * @description 往购物车内加入商品
+	 */
 }

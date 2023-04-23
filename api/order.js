@@ -21,13 +21,25 @@ export default {
 		return request('/order/getorderbydate/no', 'get', params)
 	},
 
+	/**
+	 * @param {Object} categoryId
+	 * @description 获取用户信息
+	 */
+
 	getOrderList(status) {
-		retrun request({
-			url: '/order/getOrderList',
+		return request({
+			url: '/order/getList',
 			method: 'get',
 			params: {
 				status
 			}
+		})
+	},
+
+	changeOrder() {
+		return request({
+			url: '/order/update',
+			method: 'post'
 		})
 	}
 }

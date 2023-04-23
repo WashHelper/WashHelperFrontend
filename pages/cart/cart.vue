@@ -17,9 +17,9 @@
 							<view v-if="index<=7" class="grid-item-box">
 								<view class="background" @click="clickItem(index)">
 									<image :src="item.pictureUrl||defaultPic" mode="aspectFit"></image>
-									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
-										:offset="[-3, -3]" size="primary"></uni-badge>
-									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="22"
+									<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
+										:offset="[5, -8]" size="primary"></uni-badge>
+									<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
 										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
 								<text class="text" style="font-size: 14px;">{{item.productName }}</text>
@@ -34,8 +34,11 @@
 									<view class="background" @click="clickItem(index)">
 										<text class="text" style="font-size: 14px;">{{item.productName}}</text>
 										<text class="price">{{item.originalPrice}}元</text>
-										<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
-											:offset="[8, 8]" size="small"></uni-badge>
+										<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
+											:offset="[5, -5]" size="small"></uni-badge>
+										<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
+											@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
+											style="left: 0px;"></uni-icons>
 									</view>
 								</view>
 							</uni-grid-item>
@@ -45,7 +48,7 @@
 
 				<view v-if="active==1" class="repair-shoes">
 					<view class="list" v-for="(item,index) in goodsList" :index="index" :key="index"
-						@click="clickItem(item)">
+						@click="clickItem(index)">
 						<text class="text">{{item.productName }}</text>
 						<text class="price">{{item.originalPrice}}元</text>
 					</view>
@@ -53,10 +56,10 @@
 				<uni-grid v-if="active==2" :column="3" :show-border="false" :square="false" class="clothes">
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
 						<view class="grid-item-box">
-							<view class="background" @click="clickItem(item)">
+							<view class="background" @click="clickItem(index)">
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
-								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
-									size="primary"></uni-badge>
+								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
+									:offset="[10, 10]" size="primary"></uni-badge>
 							</view>
 							<text class="text">{{item.productName }}</text>
 							<text class="price">{{item.originalPrice}}元</text>
@@ -66,10 +69,10 @@
 				<uni-grid v-if="active==3" :column="3" :show-border="false" class="textiles">
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index" style="height: 169px;">
 						<view class="grid-item-box" style="height: 169px;margin-top: 0px;">
-							<view class="background" @click="clickItem(item)">
+							<view class="background" @click="clickItem(index)">
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
-								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
-									size="primary"></uni-badge>
+								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
+									:offset="[10, 10]" size="primary"></uni-badge>
 							</view>
 							<text class="text">{{item.productName}}</text>
 							<text class="price">{{item.originalPrice}}元</text>
@@ -165,15 +168,16 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				// this.$axios.add(index)
-				this.goodsList[index].badge++
-				console.log(this.goodsList[index])
+				this.$axios.add(this.goodsList[index])
+				console.log()
+				this.goodsList[index].productNum++
+				// console.log(this.goodsList[index])
 				this.totalNumber++
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
-				this.goodsList[index].badge = this.goodsList[index].badge - 1
-				console.log(this.goodsList[index].badge);
+				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
+				console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
@@ -191,6 +195,7 @@
 						url: ''
 					})
 				}
+				console.log(this.totalprice)
 			},
 
 		},

@@ -50,7 +50,7 @@
 
 						this.getUserProfile()
 
-						uni.setStorageSync('token', token);
+						uni.setStorageSync('token', token)
 
 						uni.switchTab({
 							url: '/pages/index/index'
@@ -58,8 +58,6 @@
 					}
 				});
 			}
-
-
 		},
 		onLaunch() {
 			wx.showModal({

@@ -1,5 +1,4 @@
 <template>
-	<!-- <<<<<<< HEAD -->
 	<view class="mine-container">
 		<header class="header-box">
 			<view class="head-picture">
@@ -62,6 +61,9 @@
 				// type: 'center'
 			};
 		},
+		onLoad() {
+			this.getUserDate();
+		},
 		methods: {
 			open() {
 				this.$refs.popup.open('top')
@@ -94,6 +96,12 @@
 					url: '/packageUser/pages/chargeMoney'
 				})
 				console.log(123)
+			},
+			async getUserDate() {
+				const {
+					data: res
+				} = await this.$axios.getUserInfoList();
+				console.log(res)
 			}
 		}
 	}

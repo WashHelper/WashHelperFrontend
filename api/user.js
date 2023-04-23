@@ -14,5 +14,15 @@ export default {
 	// 修改预约
 	modifyAppointment(params) {
 		return request('/order/updateorder', 'post', params)
+	},
+	//获取用户信息
+	getUserInfoList(token) {
+		return request({
+			url: '/user/info',
+			method: 'get',
+			params: {
+				token
+			}
+		})
 	}
 }
