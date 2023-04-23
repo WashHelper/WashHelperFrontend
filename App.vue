@@ -96,8 +96,6 @@
 </script>
 
 <style lang="scss">
-	// @import 'sadais-piui/scss/index.scss';
-
 	page {
 		/*每个页面公共css */
 		background: rgba(245, 245, 245, 1);
@@ -108,7 +106,13 @@
 		width: 100%;
 	}
 
+	// 取消地图上的 logo
+	a .csssprite {
+		display: none;
+	}
+
 	::-webkit-scrollbar {
 		width: 0;
+
 	}
 </style>
