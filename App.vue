@@ -13,13 +13,16 @@
 			 * 获取用户信息
 			 */
 			getUserProfile() {
-				wx.getUserProfile({
+				uni.getUserInfo({
 					desc: '获取你的昵称、头像',
 					provider: 'weixin',
 					success: (infoRes) => {
-						let nickName = infoRes.userInfo.nickName; //获取用户登录昵称
-						let avatarUrl = infoRes.userInfo.avatarUrl; //获取用户头像
-						console.log(infoRes);
+						const {
+							nickName,
+							avatarUrl
+						} = infoRes.userInfo
+						uni.setStorageSync('avatarUrl', avatarUrl)
+						uni.setStorageSync('nickName', nickName)
 						try {
 							uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
 						} catch (e) {}
@@ -41,15 +44,16 @@
 						const {
 							code
 						} = loginRes
+						console.log(code);
 
-						const {
-							data: {
-								token
-							}
-						} = await this.$axios.login(code)
+						// const {
+						// 	data: {
+						// 		token
+						// 	}
+						// } = await this.$axios.login(code)
 
 						await this.getUserProfile()
-						uni.setStorageSync('token', token);
+						// uni.setStorageSync('token', token);
 
 						uni.switchTab({
 							url: '/pages/index/index'
@@ -73,23 +77,14 @@
 				}
 			});
 
-			uni.checkSession({
-				complete: (res) => {
-					console.log(res);
-				}
-			})
-
-		},
-		onShow() {
-			// uni.getSystemInfo({
-			// 	success(e) {
-			// 		/* 窗口宽度大于420px且不在PC页面且不在移动设备时跳转至 PC.html 页面 */
-			// 		if (e.windowWidth > 420 && !window.top.isPC && !/iOS|Android/i.test(e.system)) {
-			// 			console.log('跳转到html页面')
-			// 		}
+			// uni.checkSession({
+			// 	complete: (res) => {
+			// 		console.log(res);
 			// 	}
 			// })
+
 		},
+		onShow() {},
 		onHide() {}
 	}
 </script>
@@ -105,5 +100,9 @@
 	.status_bar {
 		height: var(--status-bar-height);
 		width: 100%;
+	}
+
+	::-webkit-scrollbar {
+		width: 0;
 	}
 </style>

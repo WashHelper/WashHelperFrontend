@@ -1,6 +1,6 @@
 <template>
-	<view class="pickupAddress-section">
-		<text class="text1">送回地址</text>
+	<view class="mailingAddress-section">
+		<text class="text1">网点自送</text>
 		<view class="input-wrapper">
 
 			<view class="main-item">
@@ -12,19 +12,19 @@
 				<input type="text" placeholder="请输入电话" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>送回方式</text>
-				<view class="cover">
-					<input type="text" placeholder="送回网点/上门配送" placeholder-class="placeholder" @click="showPopup"
-						v-model="selected">
-				</view>
-			</view>
-			<view class="main-item">
 				<text>网点选择</text>
 				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>详细地址</text>
-				<input type="text" placeholder="请填写具体地址" placeholder-class="placeholder">
+				<text>实物图片</text>
+				<view class="cover">
+					<input type="text" placeholder="点击上传图片" placeholder-class="placeholder" @click="showPopup"
+						v-model="selected">
+				</view>
+			</view>
+			<view class="main-item">
+				<text>备注</text>
+				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
 			</view>
 			<view class="default">
 				<text>设为默认</text>
@@ -63,7 +63,7 @@
 				// cover
 				isPopup: false,
 				title: "请选择",
-				list: ["送回网点", "上门配送"],
+				list: ["拍照上传", "图库选择"],
 				selected: ""
 			}
 		},
@@ -88,7 +88,7 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.pickupAddress-section {
+	.mailingAddress-section {
 		padding: 38rpx 29rpx;
 
 
@@ -143,6 +143,9 @@
 					margin-left: 30rpx;
 				}
 
+				.input5 {
+					margin-left: 60rpx;
+				}
 
 				.placeholder {
 					font-size: 26.92rpx;

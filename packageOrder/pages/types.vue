@@ -18,8 +18,8 @@
 								<view class="background" @click="clickItem(index)">
 									<image :src="item.pictureUrl||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
-										:offset="[10, 10]" size="primary"></uni-badge>
-									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="24"
+										:offset="[-3, -3]" size="primary"></uni-badge>
+									<uni-icons v-if="item.badge!=0" class="minus" type="minus-filled" size="22"
 										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
 								<text class="text" style="font-size: 14px;">{{item.productName }}</text>
@@ -35,7 +35,7 @@
 										<text class="text" style="font-size: 14px;">{{item.productName}}</text>
 										<text class="price">{{item.originalPrice}}元</text>
 										<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop"
-											:offset="[10, 10]" size="primary"></uni-badge>
+											:offset="[8, 8]" size="small"></uni-badge>
 									</view>
 								</view>
 							</uni-grid-item>
@@ -45,7 +45,7 @@
 
 				<view v-if="active==1" class="repair-shoes">
 					<view class="list" v-for="(item,index) in goodsList" :index="index" :key="index"
-						@click="click(item)">
+						@click="clickItem(item)">
 						<text class="text">{{item.productName }}</text>
 						<text class="price">{{item.originalPrice}}元</text>
 					</view>
@@ -53,8 +53,8 @@
 				<uni-grid v-if="active==2" :column="3" :show-border="false" :square="false" class="clothes">
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
 						<view class="grid-item-box">
-							<view class="background" @click="click(item)">
-								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+							<view class="background" @click="clickItem(item)">
+								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
@@ -66,8 +66,8 @@
 				<uni-grid v-if="active==3" :column="3" :show-border="false" class="textiles">
 					<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index" style="height: 169px;">
 						<view class="grid-item-box" style="height: 169px;margin-top: 0px;">
-							<view class="background" @click="click(item)">
-								<image :src="item.url||defaultPic" class="image" mode="aspectFit"></image>
+							<view class="background" @click="clickItem(item)">
+								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.badge" absolute="rightTop" :offset="[10, 10]"
 									size="primary"></uni-badge>
 							</view>
@@ -86,21 +86,13 @@
 			</uni-badge>
 
 			<text>{{this.totalprice}}元</text>
-			<button @click="admit()">确认下单</button>
+			<button @click="admitOrder()">确认下单</button>
 		</footer>
 	</view>
 </template>
 
 <script>
-	import {
-		mapState,
-		mapMutations
-	} from 'vuex'
-
 	export default {
-		// computed: {
-		// 	...mapState('m_cart', [addToCart])
-		// },
 		data() {
 			return {
 				totalNumber: 0, // 下单数量
@@ -127,108 +119,10 @@
 					id: 3,
 					text: '家纺'
 				}],
-				repairlist: [{
-					text: '更换气垫',
-					price: 169,
-					badge: 0,
-				}, {
-					text: '更换围边',
-					price: 229,
-					badge: 0,
-				}, {
-					text: '网面破损织补',
-					price: 35,
-					badge: 0,
-				}, {
-					text: '破损修复',
-					price: 79,
-					badge: 0,
-				}, {
-					text: '加后掌耐磨贴',
-					price: 79,
-					badge: 0,
-				}],
-				repairlist: [{
-					text: '更换气垫',
-					price: 169,
-					badge: 0,
-				}, {
-					text: '更换围边',
-					price: 229,
-					badge: 0,
-				}, {
-					text: '网面破损织补',
-					price: 35,
-					badge: 0,
-				}, {
-					text: '破损修复',
-					price: 79,
-					badge: 0,
-				}, {
-					text: '加后掌耐磨贴',
-					price: 79,
-					badge: 0,
-				}],
-				//二级分类列表
-				clothesList: [{
-					url: '/static/order-types/Artboard 93@3x.png',
-					text: '羽绒服',
-					badge: 0,
-					price: 35,
-				}, {
-					url: '/static/order-types/Artboard 71@3x.png',
-					text: '棉服',
-					badge: 0,
-					price: 35,
-				}, {
-					url: '/static/order-types/Artboard 69@3x.png',
-					text: '牛仔',
-					badge: 0,
-					price: 25,
-				}, {
-					url: '/static/order-types/Artboard 97@3x.png',
-					text: '大衣',
-					badge: 0,
-					price: 40,
-				}, {
-					url: '/static/order-types/Artboard 69@3x.png',
-					text: '皮衣',
-					badge: 0,
-					price: 40,
-				}, {
-					url: '/static/order-types/Artboard 73@3x.png',
-					text: '西装',
-					badge: 0,
-					price: 25
-				}],
-				textiles: [{
-					url: '',
-					text: '毛绒玩具',
-					price: 25,
-					badge: 0,
-				}, {
-					url: '',
-					text: '床单',
-					price: 15,
-					badge: 0,
-				}, {
-					url: '',
-					text: '被套',
-					price: 20,
-					badge: 0,
-				}, {
-					url: '',
-					text: '枕头',
-					price: 25,
-					badge: 0,
-				}, {
-					url: '',
-					text: '毛毯',
-					price: 20,
-					badge: 0,
-				}],
+
 				//节流阀
-				isloading: false
+				isloading: false,
+				timer: 0
 			};
 		},
 		onLoad(options) {
@@ -238,17 +132,16 @@
 			this.getGoodsList(0)
 		},
 		methods: {
-			// ...mapMutations('m_cart', ['addToCart']),
-			// ...mapMutations('m_cart', ['addToCart']),
 			//获取商品列表数据的方法
 			async getGoodsList(i) {
-				// this.goodsList;
 				const {
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
+				// this.goodsList.forEach((item) => {
+				// 	this.$set(item, 'badge', 0)
+				// })
 				console.log(this.goodsList)
-
 				//打开节流阀
 				// 	this.isloading = true
 				// async const {
@@ -272,34 +165,35 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				this.$axios.add(index)
-				console.log(123);
+				// this.$axios.add(index)
 				this.goodsList[index].badge++
 				console.log(this.goodsList[index])
 				this.totalNumber++
-				this.totalprice += this.goodsList[index].originalPrice
-				// item.badge && item.badge++
-				// item.badge++
+				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
-				// uni.event.stopPropagation();
 				this.goodsList[index].badge = this.goodsList[index].badge - 1
 				console.log(this.goodsList[index].badge);
 				this.totalNumber--;
-				this.totalprice -= this.goodsList[index].originalPrice
-				// this.washlist[index].
+				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
-			admit() {
-				uni.navigateTo({
-					url: ''
-				})
+			admitOrder() {
+				if (this.totalNumber === 0) {
+					uni.showToast({
+						title: '购物车为空',
+						icon: 'none'
+					})
+					return
+				} else {
+					this.$axios.add(index);
+					uni.navigateTo({
+						url: ''
+					})
+				}
 			},
 
 		},
-		// onReachBottom() {
-
-		// },
 		onPullDownRefresh() {
 			this.isloading = false
 			// this.goodsList = []
