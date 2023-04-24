@@ -13,13 +13,16 @@
 			 * 获取用户信息
 			 */
 			getUserProfile() {
-				wx.getUserProfile({
+				uni.getUserInfo({
 					desc: '获取你的昵称、头像',
 					provider: 'weixin',
 					success: (infoRes) => {
-						let nickName = infoRes.userInfo.nickName; //获取用户登录昵称
-						let avatarUrl = infoRes.userInfo.avatarUrl; //获取用户头像
-						console.log(infoRes);
+						const {
+							nickName,
+							avatarUrl
+						} = infoRes.userInfo
+						uni.setStorageSync('avatarUrl', avatarUrl)
+						uni.setStorageSync('nickName', nickName)
 						try {
 							uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
 						} catch (e) {}
@@ -41,6 +44,7 @@
 						const {
 							code
 						} = loginRes
+						console.log(code);
 
 						const {
 							data: {
@@ -48,10 +52,8 @@
 							}
 						} = await this.$axios.login(code)
 
-						this.getUserProfile()
-
-						uni.setStorageSync('token', token)
-
+						await this.getUserProfile()
+						uni.setStorageSync('token', token);
 						uni.switchTab({
 							url: '/pages/index/index'
 						})
@@ -67,7 +69,7 @@
 					if (res.confirm) {
 						this.login();
 					} else if (res.cancel) {
-						this.failToLogin('拒绝登录');
+						this.failToLogin('拒绝一键登录');
 					}
 				}
 			});
@@ -79,23 +81,12 @@
 			})
 
 		},
-		onShow() {
-			// uni.getSystemInfo({
-			// 	success(e) {
-			// 		/* 窗口宽度大于420px且不在PC页面且不在移动设备时跳转至 PC.html 页面 */
-			// 		if (e.windowWidth > 420 && !window.top.isPC && !/iOS|Android/i.test(e.system)) {
-			// 			console.log('跳转到html页面')
-			// 		}
-			// 	}
-			// })
-		},
+		onShow() {},
 		onHide() {}
 	}
 </script>
 
 <style lang="scss">
-	// @import 'sadais-piui/scss/index.scss';
-
 	page {
 		/*每个页面公共css */
 		background: rgba(245, 245, 245, 1);
@@ -106,7 +97,13 @@
 		width: 100%;
 	}
 
+	// 取消地图上的 logo
+	a .csssprite {
+		display: none;
+	}
+
 	::-webkit-scrollbar {
 		width: 0;
+
 	}
 </style>

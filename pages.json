@@ -8,25 +8,15 @@
 		}
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		// {
-		// 	"path": "pages/cart/cart"
-		// },
-		// {
-		// 	"path": "pages/login/quickLogin"
-		// },
 		{
 			"path": "pages/login/index"
-		},
-		{
+		}, {
 			"path": "pages/login/quickLogin"
-		},
-		{
+		}, {
 			"path": "pages/index/index"
-		},
-		{
+		}, {
 			"path": "pages/user/index"
-		},
-		{
+		}, {
 			"path": "pages/welcome/index"
 		},
 		{
@@ -37,19 +27,6 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/order/doorToDoor",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/order/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
 
 		}, {
 			"path": "pages/cart/cart",
@@ -57,8 +34,41 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/order/maps",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 
 		}
+
+		, {
+			"path": "pages/order/map2",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+		, {
+			"path": "pages/order/xiadan",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/order/page",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+
 	],
 	"subpackages": [{
 			"root": "packageOrder",

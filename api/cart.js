@@ -1,26 +1,35 @@
 import request from '@/utils/service.js'
 
 export default {
-
 	/**
 	 * @param {String} productId 
 	 * @description 往购物车内加入商品
 	 */
-	add(productList) {
+	add(productId) {
 		return request({
 			url: '/cart/add',
 			data: {
-				// picture,
-				productList
+				productId: ''
 			},
 			method: 'post',
-			header: {
-				// Authorization,
-				'Content-Type': 'application/form-data;'
-				// productList: {
-				// 	productId,
-				// 	productNum
-				// }
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+	},
+	/**
+	 * @param {String} productId 
+	 * @description 往购物车内减少商品
+	 */
+	sub(productId) {
+		return request({
+			url: '/cart/delete',
+			data: {
+				productId: ''
+			},
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		})
 	},
@@ -36,12 +45,12 @@ export default {
 			method: 'get',
 			params: {
 				categoryId
-			}
+			},
+			// headers: {
+
+			// }
 		})
 
 	},
-	/**
-	 * @param {Object} productList
-	 * @description 往购物车内加入商品
-	 */
+
 }

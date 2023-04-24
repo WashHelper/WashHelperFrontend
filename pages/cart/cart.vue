@@ -60,6 +60,9 @@
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
 									:offset="[10, 10]" size="primary"></uni-badge>
+								<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
+									@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
+									style="left: 0px;"></uni-icons>
 							</view>
 							<text class="text">{{item.productName }}</text>
 							<text class="price">{{item.originalPrice}}元</text>
@@ -73,6 +76,9 @@
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
 									:offset="[10, 10]" size="primary"></uni-badge>
+								<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
+									@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
+									style="left: 0px;"></uni-icons>
 							</view>
 							<text class="text">{{item.productName}}</text>
 							<text class="price">{{item.originalPrice}}元</text>
@@ -141,9 +147,6 @@
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
-				// this.goodsList.forEach((item) => {
-				// 	this.$set(item, 'badge', 0)
-				// })
 				console.log(this.goodsList)
 				//打开节流阀
 				// 	this.isloading = true
@@ -168,16 +171,21 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				this.$axios.add(this.goodsList[index])
-				console.log()
+				const res = this.$axios.add(this.goodsList[index].productId)
+
+				console.log(res)
+				// console.log(this.goodsList[index])
 				this.goodsList[index].productNum++
 				// console.log(this.goodsList[index])
 				this.totalNumber++
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
+				const res = this.$axios.sub(this.goodsList[index].productId)
+
+				console.log(res)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
-				console.log(this.goodsList[index].productNum);
+				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
