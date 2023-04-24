@@ -20,4 +20,35 @@ export default {
 	getAppointmentsByDate_pass(params) {
 		return request('/order/getorderbydate/no', 'get', params)
 	},
+
+	// 接口
+	/**
+	 * @param {String} contactName
+	 * @description 获取验证码
+	 */
+	getName(contactName) {
+		// const data = new FormData()
+		// data.append('phone', phoneNum)
+		const data = {
+			'phone': phoneNum
+		}
+
+		return request({
+			url: '/',
+			method: 'post',
+			data
+		})
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }

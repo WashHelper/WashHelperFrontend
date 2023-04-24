@@ -41,7 +41,10 @@ service.interceptors.request.use(
 		uni.showLoading({
 			title: '加载中'
 		})
-		config.headers['token'] = uni.getStorageSync('token')
+		const token = uni.getStorageSync('token') || ''
+		if (token) {
+			config.headers['token'] = token
+		}
 		return config
 	},
 	(error) => {
@@ -68,9 +71,14 @@ service.interceptors.request.use(
 service.interceptors.response.use((res) => {
 		uni.hideLoading()
 		let {
-			code,
 			message
 		} = res.data
+
+		uni.showToast({
+			title: message,
+			icon: 'error',
+			duration: 2000
+		});
 
 		return res.data
 

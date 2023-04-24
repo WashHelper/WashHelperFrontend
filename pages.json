@@ -9,9 +9,6 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "packageOrder/pages/detail"
-		},
-		{
 			"path": "pages/login/index"
 		},
 		{
@@ -34,20 +31,6 @@
 				"navigationBarTitleText": "洗笑颜开",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/order/doorToDoor",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/order/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}
 
         ,{
@@ -71,16 +54,7 @@
         }
 
         ,{
-            "path" : "pages/order/xiadan",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/page",
+            "path" : "pages/order/mapBuy",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

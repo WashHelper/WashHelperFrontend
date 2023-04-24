@@ -1,11 +1,11 @@
 <template>
-	<view class="pickupAddress-section">
-		<text class="text1">送回地址</text>
+	<view class="doorToDoor-section">
+		<text class="text1">上门取件</text>
 		<view class="input-wrapper">
 
 			<view class="main-item">
 				<text>联系人</text>
-				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1">
+				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1" v-model="contactName">
 			</view>
 			<view class="main-item">
 				<text>联系方式</text>
@@ -64,7 +64,14 @@
 				isPopup: false,
 				title: "请选择",
 				list: ["桂苑", "荷苑", "李苑", "柳苑"],
-				selected: ""
+				selected: "",
+
+				// 双向绑定
+				contactName: '',
+
+
+
+
 			}
 		},
 
@@ -82,13 +89,28 @@
 			handleStore(index) {
 				this.selected = this.list[index];
 				console.log(this.selected);
-			}
+			},
+
+			// 输入框
+			getName() {
+					this.$axios.getName(this.phoneNumber)
+			},
+
+
+
+
+
+
+
+
+
+
 
 		}
 	}
 </script>
 <style lang="scss" scoped>
-	.pickupAddress-section {
+	.doorToDoor-section {
 		padding: 38rpx 29rpx;
 
 
@@ -120,7 +142,7 @@
 
 			input {
 				margin-top: 26rpx;
-				width: 500rpx;
+				width: 365rpx;
 				height: 26px;
 			}
 
