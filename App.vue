@@ -64,6 +64,7 @@
 
 
 		},
+
 		// onLaunch() {
 		// 	wx.showModal({
 		// 		title: '提示',
@@ -84,6 +85,7 @@
 		// 	// })
 
 		// },
+
 		onShow() {},
 		onHide() {}
 	}
