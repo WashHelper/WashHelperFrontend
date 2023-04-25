@@ -51,6 +51,11 @@
 						@click="clickItem(index)">
 						<text class="text">{{item.productName }}</text>
 						<text class="price">{{item.originalPrice}}元</text>
+						<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop" :offset="[5, -8]"
+							size="primary" style="color: #fff;"></uni-badge>
+						<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
+							@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
+							style="left: 0px;"></uni-icons>
 					</view>
 				</view>
 				<uni-grid v-if="active==2" :column="3" :show-border="false" :square="false" class="clothes">
@@ -59,7 +64,7 @@
 							<view class="background" @click="clickItem(index)">
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
-									:offset="[10, 10]" size="primary"></uni-badge>
+									:offset="[10, -8]" size="primary"></uni-badge>
 								<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
 									@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
 									style="left: 0px;"></uni-icons>
@@ -75,7 +80,7 @@
 							<view class="background" @click="clickItem(index)">
 								<image :src="item.pictureUrl||defaultPic" class="image" mode="aspectFit"></image>
 								<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
-									:offset="[10, 10]" size="primary"></uni-badge>
+									:offset="[10, -8]" size="primary"></uni-badge>
 								<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
 									@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"
 									style="left: 0px;"></uni-icons>
@@ -94,7 +99,7 @@
 				<uni-icons class="cart" type="cart" size="30" color="rgba(255, 195, 0, 1)"></uni-icons>
 			</uni-badge>
 
-			<text>{{this.totalprice}}元</text>
+			<text v-bind:value="totalprice">{{totalprice}}元</text>
 			<button @click="admitOrder()">确认下单</button>
 		</footer>
 	</view>
@@ -139,6 +144,7 @@
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
 			this.getGoodsList(0)
+			console.log(this.totalprice)
 		},
 		methods: {
 			//获取商品列表数据的方法
@@ -171,19 +177,21 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
+
 				const res = this.$axios.add(this.goodsList[index].productId)
 
-				console.log(res)
+				console.log(this.goodsList[index].productId)
 				// console.log(this.goodsList[index])
 				this.goodsList[index].productNum++
-				// console.log(this.goodsList[index])
+				console.log(this.goodsList[index])
 				this.totalNumber++
+				// this.totalprice += this.goodsList[index].originalPrice
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
-				const res = this.$axios.sub(this.goodsList[index].productId)
+				const res2 = this.$axios.sub(this.goodsList[index].productId)
 
-				console.log(res)
+				console.log(this.goodsList[index].productId)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
@@ -198,12 +206,16 @@
 					})
 					return
 				} else {
-					this.$axios.add(index);
+					// this.$axios.add(index);
 					uni.navigateTo({
-						url: ''
+						url: '../order/xiadan'
 					})
 				}
-				console.log(this.totalprice)
+				// console.log(清空购物车)
+				// const {
+				// 	data: res
+				// } = this.$axios.deleteCart()
+				// console.log(res)
 			},
 
 		},
@@ -271,6 +283,7 @@
 					position: absolute;
 					right: 2px;
 					top: 2px;
+					color: #fff;
 				}
 
 				.minus {
@@ -335,6 +348,10 @@
 						.price {
 							position: absolute;
 							margin-left: 41.8vw;
+						}
+
+						.uni-badge {
+							color: #fff;
 						}
 					}
 				}

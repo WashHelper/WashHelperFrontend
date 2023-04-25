@@ -8,13 +8,13 @@ export default {
 	add(productId) {
 		return request({
 			url: '/cart/add',
-			data: {
-				productId: ''
-			},
 			method: 'post',
 			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
+				'Content-Type': 'application/json'
+			},
+			data: {
+				productId
+			},
 		})
 	},
 	/**
@@ -24,12 +24,12 @@ export default {
 	sub(productId) {
 		return request({
 			url: '/cart/delete',
-			data: {
-				productId: ''
-			},
 			method: 'post',
 			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
+				'Content-Type': 'application/json'
+			},
+			data: {
+				productId
 			}
 		})
 	},
@@ -47,10 +47,20 @@ export default {
 				categoryId
 			},
 			// headers: {
-
 			// }
 		})
-
 	},
+	/**
+	 * @description 订单完成后清空购物车
+	 */
 
+	deleteCart() {
+		return request({
+			url: '/cart/deleteAll',
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		})
+	}
 }

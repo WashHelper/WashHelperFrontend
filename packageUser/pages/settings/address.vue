@@ -21,7 +21,7 @@
 			</view>
 		</view>
 
-		<button>增添新地址</button>
+		<button @click="addAddress()">增添新地址</button>
 	</view>
 </template>
 
@@ -33,9 +33,22 @@
 				clickedicon: 'checkbox-filled'
 			};
 		},
+		onLoad() {
+			// const res = this.$axios.getAddressList(0)
+			// console.log(res)
+			this.addAddress(0)
+			// console.log()
+		},
 		methods: {
 			changeicon() {
-				this.icon = this.clickedicon
+				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
+			},
+			addAddress(type) {
+				const {
+					data: res
+				} = this.$axios.getAddressList(type)
+				// console.log(typeof(type))
+				console.log(res)
 			}
 		}
 	}
@@ -146,7 +159,9 @@
 			border-radius: 10px;
 			background: linear-gradient(223.13deg, rgba(87, 182, 230, 1) 0%, rgba(141, 242, 234, 0.5) 90.99%, rgba(247, 247, 193, 0.01) 100%);
 			color: rgba(255, 255, 255, 1);
-			text-align: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 </style>
