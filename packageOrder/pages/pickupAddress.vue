@@ -120,7 +120,7 @@
 
 			input {
 				margin-top: 26rpx;
-				width: 500rpx;
+				width: 365rpx;
 				height: 26px;
 			}
 

@@ -14,7 +14,9 @@
 		<view class="content">
 			<ul>
 				<li v-for="(item, index) in list" :key="index" @click="handleStore(index)" id="item">
+					<img src="../../static/order-map/icPin.png" alt="">
 					{{item}}
+					<span>10.1km</span>
 				</li>
 			</ul>
 
@@ -34,8 +36,9 @@
 
 				id: 0, // 使用 marker点击事件 需要填写id
 				title: 'map',
+				scale: 12,
 				latitude: 32.064118,
-				longitude: 118.855458,
+				longitude: 118.895458,
 				covers: [{
 					latitude: 32.080982,
 					longitude: 118.77094,
@@ -69,7 +72,7 @@
 
 			handleStore(index) {
 				this.selected = this.list[index];
-				console.log(this.selected);
+				// console.log(this.selected);
 			}
 		}
 	}
@@ -116,8 +119,23 @@
 		list-style: none;
 	}
 
+
+	.content ul img {
+		margin: 0 40rpx;
+	}
+
+	.content ul span {
+		position: absolute;
+		top: 35rpx;
+		right: 42rpx;
+		font-size: 23.08rpx;
+		font-weight: 400;
+		color: rgba(0, 0, 0, 0.3);
+	}
+
 	.content li {
-		padding: 33rpx 20px;
+		position: relative;
+		padding: 33rpx 110rpx;
 		cursor: pointer;
 		border-bottom: 1px solid #ddd;
 		transition: all 0.3s ease;
@@ -125,7 +143,6 @@
 		font-weight: 400;
 		letter-spacing: 0px;
 		color: rgba(0, 0, 0, 0.9);
-		text-align: center;
 	}
 
 	.content li:first-child {
