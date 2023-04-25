@@ -20,6 +20,8 @@
 				</view>
 			</view>
 		</view>
+
+		<button>增添新地址</button>
 	</view>
 </template>
 
@@ -136,6 +138,15 @@
 					}
 				}
 			}
+		}
+
+		button {
+			width: 228px;
+			height: 35px;
+			border-radius: 10px;
+			background: linear-gradient(223.13deg, rgba(87, 182, 230, 1) 0%, rgba(141, 242, 234, 0.5) 90.99%, rgba(247, 247, 193, 0.01) 100%);
+			color: rgba(255, 255, 255, 1);
+			text-align: center;
 		}
 	}
 </style>

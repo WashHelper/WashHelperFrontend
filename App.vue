@@ -46,23 +46,20 @@
 						} = loginRes
 						console.log(code);
 
-						// const {
-						// 	data: {
-						// 		token
-						// 	}
-						// } = await this.$axios.login(code)
+						const {
+							data: {
+								token
+							}
+						} = await this.$axios.login(code)
 
 						await this.getUserProfile()
-						// uni.setStorageSync('token', token);
-
+						uni.setStorageSync('token', token);
 						uni.switchTab({
 							url: '/pages/index/index'
 						})
 					}
 				});
 			}
-
-
 		},
 
 		// onLaunch() {

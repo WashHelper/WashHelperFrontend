@@ -7,7 +7,7 @@
 		<view v-if="active==0">
 			<view class="search">
 				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
-				<text class="placeholder">订单号搜索</text>
+				<text class="placeholder" @click="getItemList()">订单号搜索</text>
 			</view>
 			<view class="order-detail" @click="gotodetail()">
 				<header>
@@ -29,18 +29,27 @@
 			</view>
 
 		</view>
-		<view v-if="active==1"></view>
-		<view v-if="active==2"></view>
-		<view v-if="active==3"></view>
+		<view v-if="active==1">
+
+		</view>
+		<view v-if="active==2">
+
+		</view>
+		<view v-if="active==3">
+
+		</view>
 	</view>
 </template>
 
 <script>
+	// import request from '@/api/order.js'
 	export default {
 		data() {
 			return {
 				date: new Date().toISOString(),
 				active: 0,
+				status: 0,
+				OrderList: [],
 				orderList: {},
 				bannerlist: [{
 					id: 0,
@@ -56,6 +65,9 @@
 					title: "已取消"
 				}]
 			};
+		},
+		onLoad() {
+			this.getItemList()
 		},
 		mounted() {
 			let _this = this;
@@ -82,7 +94,15 @@
 				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 				// 拼接
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+			},
+			//查询用户订单
+			async getItemList() {
+				const {
+					data: res
+				} = await this.$axios.getOrderList()
+				console.log(res)
 			}
+
 		}
 	}
 </script>

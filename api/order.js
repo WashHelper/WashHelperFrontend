@@ -21,34 +21,25 @@ export default {
 		return request('/order/getorderbydate/no', 'get', params)
 	},
 
-	// 接口
 	/**
-	 * @param {String} contactName
-	 * @description 获取验证码
+	 * @param {Object} categoryId
+	 * @description 获取用户信息
 	 */
-	getName(contactName) {
-		// const data = new FormData()
-		// data.append('phone', phoneNum)
-		const data = {
-			'phone': phoneNum
-		}
 
+	getOrderList(status) {
 		return request({
-			url: '/',
-			method: 'post',
-			data
+			url: '/order/getList',
+			method: 'get',
+			params: {
+				status
+			}
+		})
+	},
+
+	changeOrder() {
+		return request({
+			url: '/order/update',
+			method: 'post'
 		})
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 }
