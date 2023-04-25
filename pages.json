@@ -54,16 +54,7 @@
         }
 
         ,{
-            "path" : "pages/order/xiadan",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/page",
+            "path" : "pages/order/mapBuy",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
