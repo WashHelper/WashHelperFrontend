@@ -70,7 +70,6 @@
 				} else {
 					this.$axios.getCaptcha(this.phoneNumber)
 				}
-
 			},
 			handleRegister() {
 				if (!this.captcha.trim()) {
