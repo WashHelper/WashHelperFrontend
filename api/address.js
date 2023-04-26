@@ -7,14 +7,8 @@ export default {
 
 	getAddressList(type) {
 		return request({
-			url: '/location/list/type',
-			method: 'get',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			params: {
-				type
-			},
+			url: `/location/list/${type}`,
+			method: 'get'
 		})
 	}
 }

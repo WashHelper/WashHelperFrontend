@@ -103,6 +103,7 @@
 				type: 'center',
 				messageText: '这是一条成功提示',
 				urlsList: [],
+				base: '',
 				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
 				navArr: [{
 					id: 0,
@@ -123,6 +124,9 @@
 		onLoad() {
 			const sysInfo = uni.getSystemInfoSync();
 			this.wh = sysInfo.windowHeight;
+
+			this.base = this.setTest()
+			// this.setStorage()
 			this.testGet();
 		},
 		methods: {
@@ -131,8 +135,6 @@
 					data: res
 				} = await this.$axios.getUrl()
 				this.urlsList = res
-				console.log(res)
-				console.log(123)
 			},
 			change(e) {
 				console.log('当前模式：' + e.type + ',状态：' + e.show);
@@ -167,6 +169,16 @@
 				uni.navigateTo({
 					url: '/packageOrder/pages/pickupAddress'
 				})
+			},
+			setTest() {
+				uni.setStorage({
+					key: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
+					data: 'hello',
+					success: function() {
+						console.log(this.key);
+						return this.key
+					}
+				});
 			}
 		}
 	}

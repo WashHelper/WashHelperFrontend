@@ -5,7 +5,8 @@
 
 			<view class="main-item">
 				<text>联系人</text>
-				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1" v-model="contactName">
+				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1"
+					v-model="contactName">
 			</view>
 			<view class="main-item">
 				<text>联系方式</text>
@@ -68,10 +69,6 @@
 
 				// 双向绑定
 				contactName: '',
-
-
-
-
 			}
 		},
 
@@ -93,18 +90,8 @@
 
 			// 输入框
 			getName() {
-					this.$axios.getName(this.phoneNumber)
+				this.$axios.getName(this.phoneNumber)
 			},
-
-
-
-
-
-
-
-
-
-
 
 		}
 	}

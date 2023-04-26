@@ -4,7 +4,6 @@ export default {
 	/**
 	 * @description 获得图片地址
 	 */
-
 	getUrl() {
 		return request({
 			url: '/user/carousel',

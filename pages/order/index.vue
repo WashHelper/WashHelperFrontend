@@ -23,7 +23,7 @@
 				<view class="footer-banner">
 					<view>修改</view>
 					<view>详情</view>
-					<view>取消</view>
+					<view @tap.native.stop="deleteUserOrder()">取消</view>
 					<view>联系</view>
 				</view>
 			</view>
@@ -50,7 +50,7 @@
 				active: 0,
 				status: 0,
 				OrderList: [],
-				orderList: {},
+				// orderList: {},
 				bannerlist: [{
 					id: 0,
 					title: "全部"
@@ -97,9 +97,13 @@
 			},
 			//查询用户订单
 			async getItemList() {
+				this.OrderList = await this.$axios.getOrderList()
+				console.log(this.OrderList)
+			},
+			deleteUserOrder() {
 				const {
 					data: res
-				} = await this.$axios.getOrderList()
+				} = this.$axios.deleteOrder()
 				console.log(res)
 			}
 
