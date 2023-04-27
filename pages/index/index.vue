@@ -1,17 +1,17 @@
 <template>
 	<view class="container">
 		<view class="bigbox">
-			<view class="banner">
+			<view class="banner" @click="testGet()">
 				<swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff" circular
 					autoplay interval="4000">
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/first.png"></image>
+						<image :src="baseUrl+urlsList[10]"></image>
 					</swiper-item>
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/second.png"></image>
+						<image :src="baseUrl+urlsList[11]"></image>
 					</swiper-item>
 					<swiper-item>
-						<image src="@/static/index-index/index-banner/third.png"></image>
+						<image :src="baseUrl+urlsList[12]"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -25,11 +25,11 @@
 				<view v-if="active==0">
 					<view class="indexInput-box">
 						<view class="input" @click="gotopickupAddress()">
-							<image src="@/static/index-index/get.png" mode=""></image>
+							<image :src="baseUrl+urlsList[6]" mode=""></image>
 							<text class="placeholder">输入您的取件地址</text>
 						</view>
 						<view class="input">
-							<image src="@/static/index-index/send.png" mode=""></image>
+							<image :src="baseUrl+urlsList[7]" mode=""></image>
 							<text class="placeholder">输入您的送件地址</text>
 						</view>
 
@@ -40,17 +40,17 @@
 				<view v-if="active==2">
 					<view class="indexInput-box">
 						<view class="input" @click="gotopickupAddress()">
-							<image src="@/static/index-index/cun.png" mode="aspectFit"></image>
+							<image :src="baseUrl+urlsList[5]" mode="aspectFit"></image>
 							<view class="placeholder">
 								<text style="font-size: 15px;">选择智能鞋柜</text><br>
-								<text style="font-size: 4px;margin-left: 6px;">洗送衣物存哪里</text>
+								<text style="font-size: 9px;margin-left: 6px;">洗送衣物存哪里</text>
 							</view>
 						</view>
 						<view class="input">
-							<image src="@/static/index-index/send.png" mode="aspectFit"></image>
+							<image :src="baseUrl+urlsList[7]" mode="aspectFit"></image>
 							<view class="placeholder">
 								<text style="font-size: 15px;">选择智能鞋柜</text><br>
-								<text style="font-size: 4px;margin-left: 6px;">洗好衣服送回哪里</text>
+								<text style="font-size: 9px;margin-left: 6px;">洗好衣服送回哪里</text>
 							</view>
 						</view>
 
@@ -62,10 +62,10 @@
 
 		</view>
 		<uni-section class="ad" style="background-color: transparent;">
-			<image src="@/static/index-index/ad-first.png" mode="aspectFit" @click="gotocredit()"></image>
-			<image src="@/static/index-index/ad-second.png" mode="aspectFit" @click="gotocard()"></image>
-			<image src="@/static/index-index/ad-third.png" mode="aspectFit"></image>
-			<image src="@/static/index-index/ad-fourth.png" mode="aspectFit" @click="toggle('center')">
+			<image :src="baseUrl+urlsList[0]" mode="aspectFit" @click="gotocredit()"></image>
+			<image :src="baseUrl+urlsList[2]" mode="aspectFit" @click="gotocard()"></image>
+			<image :src="baseUrl+urlsList[3]" mode="aspectFit"></image>
+			<image :src="baseUrl+urlsList[1]" mode="aspectFit" @click="toggle('center')">
 			</image>
 			<!-- 分享至 -->
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
@@ -75,7 +75,7 @@
 			<!-- 普通弹窗 -->
 			<uni-popup ref="popup" @change="change()" type="center">
 				<view class="popup-content" :class="{ 'popup-height': type === 'left' || type === 'right' }">
-					<image src="@/static/index-index/ad.png" mode="aspectFill" class="pop-ad"></image>
+					<image :src="baseUrl+urlsList[4]" mode="aspectFill" class="pop-ad"></image>
 					<text>成功邀请一名好友注册<br>即可获得2元洗护券一张</text>
 				</view>
 			</uni-popup>
@@ -102,6 +102,9 @@
 				active: 0,
 				type: 'center',
 				messageText: '这是一条成功提示',
+				urlsList: [],
+				base: '',
+				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
 				navArr: [{
 					id: 0,
 					title: "网点自送"
@@ -119,10 +122,20 @@
 			};
 		},
 		onLoad() {
-			const sysInfo = uni.getSystemInfoSync()
-			this.wh = sysInfo.windowHeight
+			const sysInfo = uni.getSystemInfoSync();
+			this.wh = sysInfo.windowHeight;
+
+			this.base = this.setTest()
+			// this.setStorage()
+			this.testGet();
 		},
 		methods: {
+			async testGet() {
+				const {
+					data: res
+				} = await this.$axios.getUrl()
+				this.urlsList = res
+			},
 			change(e) {
 				console.log('当前模式：' + e.type + ',状态：' + e.show);
 			},
@@ -156,6 +169,16 @@
 				uni.navigateTo({
 					url: '/packageOrder/pages/pickupAddress'
 				})
+			},
+			setTest() {
+				uni.setStorage({
+					key: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
+					data: 'hello',
+					success: function() {
+						console.log(this.key);
+						return this.key
+					}
+				});
 			}
 		}
 	}

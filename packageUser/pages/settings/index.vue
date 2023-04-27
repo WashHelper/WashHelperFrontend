@@ -1,36 +1,33 @@
 <template>
 	<view class="container">
-		<text class="title">设置</text>
+		<view class="title">设置</view>
 		<section class="list-box">
-			<view class="avatar">
-				<text>头像</text>
-				<image src="@/static/user-order-index/avatar.png" mode="aspectFit"></image>
-			</view>
-			<div-line></div-line>
-			<view class="user-name">
-				<text>用户名</text>
-				<view class="right">
-					<text>微信用户</text>
-					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
+			<view class="box">
+				<view class="avatar">
+					<text>头像</text>
+					<image :src="avatarUrl" mode="aspectFit"></image>
 				</view>
-
+				<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 			</view>
-			<div-line></div-line>
-			<view class="change-number">
-				<text>手机号修改</text>
-				<view class="right">
+			<view class="box">
+				<view class="user-name">
+					<text>用户名</text>
+					<text>{{nickName}}</text>
+				</view>
+				<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
+			</view>
+			<view class="box">
+				<view class="change-number">
+					<text>手机号修改</text>
 					<text>18888888</text>
-					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
 				</view>
+				<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 			</view>
-			<div-line></div-line>
 			<view class="address" @click="gotoaddress">
 				<text>地址管理</text>
-				<view class="right">
-					<uni-icons type="forward" size="20" color="rgba(207, 207, 207, 1)"></uni-icons>
-				</view>
+				<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 			</view>
-			<div-line></div-line>
+
 		</section>
 	</view>
 </template>
@@ -48,6 +45,14 @@
 					url: '/packageUser/pages/settings/address'
 				})
 			}
+		},
+		computed: {
+			nickName() {
+				return uni.getStorageSync('nickName')
+			},
+			avatarUrl() {
+				return uni.getStorageSync('avatarUrl') || require(`@/static/user-order-index/avatar.png`)
+			}
 		}
 	}
 </script>
@@ -55,7 +60,7 @@
 <style lang="scss" scoped>
 	.container {
 		width: 100vw;
-		position: relative;
+		// position: relative;
 		padding-top: 2.76vh;
 
 		.title {
@@ -64,86 +69,75 @@
 			margin-left: 3.85vw;
 			letter-spacing: 0px;
 			line-height: 0px;
+			margin-bottom: 30px;
 		}
 
 		.list-box {
-			display: flex;
-			flex-direction: column;
-			width: 87.95vw;
-			margin: 15px auto;
-			height: 30.5vh;
-			padding: 7px 0px 19px 17px;
+			width: 83.85vw;
+			margin: 0px auto;
+			// height: 30.5vh;
+			padding: 7px 16px 19px 17px;
 			border-radius: 10px;
 			background: rgba(255, 255, 255, 1);
 
+			.box {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+
+			.icon {
+				margin-right: -12px;
+			}
+
 			.avatar {
-				width: 100%;
+				width: 87.95vw;
 				height: 73px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				position: relative;
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
 				text {
-					// font-size: 16px;
 					line-height: 24px;
 				}
 
 				image {
-					position: absolute;
 					width: 60px;
 					height: 60px;
-					right: 4.87vw;
 				}
 			}
 
 			.user-name {
 				width: 100%;
-				height: 7.73vh;
+				height: 56px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-
-				.right {
-					position: absolute;
-					right: 8.7vw;
-					// line-height: 22px;
-					line-height: 7.73vh;
-					color: rgba(0, 0, 0, 0.5);
-
-					uni-icons {
-						margin-top: 29px;
-					}
-				}
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 			}
 
 			.change-number {
 				width: 100%;
-				height: 7.73vh;
+				height: 56px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-
-				.right {
-					position: absolute;
-					right: 8.7vw;
-					line-height: 22px;
-					color: rgba(0, 0, 0, 0.5);
-				}
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 			}
 
 			.address {
 				width: 100%;
-				height: 7.73vh;
+				height: 56px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
-				.right {
-					display: flex;
-					justify-content: flex-end;
-					line-height: 24px;
-				}
 			}
 		}
 	}

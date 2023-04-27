@@ -24,5 +24,26 @@ export default {
 				token
 			}
 		})
+	},
+	//更新用户信息
+	updateUserInfoList() {
+		return request({
+			url: '/user/updateInfo',
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/form-data'
+			},
+			data: {
+				name,
+				gender,
+				phone,
+				email,
+				role,
+				age,
+				birthday,
+				avatar,
+				city
+			}
+		})
 	}
 }

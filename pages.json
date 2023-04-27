@@ -41,31 +41,12 @@
 				"enablePullDownRefresh": false
 			}
 
-		}
-
-		, {
+		}, {
 			"path": "pages/order/map2",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-
-		}
-
-		, {
-			"path": "pages/order/xiadan",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/order/page",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}
 	],
 	"subpackages": [{
@@ -90,6 +71,8 @@
 					"path": "pages/settings/address"
 				}, {
 					"path": "pages/settings/index"
+				}, {
+					"path": "pages/settings/addAddress"
 				}, {
 					"path": "pages/cooperate"
 				}, {

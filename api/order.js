@@ -35,11 +35,45 @@ export default {
 			}
 		})
 	},
-
+	/**
+	 * @data 
+	 * @description 修改订单
+	 */
 	changeOrder() {
 		return request({
 			url: '/order/update',
-			method: 'post'
+			method: 'post',
+			data: {}
 		})
-	}
+	},
+	/**
+	 * @data orderId
+	 * @description 取消订单
+	 */
+
+	deleteOrder(orderId) {
+		return request({
+			url: '/order/cancel',
+			method: 'post',
+			data: {
+				orderId
+			}
+		})
+	},
+
+	/**
+	 * @data orderId
+	 * @description 订单详情
+	 */
+	getOrderDetail(orderId) {
+		return request({
+			url: '/order/info',
+			method: 'get',
+			data: {
+				orderId
+			}
+		})
+	},
+
+
 }
