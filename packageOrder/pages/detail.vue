@@ -61,7 +61,7 @@
 				</view>
 				<!-- 下单时间 -->
 				<view class="time">
-					下单时间：{{dateFormat(date)}}
+					下单时间：<!-- {{dateFormat(date)}} -->
 				</view>
 			</view>
 			<!-- 联系客服 -->
@@ -79,15 +79,21 @@
 	export default {
 		data() {
 			return {
-				date: new Date().toISOString(),
+				// date: new Date().toISOString(),
+				detailList: [],
 			};
-
 		},
 		mounted() {
 			let _this = this;
 			setInterval(function() {
 				_this.data = Date.parse(new Date())
 			}, 1000)
+		},
+		onLoad: function(option) {
+			this.getdetailList(option.orderId)
+			console.log('打印上个')
+			console.log(option);
+			console.log(option.orderId);
 		},
 		methods: {
 			makeCall() {
@@ -96,17 +102,28 @@
 				});
 				plus.device.dial('18851187568', true)
 			},
-			dateFormat(time) {
-				let date = new Date(time);
-				let year = date.getFullYear();
-				let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				// 拼接
-				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+			// dateFormat(time) {
+			// 	let date = new Date(time);
+			// 	let year = date.getFullYear();
+			// 	let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+			// 	let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+			// 	let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			// 	let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			// 	let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			// 	// 拼接
+			// 	return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 
+			// }
+			async getdetailList(option) {
+				const {
+					data: res
+				} = await this.$axios.getOrderDetail(option)
+				this.detailList = res
+				console.log(res)
+				console.log(option)
+				console.log(option.orderId)
+				console.log('打印上个页面的参数')
+				console.log(this.detailList)
 			}
 		}
 	}
