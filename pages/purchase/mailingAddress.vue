@@ -18,9 +18,10 @@
 			<view class="main-item">
 				<text>实物图片</text>
 				<view class="cover">
-					<input type="text" placeholder="点击上传图片" placeholder-class="placeholder" @click="showPopup"
-						v-model="selected">
+					<input type="text" placeholder="点击上传图片" placeholder-class="placeholder" @click="chooseImage"
+						v-model="noneID">
 				</view>
+				<img :src="imgUrl" alt="" />
 			</view>
 			<view class="main-item">
 				<text>备注</text>
@@ -64,7 +65,8 @@
 				isPopup: false,
 				title: "请选择",
 				list: ["拍照上传", "图库选择"],
-				selected: ""
+				selected: "",
+				imgUrl: " ",
 			}
 		},
 
@@ -82,7 +84,21 @@
 			handleStore(index) {
 				this.selected = this.list[index];
 				console.log(this.selected);
-			}
+			},
+
+			chooseImage() {
+				this.isPopup = true;
+				let that = this;
+				uni.chooseImage({
+					count: 4,
+					sizeType: ["original", "compressed"],
+					sourceType: ["album"],
+					success(res) {
+						console.log(res);
+						that.imgUrl = res.tempFilePaths[0];
+					},
+				});
+			},
 
 		}
 	}
@@ -153,6 +169,10 @@
 					letter-spacing: 0px;
 					line-height: 42.31px;
 					color: rgba(0, 0, 0, 0.3);
+				}
+				img {
+					height: 100rpx;
+					float: left;
 				}
 			}
 
