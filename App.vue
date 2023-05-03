@@ -63,7 +63,7 @@
 		},
 
 		onLaunch() {
-			this.login();
+			// this.login();s
 			// wx.showModal({
 			// 	title: '提示',
 			// 	content: '请登录以正常使用',
