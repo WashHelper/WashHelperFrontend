@@ -61,6 +61,10 @@
 				// type: 'center'
 			};
 		},
+
+		onLoad() {
+			this.getUserDate();
+		},
 		computed: {
 			avatarUrl() {
 				return uni.getStorageSync('avatarUrl') || require(`@/static/user-order-index/avatar.png`)
@@ -101,6 +105,12 @@
 					url: '/packageUser/pages/chargeMoney'
 				})
 				console.log(123)
+			},
+			async getUserDate() {
+				const {
+					data: res
+				} = await this.$axios.getUserInfoList();
+				console.log(res)
 			}
 		}
 	}

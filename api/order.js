@@ -21,45 +21,59 @@ export default {
 		return request('/order/getorderbydate/no', 'get', params)
 	},
 
-	// 接口
 	/**
-	 * @param {String} contactName
-	 * @description 获取验证码
+	 * @param {Object} categoryId
+	 * @description 获取用户信息
 	 */
-	getName() {
-		return request({
-			url: '/user/info',
-			method: 'get'
-		})
 
+	getOrderList(status) {
+		return request({
+			url: '/order/getList',
+			method: 'get',
+			params: {
+				status
+			}
+		})
+	},
+	/**
+	 * @data 
+	 * @description 修改订单
+	 */
+	changeOrder() {
+		return request({
+			url: '/order/update',
+			method: 'post',
+			data: {}
+		})
+	},
+	/**
+	 * @data orderId
+	 * @description 取消订单
+	 */
+
+	deleteOrder(orderId) {
+		return request({
+			url: '/order/cancel',
+			method: 'post',
+			data: {
+				orderId
+			}
+		})
 	},
 
 	/**
-	 * @param {integer} status
-	 * @description -获取订单列表
+	 * @data orderId
+	 * @description 订单详情
 	 */
-	getOrderList() {
-		const data = {
-			'name': 1,
-			"age": 2
-		}
+	getOrderDetail(orderId) {
 		return request({
-			url: '/user/info',
+			url: '/order/info',
 			method: 'get',
-			params: data
+			data: {
+				orderId
+			}
 		})
-
-	}
-
-
-
-
-
-
-
-
-
-
+	},
 
 
 }

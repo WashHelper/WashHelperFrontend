@@ -4,12 +4,12 @@
 			充值中心
 		</view>
 		<view class="card-box">
-			<vip-card></vip-card>
-			<silver-card></silver-card>
-			<gold-card></gold-card>
+			<vip-card msg="99元" :iconType="icontype" @click="selected()"></vip-card>
+			<silver-card msg="150元"></silver-card>
+			<gold-card msg="300元"></gold-card>
 		</view>
 		<footer class="footer">
-			<text>{{totalprice}}</text>
+			<text>{{totalprice}}元</text>
 			<button @click="charge()" class="btn">支付</button>
 		</footer>
 	</view>
@@ -19,7 +19,8 @@
 	export default {
 		data() {
 			return {
-				totalprice: '0元',
+				totalprice: 0,
+				icontype: "",
 				cardList: [{
 					id: 0,
 					type: 'VIP',
@@ -38,6 +39,10 @@
 		methods: {
 			charge() {
 				//没想好
+			},
+			selected() {
+				this.icontype = "checkbox"
+				this.totalprice += 1;
 			}
 		}
 	}

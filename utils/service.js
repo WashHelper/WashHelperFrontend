@@ -1,6 +1,7 @@
 /* eslint-disable */
 import axios from 'axios';
 
+var token
 // 创建axios实例
 const service = axios.create({
 	// 超时

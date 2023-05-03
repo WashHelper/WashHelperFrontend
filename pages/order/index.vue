@@ -7,7 +7,7 @@
 		<view v-if="active==0">
 			<view class="search">
 				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
-				<text class="placeholder">订单号搜索</text>
+				<text class="placeholder" @click="getItemList()">订单号搜索</text>
 			</view>
 			<view class="order-detail" @click="gotodetail()">
 				<header>
@@ -23,25 +23,34 @@
 				<view class="footer-banner">
 					<view>修改</view>
 					<view>详情</view>
-					<view>取消</view>
+					<view @tap.native.stop="deleteUserOrder()">取消</view>
 					<view>联系</view>
 				</view>
 			</view>
 
 		</view>
-		<view v-if="active==1"></view>
-		<view v-if="active==2"></view>
-		<view v-if="active==3"></view>
+		<view v-if="active==1">
+
+		</view>
+		<view v-if="active==2">
+
+		</view>
+		<view v-if="active==3">
+
+		</view>
 	</view>
 </template>
 
 <script>
+	// import request from '@/api/order.js'
 	export default {
 		data() {
 			return {
 				date: new Date().toISOString(),
 				active: 0,
-				orderList: {},
+				status: 0,
+				OrderList: [],
+				// orderList: {},
 				bannerlist: [{
 					id: 0,
 					title: "全部"
@@ -56,6 +65,9 @@
 					title: "已取消"
 				}]
 			};
+		},
+		onLoad() {
+			this.getItemList()
 		},
 		mounted() {
 			let _this = this;
@@ -82,7 +94,19 @@
 				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 				// 拼接
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+			},
+			//查询用户订单
+			async getItemList() {
+				this.OrderList = await this.$axios.getOrderList()
+				console.log(this.OrderList)
+			},
+			deleteUserOrder() {
+				const {
+					data: res
+				} = this.$axios.deleteOrder()
+				console.log(res)
 			}
+
 		}
 	}
 </script>

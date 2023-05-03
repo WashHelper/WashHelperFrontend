@@ -13,8 +13,9 @@
 				洗护享7.5折
 			</view>
 			<view class="time">
-				有效期：{{time}}
+				{{time}}
 			</view>
+			<uni-icons type="" size=" 30" color="rgba(240, 58, 58, 0.3)" @click="selected()" class="icon"></uni-icons>
 		</footer>
 	</view>
 </template>
@@ -22,14 +23,18 @@
 <script>
 	export default {
 		name: "vip-card",
+		// iconType: "checkbox",
 		data() {
 			return {
 
 			};
 		},
 		props: [
-			'warn', 'msg', 'time'
-		]
+			'warn', 'msg', 'time', 'iconType'
+		],
+		methods: {
+			selected() {}
+		}
 	}
 </script>
 
@@ -99,6 +104,11 @@
 				right: 14px;
 				bottom: 42px;
 				line-height: 0px;
+			}
+
+			.icon {
+				position: absolute;
+				right: 3px;
 			}
 		}
 	}

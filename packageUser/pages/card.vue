@@ -8,7 +8,7 @@
 			<view class="">过期劵</view> -->
 		</view>
 		<section class="card-box" v-if="active==0">
-			<vip-card warn="每年最低可省150元!" msg="已支付：99元" time="2023/3/25-2024/3/25"></vip-card>
+			<vip-card warn="每年最低可省150元!" msg="已支付：99元" time="有效期:2023/3/25-2024/3/25"></vip-card>
 			<silver-card msg="余额：124元"></silver-card>
 		</section>
 		<section class="coupon-box" v-if="active==1">
