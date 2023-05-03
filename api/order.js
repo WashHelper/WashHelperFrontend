@@ -26,18 +26,29 @@ export default {
 	 * @param {String} contactName
 	 * @description 获取验证码
 	 */
-	getName(contactName) {
-		// const data = new FormData()
-		// data.append('phone', phoneNum)
-		const data = {
-			'phone': phoneNum
-		}
-
+	getName() {
 		return request({
-			url: '/',
-			method: 'post',
-			data
+			url: '/user/info',
+			method: 'get'
 		})
+
+	},
+
+	/**
+	 * @param {integer} status
+	 * @description -获取订单列表
+	 */
+	getOrderList() {
+		const data = {
+			'name': 1,
+			"age": 2
+		}
+		return request({
+			url: '/user/info',
+			method: 'get',
+			params: data
+		})
+
 	}
 
 
