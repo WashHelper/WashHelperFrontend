@@ -58,9 +58,7 @@ export default {
 		return request({
 			url: '/cart/deleteAll',
 			method: 'post',
-			headers: {
-				'Content-Type': 'application/json'
-			},
+			data: {}
 		})
 	}
 }

@@ -53,35 +53,17 @@
 						v-model="selected">
 				</view>
 			</view>
-			<view class="cent-bottom-t">
-				买家上传支付凭证
+			<view></view>
+			<view class="main-item">
+				<text>备注</text>
+				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
 			</view>
-			<view class="cent-bottom-m">
-				<view class="uoloadImg">
-					<view v-for="(el, index) in fileList" :key="index">
-						<view class="uoloadImg-image">
-							<image @click="checkImgboxBuy(fileList, index)" :src="imgUrl+el" mode=""></image>
-							<view class="jian" @click="popImgBuy(index)">
-								<!-- <image src="../../static/close.png" mode=""></image> -->
-							</view>
-						</view>
-					</view>
-					<view class="uoloadImg-box" @click="openImagePageBuy" v-if="uploadFlag">
-						<view class="jia">
-							<!-- <image src="../../static/add.png" mode=""></image> -->
-						</view>
-					</view>
-				</view>
-				<view class="main-item">
-					<text>备注</text>
-					<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
-				</view>
-				<view class="default">
-					<text>35元</text>
-					<button>确认下单</button>
-				</view>
+			<view class="default">
+				<text>35元</text>
+				<button>确认下单</button>
 			</view>
 		</view>
+	</view>
 </template>
 
 <script>
@@ -92,7 +74,7 @@
 				selected: "",
 				urlsList: [],
 				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
-				fileList: [],
+
 				id: 0, // 使用 marker点击事件 需要填写id
 				title: 'map',
 				scale: 12,

@@ -8,7 +8,6 @@
 					duration: 2000
 				});
 			},
-
 			/**
 			 * 获取用户信息
 			 */
@@ -59,11 +58,22 @@
 						})
 					}
 				});
+			},
+
+			/**
+			 * 清空购物车
+			 */
+			async deleteAll() {
+				console.log(123)
+				const {
+					data: res
+				} = await this.$axios.deleteAll()
 			}
 		},
 
 		onLaunch() {
-			// this.login();s
+			this.login();
+			this.deleteAll();
 			// wx.showModal({
 			// 	title: '提示',
 			// 	content: '请登录以正常使用',
