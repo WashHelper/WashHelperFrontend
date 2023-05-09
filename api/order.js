@@ -23,7 +23,7 @@ export default {
 
 	/**
 	 * @param {Object} categoryId
-	 * @description 获取用户信息
+	 * @description 查询用户订单
 	 */
 
 	getOrderList(status) {
@@ -35,6 +35,7 @@ export default {
 			}
 		})
 	},
+	
 	/**
 	 * @data 
 	 * @description 修改订单
@@ -46,6 +47,7 @@ export default {
 			data: {}
 		})
 	},
+	
 	/**
 	 * @data orderId
 	 * @description 取消订单
