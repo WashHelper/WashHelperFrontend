@@ -7,46 +7,111 @@
 		<view v-if="active==0">
 			<view class="search">
 				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
-				<text class="placeholder" @click="getItemList()">订单号搜索</text>
+				<text class="placeholder" @click="Search()">订单号搜索</text>
 			</view>
-			<view class="order-detail" @click="gotodetail()">
-				<header>
-					<text class="text">订单状态：取件成功</text><br>
-					<text class="text"> 预约时间：2023-03-12 8：00-9：00</text><br>
-					<text class="text">下单时间：{{dateFormat(date)}}</text>
-				</header>
-
-				<div-line></div-line>
-				<view class="order-number text">
-					订单号：188888888
-				</view>
-				<view class="footer-banner">
-					<view>修改</view>
-					<view>详情</view>
-					<view @tap.native.stop="deleteUserOrder()">取消</view>
-					<view>联系</view>
-				</view>
-			</view>
-
+			<block v-for="(item,i) in OrderList" :index="i" :key="i">
+				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderId='+item.id">
+					<header>
+						<text class="text">订单状态：取件成功</text><br>
+						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
+						<text class="text">下单时间：{{item.pickupTime}}</text>
+					</header>
+					<div-line></div-line>
+					<view class="order-number text">
+						订单号：{{item.orderId}}
+					</view>
+					<view class="footer-banner">
+						<view>修改</view>
+						<view>详情</view>
+						<view @tap.native.stop="deleteUserOrder(i)">取消</view>
+						<view>联系</view>
+					</view>
+				</navigator>
+			</block>
 		</view>
 		<view v-if="active==1">
-
+			<view class="search">
+				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
+				<text class="placeholder" @click="Search()">订单号搜索</text>
+			</view>
+			<block v-for="(item,i) in OrderList" :index="i" :key="i">
+				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderId='+item.id">
+					<header>
+						<text class="text">订单状态：待处理</text><br>
+						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
+						<text class="text">下单时间：{{item.pickupTime}}</text>
+					</header>
+					<div-line></div-line>
+					<view class="order-number text">
+						订单号：{{item.orderId}}
+					</view>
+					<view class="footer-banner">
+						<view>修改</view>
+						<view>详情</view>
+						<view @tap.native.stop="deleteUserOrder(i)">取消</view>
+						<view>联系</view>
+					</view>
+				</navigator>
+			</block>
 		</view>
 		<view v-if="active==2">
-
+			<view class="search">
+				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
+				<text class="placeholder" @click="Search()">订单号搜索</text>
+			</view>
+			<block v-for="(item,i) in OrderList" :index="i" :key="i">
+				<navigator class="order-detail" @click="gotodetail()">
+					<header>
+						<text class="text">订单状态：取件成功</text><br>
+						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
+						<text class="text">下单时间：{{item.pickupTime}}</text>
+					</header>
+					<div-line></div-line>
+					<view class="order-number text">
+						订单号：{{item.orderId}}
+					</view>
+					<view class="footer-banner">
+						<view>修改</view>
+						<view>详情</view>
+						<view @tap.native.stop="deleteUserOrder(item.orderId)">取消</view>
+						<view>联系</view>
+					</view>
+				</navigator>
+			</block>
 		</view>
 		<view v-if="active==3">
-
+			<view class="search">
+				<image src="@/static/order-index/search-icon.png" mode="aspectFit"></image>
+				<text class="placeholder" @click="Search()">订单号搜索</text>
+			</view>
+			<block v-for="(item,i) in OrderList" :index="i" :key="i">
+				<navigator class="order-detail" @click="gotodetail()">
+					<header>
+						<text class="text">订单状态：取件已取消</text><br>
+						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
+						<text class="text">下单时间：{{item.pickupTime}}</text>
+					</header>
+					<div-line></div-line>
+					<view class="order-number text">
+						订单号：{{item.orderId}}
+					</view>
+					<view class="footer-banner">
+						<view>修改</view>
+						<view>详情</view>
+						<view @tap.native.stop="deleteUserOrder()">取消</view>
+						<view>联系</view>
+					</view>
+				</navigator>
+			</block>
 		</view>
 	</view>
 </template>
 
 <script>
-	// import request from '@/api/order.js'
 	export default {
 		data() {
 			return {
-				date: new Date().toISOString(),
+				// date: new Date().toISOString(),
 				active: 0,
 				status: 0,
 				OrderList: [],
@@ -81,32 +146,50 @@
 					url: '/packageOrder/pages/detail'
 				})
 			},
-			clickbar(id) {
-				this.active = id;
+			clickbar(i) {
+				this.active = i;
+				if (i >= 1) {
+					this.getItemList(i - 1)
+				} else {
+					this.getItemList()
+				}
 			},
-			dateFormat(time) {
-				let date = new Date(time);
-				let year = date.getFullYear();
-				let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				// 拼接
-				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-			},
+			// dateFormat(time) {
+			// 	let date = new Date(time);
+			// 	let year = date.getFullYear();
+			// 	let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+			// 	let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+			// 	let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			// 	let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			// 	let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			// 	// 拼接
+			// 	return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+			// },
+
 			//查询用户订单
-			async getItemList() {
-				this.OrderList = await this.$axios.getOrderList()
-				console.log(this.OrderList)
-			},
-			deleteUserOrder() {
+			async getItemList(i) {
 				const {
 					data: res
-				} = this.$axios.deleteOrder()
+				} = await this.$axios.getOrderList(i)
+				res.forEach(floor => {
+					floor.id = floor.orderId
+				})
+				console.log(res[i])
+				console.log('获取订单详情 ')
+				this.OrderList = res
+				console.log(this.OrderList)
+			},
+			//取消订单
+			async deleteUserOrder(i) {
+				const {
+					data: res
+				} = await this.$axios.deleteOrder(this.OrderList[i].orderId)
+				console.log('取消的订单')
 				console.log(res)
+			},
+			Search() {
+				console.log('搜索')
 			}
-
 		}
 	}
 </script>

@@ -58,6 +58,7 @@
 	export default {
 		data() {
 			return {
+				status
 				// type: 'center'
 			};
 		},
