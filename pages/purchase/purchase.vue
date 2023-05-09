@@ -13,7 +13,6 @@
 		<view class="text2">
 			<text>感谢您对洗笑颜开的支持!</text>
 		</view>
-
 	</view>
 </template>
 

@@ -22,8 +22,8 @@ export default {
 	},
 
 	/**
-	 * @param {Object} categoryId
-	 * @description 查询用户订单
+	 * @param {Object}status
+	 * @description 获取用户信息
 	 */
 
 	getOrderList(status) {
@@ -71,11 +71,35 @@ export default {
 		return request({
 			url: '/order/info',
 			method: 'get',
-			data: {
+			params: {
 				orderId
 			}
 		})
 	},
 
+	/**
+	 * @data 
+	 * @description 意见反馈
+	 */
 
+
+	/**
+	 * @data 
+	 * @description 下单确认
+	 */
+
+	confirmOrder() {
+		return request({
+			url: '/order/confirm',
+			method: 'post',
+			data: {
+				pickupLocationId,
+				deliveryLocationId,
+				picture,
+				productList,
+				pickupTime,
+				remark
+			}
+		})
+	}
 }

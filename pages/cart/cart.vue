@@ -156,10 +156,6 @@
 				console.log(this.goodsList)
 				//打开节流阀
 				// 	this.isloading = true
-				// async const {
-				// 	data: res
-				// } = await uni.$http.get(''
-				// 	this.queryObj)
 				// if (res.meta.status !== 200) {
 				// 	retrun uni.$showMsg()
 				// }
@@ -177,9 +173,7 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-
 				const res = this.$axios.add(this.goodsList[index].productId)
-
 				console.log(this.goodsList[index].productId)
 				// console.log(this.goodsList[index])
 				this.goodsList[index].productNum++
@@ -208,7 +202,7 @@
 				} else {
 					// this.$axios.add(index);
 					uni.navigateTo({
-						url: '../order/xiadan'
+						url: '/pages/order/mapBuy'
 					})
 				}
 				// console.log(清空购物车)
