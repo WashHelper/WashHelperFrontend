@@ -47,6 +47,12 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/order/mapBuy",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		}
 
         ,{

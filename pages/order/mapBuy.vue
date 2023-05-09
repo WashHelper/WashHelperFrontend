@@ -59,9 +59,8 @@
 			</view>
 			<view class="default">
 				<text>35元</text>
-				<button>注册并登录</button>
+				<button>确认下单</button>
 			</view>
-
 		</view>
 	</view>
 </template>
@@ -72,8 +71,8 @@
 			return {
 				list: ["南京邮电大学", "南京财经大学", "南京大学", "南京理工大学", "东南大学"],
 				selected: "",
-
-
+				urlsList: [],
+				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
 
 				id: 0, // 使用 marker点击事件 需要填写id
 				title: 'map',
@@ -108,12 +107,21 @@
 				}]
 			}
 		},
-
+		onLoad() {
+			this.testGet();
+			// console.log(123)
+		},
 		methods: {
-
 			handleStore(index) {
 				this.selected = this.list[index];
 				// console.log(this.selected);
+			},
+			comfirmOrder() {},
+			async testGet() {
+				const {
+					data: res
+				} = await this.$axios.getUrl()
+				this.urlsList = res
 			}
 		}
 	}
@@ -232,7 +240,7 @@
 
 	.default {
 		position: relative;
-		
+
 		text {
 			position: absolute;
 			top: 60rpx;
