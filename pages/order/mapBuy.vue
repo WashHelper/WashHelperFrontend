@@ -14,7 +14,7 @@
 		<view class="content">
 
 			<view class="first-item">
-				<img :src="baseUrl+urlsList[6]" mode="aspectFit"></img>
+<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
@@ -24,7 +24,7 @@
 				</span>
 			</view>
 			<view class="first-item">
-				<img :src="baseUrl+urlsList[7]" mode="aspectFit"></img>
+<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
