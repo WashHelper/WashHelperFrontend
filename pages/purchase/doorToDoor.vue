@@ -1,52 +1,69 @@
 <template>
-	<view class="mailingAddress-section">
-		<text class="text1">网点自送</text>
+	<view class="doorToDoor-section">
+		<text class="text1">上门取件</text>
 		<view class="input-wrapper">
 
 			<view class="main-item">
 				<text>联系人</text>
-				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1">
+				<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" class="input1"
+					v-model="contactName">
 			</view>
 			<view class="main-item">
 				<text>联系方式</text>
 				<input type="text" placeholder="请输入电话" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>网点选择</text>
-				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder">
-			</view>
-			<view class="main-item">
-				<text>实物图片</text>
+				<text>所在地区</text>
 				<view class="cover">
-					<input type="text" placeholder="点击上传图片" placeholder-class="placeholder" @click="showPopup"
-						v-model="noneID">
+					<input type="text" placeholder="请选择省市区" placeholder-class="placeholder" @click="showPopup"
+						v-model="selected">
 				</view>
-				<img :src="imgUrl" alt="" />
 			</view>
 			<view class="main-item">
-				<text>备注</text>
-				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
+				<text>详细地址</text>
+				<input type="text" placeholder="请填写具体地址" placeholder-class="placeholder">
+			</view>
+			<view class="main-item">
+				<text>取件时间</text>
+				<view class="cover">
+					<input type="text" placeholder="请选择具体时间" placeholder-class="placeholder" @click="showPopup"
+						v-model="selected">
+				</view>
 			</view>
 			<view class="default">
 				<text>设为默认</text>
 			</view>
 		</view>
-		<button @click="handleRegister">注册并登录</button>
+		<button @click="handleRegister">保存</button>
 
 		<!-- cover -->
-		<view class="cover">
+		<view class="cover cover1">
 			<view class="popup" :class="{show: isPopup}">
 				<view class="popup-content">
 
 					<view class="popup-body">
 						<ul>
-							<li v-for="(item, index) in list" :key="index" @click="handleStore(index)" id="item">
+							<li v-for="(item, index) in list1" :key="index" @click="handleStore(index)" id="item">
 								{{item}}
 							</li>
 						</ul>
 					</view>
 					<view class="popup-bottom" @click="handleSelect()">
-						<button>确定</button>
+						<button>保存</button>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="cover cover2">
+			<view class="popup" :class="{show: isPopup}">
+				<view class="popup-content">
+		
+					<view class="popup-body">
+
+					</view>
+					<view class="popup-bottom" @click="handleSelect()">
+						<button>保存</button>
 					</view>
 				</view>
 			</view>
@@ -64,9 +81,64 @@
 				// cover
 				isPopup: false,
 				title: "请选择",
-				list: ["拍照上传", "图库选择"],
+				list1: ["桂苑", "荷苑", "李苑", "柳苑"],
 				selected: "",
-				imgUrl: " "
+
+				// 双向绑定
+				contactName: '',
+
+				//滑动选择器
+				list: [{
+						id: -9,
+						city: "",
+						label: "a"
+					},
+					{
+						id: -9,
+						city: "",
+						label: "b"
+					},
+					{
+						id: 0,
+						val: "北京",
+						label: "bj"
+					},
+					{
+						id: 1,
+						val: "上海",
+						label: "sh"
+					},
+					{
+						id: 2,
+						val: "广州",
+						label: "gz"
+					},
+					{
+						id: 3,
+						val: "深圳",
+						label: "sz"
+					},
+					{
+						id: 4,
+						val: "北海",
+						label: "bh"
+					},
+					{
+						id: -9,
+						city: "",
+						label: "c"
+					},
+					{
+						id: -9,
+						city: "",
+						label: "d"
+					}
+				],
+				show: false,
+				active: 0,
+				city: "",
+				listOffsetTop: [],
+				timer: null
 			}
 		},
 
@@ -83,52 +155,45 @@
 				this.selected = this.mySelected
 			},
 			handleStore(index) {
-				this.mySelected = this.list[index];
-				console.log(this.mySelected);
-				if ( this.mySelected == "图库选择" ) {
-					let that = this;
-					uni.chooseImage({
-						count: 4,
-						sizeType: ["original", "compressed"],
-						sourceType: ["album"],
-						success(res) {
-							console.log(res);
-							that.imgUrl = res.tempFilePaths[0];
-						},
-					});
-				} else {
-					let that = this;
-					uni.chooseImage({
-						count: 4,
-						sizeType: ["original", "compressed"],
-						sourceType: ["camera"],
-						success(res) {
-							console.log(res);
-							that.imgUrl = res.tempFilePaths[0];
-						},
-					});
-				}
+				this.mySelected = this.list1[index];
 			},
 
-			chooseImage() {
-				this.isPopup = true;
-				let that = this;
-				uni.chooseImage({
-					count: 4,
-					sizeType: ["original", "compressed"],
-					sourceType: ["album"],
-					success(res) {
-						console.log(res);
-						that.imgUrl = res.tempFilePaths[0];
-					},
+			// 滚动选择器
+			showPicker() {
+				this.show = true;
+				this.active = 0;
+				this.timer = setTimeout(() => {
+					clearTimeout(this.timer);
+					this.getOffsetTop();
+					this.computeActive();
+				}, 50);
+			},
+			sure() {
+				this.list.map((item, index) => {
+					item.id == this.active ? (this.city = item.val) : null;
+				});
+				this.show = false;
+			},
+			getOffsetTop() {
+				this.listOffsetTop = [];
+				this.list.map((item, index) => {
+					let liTop = this.$refs["li" + item.label];
+					this.listOffsetTop.push(liTop[0].offsetTop - 41);
 				});
 			},
-
+			computeActive() {
+				let scroll = this.$refs.ul;
+				scroll.addEventListener("scroll", () => {
+					this.listOffsetTop.map((item, index) => {
+						item <= scroll.scrollTop + 100 ? (this.active = index - 2) : null;
+					});
+				});
+			}
 		}
 	}
 </script>
 <style lang="scss" scoped>
-	.mailingAddress-section {
+	.doorToDoor-section {
 		padding: 38rpx 29rpx;
 
 
@@ -183,9 +248,6 @@
 					margin-left: 30rpx;
 				}
 
-				.input5 {
-					margin-left: 60rpx;
-				}
 
 				.placeholder {
 					font-size: 26.92rpx;
@@ -193,10 +255,6 @@
 					letter-spacing: 0px;
 					line-height: 42.31px;
 					color: rgba(0, 0, 0, 0.3);
-				}
-				img {
-					height: 100rpx;
-					float: left;
 				}
 			}
 
@@ -244,8 +302,8 @@
 			border: transparent;
 			border-radius: 10px;
 			line-height: 67rpx;
-			color: rgba(255, 255, 255, 1);
 			background: rgba(131, 195, 230, 1);
+			color: rgba(255, 255, 255, 1);
 			margin-top: 33rpx;
 			margin-bottom: 65rpx;
 			font-size: 34.62rpx;
