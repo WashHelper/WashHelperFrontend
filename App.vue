@@ -82,11 +82,11 @@
 				}
 			})
 
-			// },
+		},
 
-			onShow() {},
-				onHide() {}
-		}
+		onShow() {},
+		onHide() {}
+	}
 </script>
 
 <style lang="scss">
