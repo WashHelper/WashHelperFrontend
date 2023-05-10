@@ -63,24 +63,24 @@
 		},
 
 		onLaunch() {
-			this.login();
-			// wx.showModal({
-			// 	title: '提示',
-			// 	content: '请登录以正常使用',
-			// 	success: (res) => {
-			// 		if (res.confirm) {
-			// 			this.login();
-			// 		} else if (res.cancel) {
-			// 			this.failToLogin('拒绝一键登录');
-			// 		}
-			// 	}
-			// });
+			// this.login();
+			wx.showModal({
+				title: '提示',
+				content: '请登录以正常使用',
+				success: (res) => {
+					if (res.confirm) {
+						this.login();
+					} else if (res.cancel) {
+						this.failToLogin('拒绝一键登录');
+					}
+				}
+			});
 
-			// uni.checkSession({
-			// 	complete: (res) => {
-			// 		console.log(res);
-			// 	}
-			// })
+			uni.checkSession({
+				complete: (res) => {
+					console.log(res);
+				}
+			})
 
 		},
 
