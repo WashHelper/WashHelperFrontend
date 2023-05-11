@@ -145,6 +145,8 @@
 
 			this.getGoodsList(0)
 			console.log(this.totalprice)
+
+			this.getCartList()
 		},
 		methods: {
 			//获取商品列表数据的方法
@@ -180,7 +182,7 @@
 				console.log(this.goodsList[index])
 				this.totalNumber++
 				// this.totalprice += this.goodsList[index].originalPrice
-				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
+				// this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
@@ -189,7 +191,7 @@
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
-				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
+				// this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
 			admitOrder() {
@@ -211,14 +213,17 @@
 				// } = this.$axios.deleteCart()
 				// console.log(res)
 			},
+			async getCartList() {
+				const {
+					data: res
+				} = await this.$axios.getCart()
+				console.log(123)
+				console.log(res)
+				this.totalNumber = res.totalNum
+				this.totalprice = res.totalPrice
+			}
 
-		},
-		onPullDownRefresh() {
-			this.isloading = false
-			// this.goodsList = []
 
-			//重新发送数据请求
-			// this.getGoodsList(()=>uni.stopPullRefresh())
 		},
 	}
 </script>

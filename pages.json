@@ -7,98 +7,73 @@
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
-<<<<<<< HEAD
-	"pages": [ 
-		{
-=======
 	"pages": [{
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
-			"path": "pages/login/index"
-		}, {
-			"path": "pages/login/quickLogin"
-		}, {
-			"path": "pages/index/index"
-		}, {
-			"path": "pages/user/index"
-		}, {
-			"path": "pages/welcome/index"
-		},
-		{
-			"path": "pages/order/index"
-		}, {
-			"path": "pages/purchase/purchase",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/cart/cart",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/maps",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/map2",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/mapBuy",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-<<<<<<< HEAD
-		}, {
-			"path": "pages/purchase/photo",
-=======
-
-		}, {
-			"path": "pages/purchase/mailingAddress",
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-<<<<<<< HEAD
-		}, {
-			"path": "pages/purchase/xiangce",
-=======
-
-		}, {
-			"path": "pages/purchase/doorToDoor",
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-<<<<<<< HEAD
-=======
-
-		}, {
-			"path": "pages/purchase/pickupAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
+		"path": "pages/login/index"
+	}, {
+		"path": "pages/login/quickLogin"
+	}, {
+		"path": "pages/index/index"
+	}, {
+		"path": "pages/user/index"
+	}, {
+		"path": "pages/welcome/index"
+	}, {
+		"path": "pages/order/index"
+	}, {
+		"path": "pages/cart/cart",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
 		}
-	],
+	}, {
+		"path": "pages/order/maps",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/map2",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/mapBuy",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/mailingAddress",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/purchase",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/mailingAddress",
+		"style ": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/doorToDoor",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/pickupAddress",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}],
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{

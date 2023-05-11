@@ -14,11 +14,6 @@
 		<view class="content">
 
 			<view class="first-item">
-<<<<<<< HEAD
-				<!-- <img :src="baseUrl+urlsList[6]" mode="aspectFit"></img> -->
-=======
-<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
@@ -28,11 +23,6 @@
 				</span>
 			</view>
 			<view class="first-item">
-<<<<<<< HEAD
-				<!-- <img :src="baseUrl+urlsList[7]" mode="aspectFit"></img> -->
-=======
-<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
->>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
