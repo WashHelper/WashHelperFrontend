@@ -7,8 +7,12 @@
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
+<<<<<<< HEAD
 	"pages": [ 
 		{
+=======
+	"pages": [{
+>>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 			"path": "pages/login/index"
 		}, {
 			"path": "pages/login/quickLogin"
@@ -58,18 +62,41 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
+<<<<<<< HEAD
 		}, {
 			"path": "pages/purchase/photo",
+=======
+
+		}, {
+			"path": "pages/purchase/mailingAddress",
+>>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
+<<<<<<< HEAD
 		}, {
 			"path": "pages/purchase/xiangce",
+=======
+
+		}, {
+			"path": "pages/purchase/doorToDoor",
+>>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
+<<<<<<< HEAD
+=======
+
+		}, {
+			"path": "pages/purchase/pickupAddress",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+>>>>>>> c59c0d523910259d88235f597105aa15dc72dcbb
 		}
 	],
 	"subpackages": [{

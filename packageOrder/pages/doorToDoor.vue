@@ -82,16 +82,12 @@
 			},
 			handleSelect() {
 				this.hidePopup();
+				this.selected = this.mySelected
 			},
 			handleStore(index) {
-				this.selected = this.list[index];
-				console.log(this.selected);
+				this.mySelected = this.list[index];
 			},
 
-			// 输入框
-			getName() {
-				this.$axios.getName(this.phoneNumber)
-			},
 
 		}
 	}
