@@ -21,7 +21,6 @@
 							nickName,
 							avatarUrl
 						} = infoRes.userInfo
-						uni.setStorageSync('avatarUrl', avatarUrl)
 						uni.setStorageSync('nickName', nickName)
 						try {
 							uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
@@ -44,7 +43,6 @@
 						const {
 							code
 						} = loginRes
-						console.log(code);
 
 						const {
 							data: {
@@ -63,7 +61,9 @@
 		},
 
 		onLaunch() {
-			// this.login();
+			if (uni.getStorageSync('token')) {
+				this.login()
+			}
 			wx.showModal({
 				title: '提示',
 				content: '请登录以正常使用',
@@ -76,11 +76,11 @@
 				}
 			});
 
-			uni.checkSession({
-				complete: (res) => {
-					console.log(res);
-				}
-			})
+			// uni.checkSession({
+			// 	complete: (res) => {
+			// 		console.log(res);
+			// 	}
+			// })
 
 		},
 
