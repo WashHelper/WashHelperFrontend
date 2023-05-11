@@ -49,16 +49,5 @@ export default {
 			// headers: {
 			// }
 		})
-	},
-	/**
-	 * @description 订单完成后清空购物车
-	 */
-
-	deleteCart() {
-		return request({
-			url: '/cart/deleteAll',
-			method: 'post',
-			data: {}
-		})
 	}
 }

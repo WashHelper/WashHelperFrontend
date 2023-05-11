@@ -58,17 +58,9 @@
 						})
 					}
 				});
-			},
-
-			/**
-			 * 清空购物车
-			 */
-			async deleteAll() {
-				console.log(123)
-				const {
-					data: res
-				} = await this.$axios.deleteAll()
 			}
+
+
 		},
 
 		onLaunch() {
