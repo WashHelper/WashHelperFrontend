@@ -63,6 +63,11 @@ service.interceptors.request.use(
 				})
 			};
 		} else {
+			uni.showToast({
+				title: '出错啦',
+				icon: 'error',
+				duration: 2000
+			});
 			return Promise.reject(error);
 		}
 	},

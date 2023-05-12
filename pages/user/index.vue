@@ -78,6 +78,7 @@
 			this.getUserDate();
 		},
 		computed: {
+
 			hasPhoneNumber() {
 				if (!this.phoneNumber) return false
 
@@ -131,11 +132,14 @@
 				uni.setStorageSync('avatarUrl', avatarUrl)
 			},
 			async getPhoneNumber(e) {
-				// let res = await this.$axios.getPhoneNumber(e.detail.code)
-				// uni.setStorageSync('phoneNumber',
-				// 	'16651695191')
-				// this.phoneNumber = uni.getStorageSync('phoneNumber')
-				console.log(e.detail.code);
+				let {
+					data: {
+						phone
+					}
+				} = await this.$axios.getPhoneNumber(e.detail.code)
+				uni.setStorageSync('phoneNumber',
+					phone)
+				this.phoneNumber = uni.getStorageSync('phoneNumber')
 			}
 		}
 	}
