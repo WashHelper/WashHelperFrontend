@@ -8,9 +8,9 @@
 			<text>您的公开信息（您的昵称、头像等）</text>
 		</view>
 		<view class="button-wrapper">
-			<button @click="handleLogin">授权登录</button>
+			<button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">授权登录</button>
 			<navigator url="">其他方式登录</navigator>
-		</view><!--  -->
+		</view>
 
 		<view class="footer">
 			<text>授权登录表示您已经同意我们的服务条款</text>
@@ -25,13 +25,25 @@
 		},
 		onShow() {},
 		methods: {
-			handleLogin() {
+			async getPhoneNumber(e) {
+				let res = await this.$axios.getPhoneNumber(e.detail.code)
+				uni.setStorageSync('phoneNumber',
+					'16651695191')
+
 				wx.login({
-					success: (res) => {
+					success: async (res) => {
 						if (res.code) {
 							//发起网络请求
-							this.$axios.login(res.code)
+							const {
+								data: {
+									token
+								}
+							} = await this.$axios.login(res.code)
 
+							uni.setStorageSync('token', token);
+							uni.switchTab({
+								url: '/pages/index/index'
+							})
 						} else {
 							console.log('登录失败！' + res.errMsg)
 						}

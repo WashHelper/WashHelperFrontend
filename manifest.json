@@ -15,6 +15,7 @@
             "es6" : true
         },
         "usingComponents" : true,
+		"lazyCodeLoading": "requiredComponents",
         "optimization" : {
             "subPackages" : true
         },
