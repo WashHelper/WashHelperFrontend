@@ -144,7 +144,7 @@
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
 			this.getGoodsList(0)
-			console.log(this.totalprice)
+			// console.log(this.totalprice)
 
 			this.getCartList()
 		},
