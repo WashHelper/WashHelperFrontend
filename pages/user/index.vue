@@ -2,11 +2,21 @@
 	<view class="mine-container">
 		<header class="header-box">
 			<view class="head-picture">
-				<image :src="avatarUrl" mode="aspectFit"></image>
+				<button class="avatar-wrapper" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+					<image class="avatar" mode="aspectFit" :src="wxAvatarUrl"></image>
+				</button>
+				<!-- <image :src="avatarUrl" mode="aspectFit"></image> -->
 			</view>
 			<view class="user-name">
-				<text>{{nickName||'柚小宝'}}</text>
-				<text>18888</text>
+				<view class="flex_box">
+					<text>{{nickName||'柚小宝'}}</text>
+					<view class="phonebutton" v-if="!hasPhoneNumber">
+						<button class="getphonenumber" open-type="getPhoneNumber"
+							@getphonenumber="getPhoneNumber">点击获取手机号</button>
+					</view>
+					<text v-else>{{phoneNumber}}</text>
+				</view>
+
 				<button class="user-btn" @click="gotoCharge()">
 					开通会员立享优惠
 				</button>
@@ -107,7 +117,8 @@
 	export default {
 		data() {
 			return {
-				status
+				wxAvatarUrl: uni.getStorageSync('avatarUrl') || require(`@/static/user-order-index/avatar.png`),
+				phoneNumber: uni.getStorageSync('phoneNumber')
 				// type: 'center'
 			};
 		},
@@ -116,8 +127,11 @@
 			this.getUserDate();
 		},
 		computed: {
-			avatarUrl() {
-				return uni.getStorageSync('avatarUrl') || require(`@/static/user-order-index/avatar.png`)
+
+			hasPhoneNumber() {
+				if (!this.phoneNumber) return false
+
+				return true
 			},
 			nickName() {
 				return uni.getStorageSync('nickName')
@@ -133,13 +147,11 @@
 				this.$refs.popup.open(type)
 			},
 			gotosetting() {
-				console.log(123)
 				uni.navigateTo({
 					url: '/packageUser/pages/settings/index'
 				})
 			},
 			gotocard() {
-				console.log(123)
 				uni.navigateTo({
 					url: '/pages/user/card'
 				})
@@ -154,13 +166,29 @@
 				uni.navigateTo({
 					url: '/packageUser/pages/chargeMoney'
 				})
-				console.log(123)
 			},
 			async getUserDate() {
 				const {
 					data: res
 				} = await this.$axios.getUserInfoList();
-				console.log(res)
+			},
+			onChooseAvatar(e) {
+				const {
+					avatarUrl
+				} = e.detail
+
+				this.wxAvatarUrl = avatarUrl
+				uni.setStorageSync('avatarUrl', avatarUrl)
+			},
+			async getPhoneNumber(e) {
+				let {
+					data: {
+						phone
+					}
+				} = await this.$axios.getPhoneNumber(e.detail.code)
+				uni.setStorageSync('phoneNumber',
+					phone)
+				this.phoneNumber = uni.getStorageSync('phoneNumber')
 			}
 		}
 	}
@@ -189,6 +217,11 @@
 				border-radius: 50%;
 				overflow: hidden;
 
+				button {
+					width: 100%;
+					height: 100%;
+				}
+
 				image {
 					width: 100%;
 					height: 100%;
@@ -200,8 +233,23 @@
 				margin-top: 10px;
 				margin-left: 15px;
 
-				text {
+				.flex_box {
+					display: flex;
+					align-items: center;
 					font-size: 12px;
+				}
+
+				.phonebutton {
+					button {
+						height: 16px;
+						line-height: 16px;
+						font-size: 12px;
+					}
+
+					margin-left: 10px;
+				}
+
+				text {
 					margin-left: 10px;
 				}
 
@@ -211,7 +259,6 @@
 					border: transparent;
 					color: rgba(255, 255, 255, 1);
 					padding-left: 13px;
-					text-align: left;
 					font-size: 12px;
 					border-radius: 10px;
 					background: linear-gradient(223.13deg, rgba(87, 182, 230, 1) 0%, rgba(141, 242, 234, 0.5) 90.99%, rgba(247, 247, 193, 0.01) 100%);

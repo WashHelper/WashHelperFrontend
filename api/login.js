@@ -2,11 +2,10 @@ import request from '@/utils/service.js'
 
 export default {
 	/**
-	 * @param {String} params 
+	 * @param {String} code 
 	 * @description 登录接口 
 	 */
 	login(code) {
-		console.log(code);
 		return request({
 			url: '/login',
 			method: 'post',

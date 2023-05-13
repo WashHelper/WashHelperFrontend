@@ -20,12 +20,12 @@
 	export default {
 		methods: {
 			viewOrder() {
-				uni.navigateTo({
+				uni.switchTab({
 					url: '/pages/order/index'
 				})
 			},
 			returnIndex() {
-				uni.navigateTo({
+				uni.switchTab({
 					url: '/pages/index/index'
 				})
 			}

@@ -1,9 +1,18 @@
 import request from '@/utils/service.js'
 
 export default {
-	// 申请预约
-	applyAppointment(params) {
-		return request('/order/applyorder', 'post', params)
+	/**
+	 * @param {String} code 获取手机号的身份识别code
+	 * @description 获取用户手机号
+	 */
+	getPhoneNumber(code) {
+		return request({
+			url: '/user/getphone',
+			method: 'post',
+			data: {
+				code
+			}
+		})
 	},
 
 	// 删除预约
