@@ -60,7 +60,7 @@
 			},
 			addAddress() {
 				uni.navigateTo({
-					url: ''
+					url: './addAddress'
 				})
 			}
 		}
@@ -169,7 +169,7 @@
 			align-items: center;
 			justify-content: center;
 			position: absolute;
-			bottom: 0px;
+			bottom: 18px;
 		}
 	}
 </style>

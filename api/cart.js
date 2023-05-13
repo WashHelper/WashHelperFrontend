@@ -1,7 +1,5 @@
 import request from '@/utils/service.js'
-import {
-	methods
-} from 'uview-ui/libs/mixin/mixin'
+
 
 export default {
 	/**

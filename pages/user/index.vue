@@ -93,7 +93,6 @@
 						<navigator>协议与政策</navigator>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 					</view>
-
 				</li>
 				<div-line></div-line>
 			</ul>
@@ -107,7 +106,7 @@
 	export default {
 		data() {
 			return {
-				status
+				//status: 0
 				// type: 'center'
 			};
 		},
