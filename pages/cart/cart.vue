@@ -144,7 +144,7 @@
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
 			this.getGoodsList(0)
-			console.log(this.totalprice)
+			// console.log(this.totalprice)
 
 			this.getCartList()
 		},
@@ -204,6 +204,7 @@
 				} else {
 					// this.$axios.add(index);
 					uni.navigateTo({
+						// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
 						url: '/pages/order/mapBuy'
 					})
 				}

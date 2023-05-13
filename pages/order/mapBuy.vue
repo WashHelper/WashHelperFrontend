@@ -121,6 +121,16 @@
 					data: res
 				} = await this.$axios.getUrl()
 				this.urlsList = res
+			},
+			//获得购物车商品列表
+			async getCartList() {
+				const {
+					data: res
+				} = await this.$axios.getCart()
+				console.log('获得购物车商品列表')
+				console.log(res)
+				// this.totalNumber = res.totalNum
+				// this.totalprice = res.totalPrice
 			}
 		}
 	}
