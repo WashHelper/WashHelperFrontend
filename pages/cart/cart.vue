@@ -204,6 +204,7 @@
 				} else {
 					// this.$axios.add(index);
 					uni.navigateTo({
+						// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
 						url: '/pages/order/mapBuy'
 					})
 				}
