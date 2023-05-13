@@ -63,6 +63,11 @@ service.interceptors.request.use(
 				})
 			};
 		} else {
+			uni.showToast({
+				title: '出错啦',
+				icon: 'error',
+				duration: 2000
+			});
 			return Promise.reject(error);
 		}
 	},
@@ -71,20 +76,27 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use((res) => {
 		uni.hideLoading()
-		let {
-			message
-		} = res.data
+		// let {
+		// 	message
+		// } = res.data
 
-		uni.showToast({
-			title: message,
-			icon: 'error',
-			duration: 2000
-		});
+		// uni.showToast({
+		// 	title: message,
+		// 	icon: 'error',
+		// 	duration: 2000
+		// });
 
 		return res.data
 
 	},
 	(error) => {
+		uni.hideLoading()
+
+		uni.showToast({
+			title: '出错啦',
+			icon: 'error',
+			duration: 2000
+		});
 		return Promise.reject(error);
 	});
 export default service;
