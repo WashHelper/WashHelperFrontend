@@ -30,7 +30,7 @@
 				</view>
 			</view>
 		</view>
-		<button @click="addAddress()">增添新地址</button>
+		<button class="btn_address" @click="addAddress()">增添新地址</button>
 	</view>
 </template>
 
@@ -88,6 +88,7 @@
 			margin: 0px auto;
 
 			.name-number {
+				margin-top: 6px;
 				display: flex;
 				// flex-direction: row;
 				height: 21px;
@@ -98,7 +99,7 @@
 			.address-detail {
 				width: 100%;
 				height: 27px;
-				margin-top: 15px;
+				margin-top: 13px;
 				border-bottom: 1px solid rgba(235, 236, 237, 1);
 				display: flex;
 				flex-direction: row;
@@ -156,8 +157,10 @@
 			}
 		}
 
-		button {
+		.btn_address {
+			margin-left: -114px;
 			width: 228px;
+			left: 50vw;
 			height: 35px;
 			border-radius: 10px;
 			background: linear-gradient(223.13deg, rgba(87, 182, 230, 1) 0%, rgba(141, 242, 234, 0.5) 90.99%, rgba(247, 247, 193, 0.01) 100%);

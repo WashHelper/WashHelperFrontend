@@ -1,4 +1,7 @@
 import request from '@/utils/service.js'
+import {
+	methods
+} from 'uview-ui/libs/mixin/mixin'
 
 export default {
 	/**
@@ -51,16 +54,13 @@ export default {
 		})
 	},
 	/**
-	 * @description 订单完成后清空购物车
+	 * @param {Object} categoryId
+	 * @description 获取商品列表
 	 */
-
-	deleteCart() {
+	getCart() {
 		return request({
-			url: '/cart/deleteAll',
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json'
-			},
+			url: '/cart/getList',
+			methods: 'get'
 		})
 	}
 }

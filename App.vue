@@ -8,7 +8,6 @@
 					duration: 2000
 				});
 			},
-
 			/**
 			 * 获取用户信息
 			 */
@@ -58,6 +57,8 @@
 					}
 				});
 			}
+
+
 		},
 
 		onLaunch() {
@@ -75,13 +76,6 @@
 					}
 				}
 			});
-
-			// uni.checkSession({
-			// 	complete: (res) => {
-			// 		console.log(res);
-			// 	}
-			// })
-
 		},
 
 		onShow() {},

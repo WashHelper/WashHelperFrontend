@@ -8,80 +8,72 @@
 		}
 	},
 	"pages": [{
-			"path": "pages/login/index"
-		}, {
-			"path": "pages/login/quickLogin"
-		}, {
-			"path": "pages/index/index"
-		}, {
-			"path": "pages/user/index"
-		}, {
-			"path": "pages/welcome/index"
-		},
-		{
-			"path": "pages/order/index"
-		}, {
-			"path": "pages/purchase/purchase",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/cart/cart",
-			"style": {
-				"navigationBarTitleText": "洗笑颜开",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/maps",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/order/map2",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/mapBuy",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "pages/order/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/purchase/mailingAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/purchase/doorToDoor",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/purchase/pickupAddress",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
+		"path": "pages/login/index"
+	}, {
+		"path": "pages/login/quickLogin"
+	}, {
+		"path": "pages/index/index"
+	}, {
+		"path": "pages/user/index"
+	}, {
+		"path": "pages/welcome/index"
+	}, {
+		"path": "pages/order/index"
+	}, {
+		"path": "pages/cart/cart",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
 		}
-	],
+	}, {
+		"path": "pages/order/maps",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/map2",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/mapBuy",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/order/mailingAddress",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/purchase",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/mailingAddress",
+		"style ": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/doorToDoor",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/purchase/pickupAddress",
+		"style": {
+			"navigationBarTitleText": "洗笑颜开",
+			"enablePullDownRefresh": false
+		}
+	}],
 	"subpackages": [{
 			"root": "packageOrder",
 			"pages": [{
