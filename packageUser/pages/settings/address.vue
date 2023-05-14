@@ -24,10 +24,10 @@
 					<view class="edit">编辑</view>
 					<view class="delete">删除</view>
 				</view>
-				<view class="default">
+				<!-- <view class="default">
 					<view class="text">设为默认</view>
 					<uni-icons :type="icon" size="20"></uni-icons>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<button class="btn_address" @click="addAddress()">增添新地址</button>
@@ -39,14 +39,18 @@
 		data() {
 			return {
 				icon: 'checkbox',
-				clickedicon: 'checkbox-filled'
+				// clickedicon: 'checkbox-filled'
+				isSelected: false
 			};
 		},
-		onLoad() {
+		onLoad: function(option) {
 			// const res = this.$axios.getAddressList(0)
 			// console.log(res)
 			this.getAddress(0)
 			// console.log()
+			this.getDefaultAddress(1)
+			console.log(option.isSelected)
+			this.isSelected = option.isSelected
 		},
 		methods: {
 			changeicon() {
@@ -57,6 +61,14 @@
 				const {
 					data: res
 				} = this.$axios.getAddressList(type)
+			},
+			getDefaultAddress() {
+				console.log('获得默认地址');
+				const {
+					data: res
+				} = this.$axios.getDefault()
+				// console.log()
+				console.log(res)
 			},
 			addAddress() {
 				uni.navigateTo({

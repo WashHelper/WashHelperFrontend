@@ -5,8 +5,6 @@
 			<view class="consignee">
 				<text>收货人</text>
 				<input focus placeholder="请输入姓名" v-model="name" class="placeholder2" />
-				<!-- <input type="text" placeholder="请输入姓名" v-model="name" class="placeholder"
-					placeholder-style="margin-left:12px" @focus="inputClass"> -->
 			</view>
 			<view class="phoneNum">
 				<text>联系方式</text>
@@ -22,25 +20,22 @@
 					@popupclosed="onpopupclosed">
 				</uni-data-picker>
 				<!-- </uni-section> -->
-				<!-- <view class="address-rights" bindtap='select'>
-					<image src="../../../img/icon/icon-site-location.png"></image>
-					<view>定位</view>
-				</view> -->
+
 			</view>
 			<view class="detail-location">
 				<text>详细地址</text>
 				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"></textarea>
 				<!-- </view> -->
 			</view>
-			<view class="default">
+			<!-- <view class="default">
 				<text>设为默认</text>
 				<uni-icons :type="icon" size="20" @click="changeicon()"></uni-icons>
-			</view>
+			</view -->
 			<view class="paste">
 				整段识别粘贴输入
 			</view>
 		</view>
-		<view class="btn">保存</view>
+		<view class="btn" @click="pushOrder()">保存</view>
 	</view>
 </template>
 
@@ -51,9 +46,10 @@
 				name: '',
 				phoneNum: '',
 				icon: 'checkbox',
-				inputClass: 'input-style',
+				// inputClass: 'input-style',
 				classes: '1-2-3',
-				isOpened: false,
+				// isOpened: false,
+				single: '',
 				dataTree: [{
 					text: "江苏省",
 					value: "1-0",
@@ -98,20 +94,7 @@
 				}]
 			};
 		},
-		computed: {
-			count: {
-				get() {
-					return this.value;
-				},
-				set(newValue) {
-					this.$emit("input", newValue)
-				}
-			}
-			// classes: '1-2-3',
-		},
-		onHide() {
-			this.$refs.datetimePicker.close()
-		},
+		computed: {},
 		methods: {
 			changeicon() {
 				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
@@ -127,14 +110,9 @@
 			},
 			onchange(e) {
 				console.log('关闭')
-				this.hide();
 				// this.classes = e[0];
-				const value = e.detail.value
-				this.classes = "1-2-3"
-				console.log('onchange:', e);
-			},
-			hide() {
-				this.isOpened = false;
+				this.single = e;
+				console.log(e);
 			},
 			checkboxChange: function(e) {
 				var items = this.items,
@@ -147,6 +125,16 @@
 						this.$set(item, 'checked', false)
 					}
 				}
+			},
+			pushOrder() {
+				console.log('提交用户新增地址')
+				const {
+					data: res
+				} = this.$axios.addAddress();
+				console.log(res)
+				uni.navigateTo({
+					url: './address?isSelected=true'
+				})
 			}
 		}
 	}
@@ -154,6 +142,18 @@
 
 <style lang="scss">
 	.container {
+		.uni-date-editor--x {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+		}
+
+		.uni-date-editor--x .uni-date__icon-clear {
+			display: inline-block;
+			box-sizing: border-box;
+			border: 9px solid transparent;
+		}
+
 		.data-pickerview {
 			height: 400px;
 			border: 1px #e5e5e5 solid;
@@ -165,19 +165,6 @@
 			margin-right: 3px;
 			border-top-width: 0;
 			border-bottom-color: #EBEEF5;
-		}
-
-		.popper__arrow {
-			top: -6px;
-			left: 50%;
-			margin-right: 3px;
-			border-top-width: 0;
-			border-bottom-color: #EBEEF5;
-		}
-
-		.input-style {
-			color: red;
-			margin-left: 16px;
 		}
 
 		.bigbox {
