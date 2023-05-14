@@ -92,12 +92,14 @@
 
 			.avatar {
 				width: 87.95vw;
-				height: 73px;
+				height: 60px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				justify-content: space-between;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+
+
 
 				text {
 					line-height: 24px;
@@ -106,6 +108,8 @@
 				image {
 					width: 60px;
 					height: 60px;
+					border-radius: 50%;
+					overflow: hidden;
 				}
 			}
 

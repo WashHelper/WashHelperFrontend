@@ -8,7 +8,6 @@
 					duration: 2000
 				});
 			},
-
 			/**
 			 * 获取用户信息
 			 */
@@ -60,29 +59,22 @@
 			}
 		},
 
-		// onLaunch() {
-		// 	if (uni.getStorageSync('token')) {
-		// 		this.login()
-		// 	}
-		// 	wx.showModal({
-		// 		title: '提示',
-		// 		content: '请登录以正常使用',
-		// 		success: (res) => {
-		// 			if (res.confirm) {
-		// 				this.login();
-		// 			} else if (res.cancel) {
-		// 				this.failToLogin('拒绝一键登录');
-		// 			}
-		// 		}
-		// 	});
-
-		// 	// uni.checkSession({
-		// 	// 	complete: (res) => {
-		// 	// 		console.log(res);
-		// 	// 	}
-		// 	// })
-
-		// },
+		onLaunch() {
+			if (uni.getStorageSync('token')) {
+				this.login()
+			}
+			wx.showModal({
+				title: '提示',
+				content: '请登录以正常使用',
+				success: (res) => {
+					if (res.confirm) {
+						this.login();
+					} else if (res.cancel) {
+						this.failToLogin('拒绝一键登录');
+					}
+				}
+			});
+		},
 
 		onShow() {},
 		onHide() {}

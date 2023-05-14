@@ -24,13 +24,13 @@
 					<view class="edit">编辑</view>
 					<view class="delete">删除</view>
 				</view>
-				<view class="default">
+				<!-- <view class="default">
 					<view class="text">设为默认</view>
 					<uni-icons :type="icon" size="20"></uni-icons>
-				</view>
+				</view> -->
 			</view>
 		</view>
-		<button @click="addAddress()">增添新地址</button>
+		<button class="btn_address" @click="addAddress()">增添新地址</button>
 	</view>
 </template>
 
@@ -39,14 +39,18 @@
 		data() {
 			return {
 				icon: 'checkbox',
-				clickedicon: 'checkbox-filled'
+				// clickedicon: 'checkbox-filled'
+				isSelected: false
 			};
 		},
-		onLoad() {
+		onLoad: function(option) {
 			// const res = this.$axios.getAddressList(0)
 			// console.log(res)
 			this.getAddress(0)
 			// console.log()
+			this.getDefaultAddress(1)
+			console.log(option.isSelected)
+			this.isSelected = option.isSelected
 		},
 		methods: {
 			changeicon() {
@@ -58,9 +62,17 @@
 					data: res
 				} = this.$axios.getAddressList(type)
 			},
+			getDefaultAddress() {
+				console.log('获得默认地址');
+				const {
+					data: res
+				} = this.$axios.getDefault()
+				// console.log()
+				console.log(res)
+			},
 			addAddress() {
 				uni.navigateTo({
-					url: ''
+					url: './addAddress'
 				})
 			}
 		}
@@ -88,6 +100,7 @@
 			margin: 0px auto;
 
 			.name-number {
+				margin-top: 6px;
 				display: flex;
 				// flex-direction: row;
 				height: 21px;
@@ -98,7 +111,7 @@
 			.address-detail {
 				width: 100%;
 				height: 27px;
-				margin-top: 15px;
+				margin-top: 13px;
 				border-bottom: 1px solid rgba(235, 236, 237, 1);
 				display: flex;
 				flex-direction: row;
@@ -156,8 +169,10 @@
 			}
 		}
 
-		button {
+		.btn_address {
+			margin-left: -114px;
 			width: 228px;
+			left: 50vw;
 			height: 35px;
 			border-radius: 10px;
 			background: linear-gradient(223.13deg, rgba(87, 182, 230, 1) 0%, rgba(141, 242, 234, 0.5) 90.99%, rgba(247, 247, 193, 0.01) 100%);
@@ -166,7 +181,7 @@
 			align-items: center;
 			justify-content: center;
 			position: absolute;
-			bottom: 0px;
+			bottom: 18px;
 		}
 	}
 </style>

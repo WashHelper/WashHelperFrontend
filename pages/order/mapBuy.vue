@@ -14,7 +14,6 @@
 		<view class="content">
 
 			<view class="first-item">
-				<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
@@ -24,7 +23,6 @@
 				</span>
 			</view>
 			<view class="first-item">
-				<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
@@ -53,6 +51,7 @@
 						v-model="selected">
 				</view>
 			</view>
+			<view></view>
 			<view class="main-item">
 				<text>备注</text>
 				<input v-model="orderInfo.remark" type="text" placeholder="填写要备注的内容" placeholder-class="placeholder"
@@ -151,6 +150,16 @@
 			comfirmOrder() {
 				this.$axios.confirmOrder(this.orderInfo)
 			},
+			//获得购物车商品列表
+			async getCartList() {
+				const {
+					data: res
+				} = await this.$axios.getCart()
+				console.log('获得购物车商品列表')
+				console.log(res)
+				// this.totalNumber = res.totalNum
+				// this.totalprice = res.totalPrice
+			}
 		}
 	}
 </script>

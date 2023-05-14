@@ -4,35 +4,38 @@
 			<!-- <view class="box"> -->
 			<view class="consignee">
 				<text>收货人</text>
-				<input type="text" placeholder="请输入姓名" v-model="name" class="placeholder"
-					placeholder-style="margin-left:12px">
+				<input focus placeholder="请输入姓名" v-model="name" class="placeholder2" />
 			</view>
 			<view class="phoneNum">
 				<text>联系方式</text>
-				<input type="text" placeholder="联系方式" v-model="phoneNum" class="placeholder"
-					placeholder-style="margin-left:12px">
+				<input focus placeholder="联系方式" v-model="phoneNum" class="placeholder2">
 			</view>
-			<view class="location">
-				<text>所在地区</text>
+
+			<view class="address-msg" style="display: flex;">
+				<view class="item-msg">所在地区</view>
+				<!-- 多选框 -->
+				<!-- <uni-section title="本地数据" type="line" padding style="height: calc(100vh - 100px);"> -->
+				<uni-data-picker class="uni-data-picker" placeholder="请选择地址" popup-title="请选择所在地区" :localdata="dataTree"
+					v-model="classes" @change="onchange" @nodeclick="onnodeclick" @popupopened="onpopupopened"
+					@popupclosed="onpopupclosed">
+				</uni-data-picker>
+				<!-- </uni-section> -->
 
 			</view>
 			<view class="detail-location">
 				<text>详细地址</text>
-				<textarea name="" id="" cols="50" rows="50" placeholder="请填写具体地址" auto-height class="textarea"
-					placeholder-style="margin-left:12px"></textarea>
+				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"></textarea>
 				<!-- </view> -->
 			</view>
-			<view class="default">
+			<!-- <view class="default">
 				<text>设为默认</text>
 				<uni-icons :type="icon" size="20" @click="changeicon()"></uni-icons>
-			</view>
+			</view -->
 			<view class="paste">
 				整段识别粘贴输入
 			</view>
 		</view>
-
-
-		<view class="btn">保存</view>
+		<view class="btn" @click="pushOrder()">保存</view>
 	</view>
 </template>
 
@@ -42,19 +45,127 @@
 			return {
 				name: '',
 				phoneNum: '',
-				icon: 'checkbox'
+				icon: 'checkbox',
+				// inputClass: 'input-style',
+				classes: '1-2-3',
+				// isOpened: false,
+				single: '',
+				dataTree: [{
+					text: "江苏省",
+					value: "1-0",
+					children: [{
+							text: "南京市",
+							value: "1-1",
+							children: [{
+								text: '高淳区',
+								value: "2-1"
+							}, {
+								text: '鼓楼区',
+								value: "2-2"
+							}, {
+								text: '建邺区',
+								value: "2-3"
+							}, {
+								text: '江宁区',
+								value: "2-4"
+							}, {
+								text: '溧水区',
+								value: "2-5"
+							}, {
+								text: '六合区',
+								value: "2-6"
+							}, {
+								text: '浦口区',
+								value: "2-7"
+							}, {
+								text: '栖霞区',
+								value: "2-8"
+
+							}, {
+								text: '其他区',
+								value: "2-9"
+							}]
+						},
+						{
+							text: "徐州市",
+							value: "1-2"
+						}
+					]
+				}]
 			};
 		},
+		computed: {},
 		methods: {
 			changeicon() {
 				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
 			},
+			onnodeclick(e) {
+				console.log(e);
+			},
+			onpopupopened(e) {
+				console.log('popupopened');
+			},
+			onpopupclosed(e) {
+				console.log('popupclosed');
+			},
+			onchange(e) {
+				console.log('关闭')
+				// this.classes = e[0];
+				this.single = e;
+				console.log(e);
+			},
+			checkboxChange: function(e) {
+				var items = this.items,
+					values = e.detail.value;
+				for (var i = 0, lenI = items.length; i < lenI; ++i) {
+					const item = items[i]
+					if (values.includes(item.value)) {
+						this.$set(item, 'checked', true)
+					} else {
+						this.$set(item, 'checked', false)
+					}
+				}
+			},
+			pushOrder() {
+				console.log('提交用户新增地址')
+				const {
+					data: res
+				} = this.$axios.addAddress();
+				console.log(res)
+				uni.navigateTo({
+					url: './address?isSelected=true'
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
 	.container {
+		.uni-date-editor--x {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+		}
+
+		.uni-date-editor--x .uni-date__icon-clear {
+			display: inline-block;
+			box-sizing: border-box;
+			border: 9px solid transparent;
+		}
+
+		.data-pickerview {
+			height: 400px;
+			border: 1px #e5e5e5 solid;
+		}
+
+		.popper__arrow {
+			top: -6px;
+			left: 50%;
+			margin-right: 3px;
+			border-top-width: 0;
+			border-bottom-color: #EBEEF5;
+		}
 
 		.bigbox {
 			width: 327px;
@@ -65,18 +176,13 @@
 			padding: 0px 16px 14px 17px;
 			margin-top: 16px;
 
-			.placeholder {
+			.placeholder2 {
+				border: 1px solid rgba(191, 191, 191, 1);
+				padding-left: 10px;
 				font-size: 14px;
 				height: 32px;
-				font-weight: 400;
-				color: rgba(207, 207, 207, 1);
-				border: 1px solid rgba(191, 191, 191, 1);
 				border-radius: 6px;
-				margin-left: 41px;
-
-				&::placeholder {
-					margin-left: 16px;
-				}
+				margin-left: 25px;
 
 			}
 
@@ -86,6 +192,7 @@
 				align-items: center;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 				height: 57px;
+
 			}
 
 			.phoneNum {
@@ -112,11 +219,26 @@
 				height: 80px;
 
 				.textarea {
-					width: 178px;
+					margin-left: 25px;
+					width: 45.6vw;
 					height: 55px;
+					padding-left: 16px;
 					border-radius: 6px;
-					color: rgba(207, 207, 207, 1);
 					border: 1px solid rgba(191, 191, 191, 1);
+				}
+			}
+
+			.address-msg {
+				display: flex;
+				align-items: center;
+
+				.item-msg {
+					margin-right: 25px;
+				}
+
+				.uni-data-picker {
+					border: 1px solid rgba(191, 191, 191, 1);
+					border-radius: 6px;
 				}
 			}
 
