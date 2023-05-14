@@ -14,23 +14,23 @@
 		<view class="content">
 
 			<view class="first-item">
-<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
+				<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
 				</label>
 				<span>
-					<img src="../../static/order-map/Combined.png" alt="">
+					<img src="../../static/order-map/Combined.png" alt="" @click="">
 				</span>
 			</view>
 			<view class="first-item">
-<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
+				<!-- 				<img src="../../static/order-map/icPin.png" mode=""></img> -->
 				<label>
 					<p>南京邮电大学仙林校区东门网点</p>
 					<p>王二 18816887878</p>
 				</label>
 				<span>
-					<img src="../../static/order-map/Combined.png" alt="">
+					<img src="../../static/order-map/Combined.png" @click="" alt="">
 				</span>
 			</view>
 
@@ -55,11 +55,12 @@
 			</view>
 			<view class="main-item">
 				<text>备注</text>
-				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5">
+				<input v-model="orderInfo.remark" type="text" placeholder="填写要备注的内容" placeholder-class="placeholder"
+					class="input5">
 			</view>
 			<view class="default">
 				<text>35元</text>
-				<button>确认下单</button>
+				<button @click="comfirmOrder">确认下单</button>
 			</view>
 		</view>
 	</view>
@@ -72,6 +73,21 @@
 				list: ["南京邮电大学", "南京财经大学", "南京大学", "南京理工大学", "东南大学"],
 				selected: "",
 				urlsList: [],
+				orderInfo: {
+					pickupLocationId: 10,
+					deliveryLocationId: 87,
+					productsList: [{
+							productId: "85",
+							productNum: "73"
+						},
+						{
+							productId: "19",
+							productNum: "78"
+						}
+					],
+					picture: "http://dummyimage.com/400x400",
+					remark: "123"
+				},
 				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
 
 				id: 0, // 使用 marker点击事件 需要填写id
@@ -116,13 +132,25 @@
 				this.selected = this.list[index];
 				// console.log(this.selected);
 			},
-			comfirmOrder() {},
 			async testGet() {
 				const {
 					data: res
 				} = await this.$axios.getUrl()
 				this.urlsList = res
-			}
+			},
+			gotodoorToDoor() {
+				uni.navigateTo({
+					url: '/packageOrder/pages/doorToDoor'
+				})
+			},
+			gotopickupAddress() {
+				uni.navigateTo({
+					url: '/packageOrder/pages/pickupAddress'
+				})
+			},
+			comfirmOrder() {
+				this.$axios.confirmOrder(this.orderInfo)
+			},
 		}
 	}
 </script>

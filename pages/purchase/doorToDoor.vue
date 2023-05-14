@@ -55,7 +55,7 @@
 			</view>
 		</view>
 		
-		<view class="cover cover2">
+<!-- 		<view class="cover cover2">
 			<view class="popup" :class="{show: isPopup}">
 				<view class="popup-content">
 		
@@ -67,7 +67,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 
 
 	</view>
@@ -294,7 +294,7 @@
 	}
 
 	// cover
-	.cover {
+.cover {
 
 		button {
 			width: 128px;
@@ -302,8 +302,8 @@
 			border: transparent;
 			border-radius: 10px;
 			line-height: 67rpx;
-			background: rgba(131, 195, 230, 1);
 			color: rgba(255, 255, 255, 1);
+			background: rgba(131, 195, 230, 1);
 			margin-top: 33rpx;
 			margin-bottom: 65rpx;
 			font-size: 34.62rpx;

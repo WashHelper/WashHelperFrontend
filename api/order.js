@@ -88,18 +88,12 @@ export default {
 	 * @description 下单确认
 	 */
 
-	confirmOrder() {
+	confirmOrder(data) {
+		console.log(data);
 		return request({
 			url: '/order/confirm',
 			method: 'post',
-			data: {
-				pickupLocationId,
-				deliveryLocationId,
-				picture,
-				productList,
-				pickupTime,
-				remark
-			}
+			data
 		})
 	}
 }

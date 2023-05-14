@@ -86,7 +86,7 @@
 			<view class="serve-choice">
 				<button type="default" disabled="true">衣旧情深</button>
 				<button type="default" disabled="true">商城</button>
-				<button type="default" disabled="true">碳积分</button>
+				<button type="default" disabled="true" @click="gotoTanJiFen()">碳积分</button>
 			</view>
 		</view>
 		<view class="kong" style="height: 110rpx;"></view>
@@ -133,6 +133,7 @@
 				} = await this.$axios.getUrl()
 				this.urlsList = res
 				this.isDataLoaded = true;
+				console.log(this.urlsList)
 			},
 			change(e) {
 				console.log('当前模式：' + e.type + ',状态：' + e.show);
@@ -168,6 +169,11 @@
 					url: '/packageOrder/pages/pickupAddress'
 				})
 			},
+			gotoTanJiFen() {
+				uni.navigateTo({
+					url: '/packageUser/pages/settings/credit'
+				})
+			}
 		}
 	}
 </script>
