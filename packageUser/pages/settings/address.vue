@@ -138,7 +138,7 @@
 				margin-top: 11px;
 				height: 21px;
 				font-size: 12px;
-				justify-content: space-around;
+				// justify-content: space-around;
 
 				.left {
 					display: flex;

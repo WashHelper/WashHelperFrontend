@@ -23,8 +23,8 @@
 					</view>
 				</view>
 				<view v-if="active==0">
-					<view class="indexInput-box">
-						<view class="input" @click="gotopickupAddress()">
+					<view class="indexInput-box" @click="gotopickupAddress()">
+						<view class="input">
 							<image v-if="isDataLoaded" :src="baseUrl+urlsList[6]" mode=""></image>
 							<text class="placeholder">输入您的取件地址</text>
 						</view>

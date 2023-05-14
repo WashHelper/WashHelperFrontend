@@ -89,10 +89,6 @@
 		{
 			"root": "packageUser",
 			"pages": [{
-					"path": "pages/order/detail"
-				}, {
-					"path": "pages/order/feedback"
-				}, {
 					"path": "pages/settings/address"
 				}, {
 					"path": "pages/settings/index"
