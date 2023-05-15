@@ -75,7 +75,7 @@
 				</li>
 				<div-line></div-line>
 				<li>
-					<navigator class="link" url="../../packageUser/pages/credit">
+					<navigator class="link" url="../../packageUser/pages/joinUs">
 						<view>加盟我们</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 					</navigator>
@@ -83,23 +83,23 @@
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
+					<navigator class="link" url="../../packageUser/pages/clouds/clouds">
 						<view>我的云洗店</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
+					<navigator class="link" url="../../packageUser/pages/cooperate">
 						<view>合作品牌</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<navigator class="link">
+					<navigator class="link" url="../../packageUser/pages/policy/policy">
 						<view>协议与政策</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 					</navigator>

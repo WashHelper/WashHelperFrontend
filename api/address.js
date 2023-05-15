@@ -8,7 +8,8 @@ export default {
 	getAddressList(type) {
 		return request({
 			url: `/location/list/${type}`,
-			method: 'get'
+			method: 'get',
+
 		})
 	},
 
@@ -19,6 +20,9 @@ export default {
 		return request({
 			url: `/location/default/${type}`,
 			method: 'get',
+			params: {
+				type
+			}
 		})
 	},
 
@@ -41,19 +45,11 @@ export default {
 	 * @description 新增用户地址
 	 */
 
-	addAddress() {
+	addAddress(params) {
 		return request({
 			url: '/location/new',
 			method: 'post',
-			data: {
-				area,
-				location,
-				name,
-				phone,
-				isSelf,
-				tag,
-				isDefault
-			}
+			data: params
 		})
 	},
 

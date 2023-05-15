@@ -200,11 +200,6 @@
 						url: '/pages/order/mapBuy'
 					})
 				}
-				// console.log(清空购物车)
-				// const {
-				// 	data: res
-				// } = this.$axios.deleteCart()
-				// console.log(res)
 			},
 			//获取商品列表
 			async getCartList() {
@@ -217,8 +212,6 @@
 				this.totalprice = res.totalPrice
 				console.log(res.totalPrice)
 			}
-
-
 		},
 	}
 </script>

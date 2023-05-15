@@ -4,7 +4,7 @@
 			<!-- <view class="box"> -->
 			<view class="consignee">
 				<text>收货人</text>
-				<input focus placeholder="请输入姓名" v-model="name" class="placeholder2" />
+				<input focus placeholder="请输入姓名" v-model="username" class="placeholder2" />
 			</view>
 			<view class="phoneNum">
 				<text>联系方式</text>
@@ -17,7 +17,7 @@
 				<!-- <uni-section title="本地数据" type="line" padding style="height: calc(100vh - 100px);"> -->
 				<uni-data-picker class="uni-data-picker" placeholder="请选择地址" popup-title="请选择所在地区" :localdata="dataTree"
 					v-model="classes" @change="onchange" @nodeclick="onnodeclick" @popupopened="onpopupopened"
-					@popupclosed="onpopupclosed">
+					@popupclosed="onpopupclosed" placement="bottom-start">
 				</uni-data-picker>
 				<!-- </uni-section> -->
 
@@ -43,10 +43,10 @@
 	export default {
 		data() {
 			return {
-				name: '',
+				username: '',
+				//电话号码
 				phoneNum: '',
 				icon: 'checkbox',
-				// inputClass: 'input-style',
 				classes: '1-2-3',
 				// isOpened: false,
 				single: '',
@@ -112,6 +112,7 @@
 				console.log('关闭')
 				// this.classes = e[0];
 				this.single = e;
+				this.$refs.classes.clear();
 				console.log(e);
 			},
 			checkboxChange: function(e) {
@@ -127,11 +128,28 @@
 				}
 			},
 			pushOrder() {
+				var params = {
+					'type': 1,
+					// 'area': this.single.detail,
+					'area': '江苏省-南京市-栖霞县',
+					'location': "string",
+					'name': this.username,
+					'phone': this.phoneNum,
+					'isSelf': true,
+					'tag': "string",
+					'isDefault': true
+				}
+				console.log(params)
 				console.log('提交用户新增地址')
-				const {
-					data: res
-				} = this.$axios.addAddress();
-				console.log(res)
+				this.$axios.addAddress(params).then(res => {
+					console.log(res)
+					if (res.success === 'true')
+						console.log('发送成功')
+					else {
+						console.log('发送失败', this.area)
+					}
+				})
+				// console.log(res)
 				uni.navigateTo({
 					url: './address?isSelected=true'
 				})

@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
+
 		<view class="bigbox">
+			<!-- <uni-data-picker></uni-data-picker> -->
 			<view class="banner" @click="testGet()">
 				<swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff" circular
 					autoplay interval="4000">

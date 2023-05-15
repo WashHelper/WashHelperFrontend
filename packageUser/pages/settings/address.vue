@@ -40,17 +40,18 @@
 			return {
 				icon: 'checkbox',
 				// clickedicon: 'checkbox-filled'
-				isSelected: false
+				isSelected: false,
+				addressList: []
 			};
 		},
 		onLoad: function(option) {
 			// const res = this.$axios.getAddressList(0)
 			// console.log(res)
 			this.getAddress(0)
-			// console.log()
-			this.getDefaultAddress(1)
-			console.log(option.isSelected)
-			this.isSelected = option.isSelected
+			// this.getDefaultAddress(1)
+
+			// this.isSelected = option.isSelected
+			// console.log(option.isSelected)
 		},
 		methods: {
 			changeicon() {
@@ -61,6 +62,9 @@
 				const {
 					data: res
 				} = this.$axios.getAddressList(type)
+				this.addressList = res
+				console.log('获得全部地址信息')
+				console.log(this.addressList)
 			},
 			getDefaultAddress() {
 				console.log('获得默认地址');

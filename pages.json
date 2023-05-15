@@ -89,47 +89,59 @@
 		{
 			"root": "packageUser",
 			"pages": [{
-					"path": "pages/settings/address"
-				}, {
-					"path": "pages/settings/index"
-				}, {
-					"path": "pages/settings/addAddress"
-				}, {
-					"path": "pages/cooperate"
-				}, {
-					"path": "pages/credit"
-				}, {
-					"path": "pages/feedback"
-				}, {
-					"path": "pages/joinUs"
-				}, {
-					"path": "pages/recycle"
-				}, {
-					"path": "pages/service",
-					"style": {
-						"navigationBarTitleText": "洗笑颜开",
-						"app-plus": {
-							"animationType": "fade-in",
-							"background": "transparent",
-							"backgroundColor": "transparent",
-							"popGesture": "none"
-						}
-					}
-				}, {
-					"path": "pages/card",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
-				},
-				{
-					"path": "pages/chargeMoney",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
+				"path": "pages/settings/address"
+			}, {
+				"path": "pages/settings/index"
+			}, {
+				"path": "pages/settings/addAddress"
+			}, {
+				"path": "pages/cooperate"
+			}, {
+				"path": "pages/credit"
+			}, {
+				"path": "pages/feedback"
+			}, {
+				"path": "pages/joinUs"
+			}, {
+				"path": "pages/recycle"
+			}, {
+				"path": "pages/service",
+				"style": {
+					"navigationBarTitleText": "洗笑颜开",
+					"app-plus": {
+						"animationType": "fade-in",
+						"background": "transparent",
+						"backgroundColor": "transparent",
+						"popGesture": "none"
 					}
 				}
-			]
+			}, {
+				"path": "pages/card",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "pages/chargeMoney",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "pages/clouds/clouds",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "pages/policy/policy",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}]
 		}
 	],
 	"preloadRule": {
