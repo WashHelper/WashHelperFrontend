@@ -9,7 +9,9 @@ export default {
 		return request({
 			url: `/location/list/${type}`,
 			method: 'get',
-
+			params: {
+				type
+			}
 		})
 	},
 

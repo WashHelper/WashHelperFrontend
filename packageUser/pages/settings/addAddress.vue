@@ -21,13 +21,14 @@
 			</view>
 			<view class="detail-location">
 				<text>详细地址</text>
-				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"></textarea>
+				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"
+					v-model="detail_location"></textarea>
 				<!-- </view> -->
 			</view>
-			<!-- <view class="default">
+			<view class="default">
 				<text>设为默认</text>
 				<uni-icons :type="icon" size="20" @click="changeicon()"></uni-icons>
-			</view -->
+			</view>
 			<view class="paste">
 				整段识别粘贴输入
 			</view>
@@ -47,6 +48,8 @@
 				classes: '0',
 				// isOpened: false,
 				single: '',
+				tag: '',
+				detail_location: '',
 				areadatail: '',
 				dataTree: [{
 					text: " 江苏省",
@@ -98,18 +101,18 @@
 					'checkbox-filled'
 			},
 			onchange(e) {
-				console.log('关闭') // this.single=e; // this.$refs.location.clear();
+				console.log('关闭');
+				// this.single=e; // this.$refs.location.clear();
 				console.log(e);
-				console.log(e.detail.value[0].text)
+				console.log(e.detail.value[0].text);
 				// return e.detail.value
 				this.areadatail = e.detail.value[0].text + "-" + e.detail.value[1].text + "-" + e.detail.value[2].text
 			},
 			checkboxChange: function(e) {
-				var items = this.items,
-					values = e.detail.value;
+				var items = this.items;
+				values = e.detail.value;
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
-					const
-						item = items[i]
+					const item = items[i]
 					if (values.includes(item.value)) {
 						this.$set(item, 'checked', true)
 					} else {
@@ -125,12 +128,12 @@
 					'type': 1, // 
 					// 'area': '江苏省-南京市-栖霞县',
 					'area': this.areadatail,
-					'location': "string",
+					'location': this.detail_location,
 					'name': this.username,
 					'phone': this.phoneNum,
 					'isSelf': true,
-					'tag': "string",
-					'isDefault': true
+					'tag': "this.tag",
+					'isDefault': false
 				};
 				console.log(params)
 				console.log('提交用户新增地址')
@@ -139,7 +142,7 @@
 					if (res.success === 'true')
 						console.log('发送成功')
 					else {
-						console.log('发送失败', this.area)
+						console.log('发送失败', this.areadatail)
 					}
 				})
 				// console.log(res)
