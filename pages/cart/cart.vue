@@ -143,9 +143,7 @@
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
-			this.getGoodsList(0)
-			// console.log(this.totalprice)
-
+			this.getGoodsList(0);
 			this.getCartList()
 		},
 		methods: {
@@ -169,19 +167,14 @@
 				console.log(this.goodsList[index].productId)
 				this.goodsList[index].productNum++
 				console.log(this.goodsList[index])
-				this.totalNumber++
-				// this.getCartList()
-				// this.totalNumber = res.totalNum
-				// this.totalprice = res.totalPrice
-				// this.totalprice += this.goodsList[index].originalPrice
+				this.totalNumber++;
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
 
 				console.log(this.goodsList[index].productId)
-				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
-				// console.log(this.goodsList[index].productNum);
+				this.goodsList[index].productNum = this.goodsList[index].productNum - 1;
 				this.totalNumber--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},

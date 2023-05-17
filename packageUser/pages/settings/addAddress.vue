@@ -13,13 +13,10 @@
 
 			<view class="address-msg" style="display: flex;">
 				<view class="item-msg">所在地区</view>
-				<!-- 多选框 -->
-				<!-- <uni-section title="本地数据" type="line" padding style="height: calc(100vh - 100px);"> -->
+
 				<uni-data-picker class="uni-data-picker" placeholder="请选择地址" popup-title="请选择所在地区" :localdata="dataTree"
-					v-model="classes" @change="onchange" @nodeclick="onnodeclick" @popupopened="onpopupopened"
-					@popupclosed="onpopupclosed" placement="bottom-start">
+					v-model="classes" @change="onchange" ref="location">
 				</uni-data-picker>
-				<!-- </uni-section> -->
 
 			</view>
 			<view class="detail-location">
@@ -35,7 +32,7 @@
 				整段识别粘贴输入
 			</view>
 		</view>
-		<view class="btn" @click="pushOrder()">保存</view>
+		<view class="btn" @click="pushOrder(e)">保存</view>
 	</view>
 </template>
 
@@ -47,79 +44,72 @@
 				//电话号码
 				phoneNum: '',
 				icon: 'checkbox',
-				classes: '1-2-3',
+				classes: '0',
 				// isOpened: false,
 				single: '',
+				areadatail: '',
 				dataTree: [{
-					text: "江苏省",
-					value: "1-0",
+					text: " 江苏省",
+					value: "1",
 					children: [{
-							text: "南京市",
-							value: "1-1",
-							children: [{
+						text: "南京市",
+						value: "1-1",
+						children: [{
 								text: '高淳区',
-								value: "2-1"
-							}, {
+								value: "1-1-1"
+							},
+							{
 								text: '鼓楼区',
-								value: "2-2"
+								value: "1-1-2"
 							}, {
 								text: '建邺区',
-								value: "2-3"
+								value: "1-1-3"
 							}, {
 								text: '江宁区',
-								value: "2-4"
+								value: "1-1-4"
 							}, {
 								text: '溧水区',
-								value: "2-5"
+								value: "1-1-5"
 							}, {
 								text: '六合区',
-								value: "2-6"
+								value: "1-1-6"
 							}, {
 								text: '浦口区',
-								value: "2-7"
+								value: "1-1-7"
 							}, {
 								text: '栖霞区',
-								value: "2-8"
-
+								value: "1-1-8"
 							}, {
 								text: '其他区',
-								value: "2-9"
-							}]
-						},
-						{
-							text: "徐州市",
-							value: "1-2"
-						}
-					]
+								value: "1-1-9"
+							}
+						]
+					}, {
+						text: "徐州市",
+						value: "1-2"
+					}]
 				}]
 			};
 		},
 		computed: {},
 		methods: {
 			changeicon() {
-				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
-			},
-			onnodeclick(e) {
-				console.log(e);
-			},
-			onpopupopened(e) {
-				console.log('popupopened');
-			},
-			onpopupclosed(e) {
-				console.log('popupclosed');
+				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' :
+					'checkbox-filled'
 			},
 			onchange(e) {
-				console.log('关闭')
-				// this.classes = e[0];
-				this.single = e;
-				this.$refs.classes.clear();
+				console.log('关闭') // this.single=e; // this.$refs.location.clear();
 				console.log(e);
+				console.log(e.detail.value[0].text)
+				// return e.detail.value
+				this.areadatail = e.detail.value[0].text + "-" + e.detail.value[1].text + "-" + e.detail.value[2].text
 			},
 			checkboxChange: function(e) {
 				var items = this.items,
 					values = e.detail.value;
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
-					const item = items[i]
+					const
+						item = items[i]
 					if (values.includes(item.value)) {
 						this.$set(item, 'checked', true)
 					} else {
@@ -127,18 +117,21 @@
 					}
 				}
 			},
-			pushOrder() {
+			search(item) {
+				console.log(item)
+			},
+			pushOrder(e) {
 				var params = {
-					'type': 1,
-					// 'area': this.single.detail,
-					'area': '江苏省-南京市-栖霞县',
+					'type': 1, // 
+					// 'area': '江苏省-南京市-栖霞县',
+					'area': this.areadatail,
 					'location': "string",
 					'name': this.username,
 					'phone': this.phoneNum,
 					'isSelf': true,
 					'tag': "string",
 					'isDefault': true
-				}
+				};
 				console.log(params)
 				console.log('提交用户新增地址')
 				this.$axios.addAddress(params).then(res => {
