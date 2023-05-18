@@ -92,9 +92,9 @@
 				</uni-grid>
 			</scroll-view>
 		</view>
-		<view class="" @click="getCamera(camera)">
+		<!-- 	<view class="" @click="getCamera(camera)">
 			上传图片
-		</view>
+		</view> -->
 		<footer class="shop">
 			<uni-badge class="uni-badge-left-margin" :text="totalNumber" absolute="rightTop" :offset="[4, 4]"
 				size="small">
@@ -184,38 +184,38 @@
 			},
 			//确认下单
 			admitOrder() {
-				let params = {
-					'pickupLocationId': 3,
-					'deliveryLocationId': 2,
-					'picture': this.camera,
-					'productList': this.cartList,
-					'pickupTime': "1999-01-05 19:22:40",
-					'remark': "",
-					'fee': 123
-				}
-				if (this.totalNumber === 0) {
-					uni.showToast({
-						title: '购物车为空',
-						icon: 'none'
-					})
-					return
-				} else {
-					this.$axios.confirmOrder(this.camera).then(res => {
-						console.log(res)
-						if (res.success === true)
-							console.log('发送成功')
-						else {
-							console.log('发送失败')
-						}
-					});
-					// this.$axios.add(index);
+				// let params = {
+				// 	'pickupLocationId': 3,
+				// 	'deliveryLocationId': 2,
+				// 	'picture': this.camera,
+				// 	'productList': this.cartList,
+				// 	'pickupTime': "1999-01-05 19:22:40",
+				// 	'remark': "",
+				// 	'fee': 123
+				// }
+				// if (this.totalNumber === 0) {
+				// 	uni.showToast({
+				// 		title: '购物车为空',
+				// 		icon: 'none'
+				// 	})
+				// 	return
+				// } else {
+				// 	this.$axios.confirmOrder(this.camera).then(res => {
+				// 		console.log(res)
+				// 		if (res.success === true)
+				// 			console.log('发送成功')
+				// 		else {
+				// 			console.log('发送失败')
+				// 		}
+				// 	});
+				// 	// this.$axios.add(index);
 
-				}
+				// }
 
-				// uni.navigateTo({
-				// 	// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
-				// 	url: '/pages/purchase/purchase'
-				// })
+				uni.navigateTo({
+					// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
+					url: '/pages/order/mapBuy'
+				})
 			},
 			//获取商品列表
 			async getCartList() {

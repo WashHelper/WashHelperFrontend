@@ -70,8 +70,8 @@
 				type = parseInt(type)
 				const {
 					data: res
-				} = await this.$axios.getAddressList(type)
-				this.addressList = res
+				} = await this.$axios.getAddressList(type);
+				this.addressList = res;
 				console.log('获得全部地址信息')
 				console.log(this.addressList)
 			},
