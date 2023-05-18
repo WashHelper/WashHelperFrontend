@@ -18,7 +18,7 @@
 					</header>
 					<div-line></div-line>
 					<view class="order-number text">
-						订单号：{{item.orderId}}
+						订单号：{{item.orderNumber}}
 					</view>
 					<view class="footer-banner">
 						<view>修改</view>
@@ -43,7 +43,7 @@
 					</header>
 					<div-line></div-line>
 					<view class="order-number text">
-						订单号：{{item.orderId}}
+						订单号：{{item.orderNumber}}
 					</view>
 					<view class="footer-banner">
 						<view>修改</view>
@@ -68,12 +68,12 @@
 					</header>
 					<div-line></div-line>
 					<view class="order-number text">
-						订单号：{{item.orderId}}
+						订单号：{{item.orderNumber}}
 					</view>
 					<view class="footer-banner">
 						<view>修改</view>
 						<view>详情</view>
-						<view @tap.native.stop="deleteUserOrder(item.orderId)">取消</view>
+						<view @tap.native.stop="deleteUserOrder(i)">取消</view>
 						<view>联系</view>
 					</view>
 				</navigator>
@@ -93,12 +93,12 @@
 					</header>
 					<div-line></div-line>
 					<view class="order-number text">
-						订单号：{{item.orderId}}
+						订单号：{{item.orderNumber}}
 					</view>
 					<view class="footer-banner">
 						<view>修改</view>
 						<view>详情</view>
-						<view @tap.native.stop="deleteUserOrder()">取消</view>
+						<view @tap.native.stop="deleteUserOrder(i)">取消</view>
 						<view>联系</view>
 					</view>
 				</navigator>
@@ -154,17 +154,6 @@
 					this.getItemList()
 				}
 			},
-			// dateFormat(time) {
-			// 	let date = new Date(time);
-			// 	let year = date.getFullYear();
-			// 	let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-			// 	let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-			// 	let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-			// 	let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-			// 	let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-			// 	// 拼接
-			// 	return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-			// },
 
 			//查询用户订单
 			async getItemList(i) {
@@ -174,7 +163,7 @@
 				res.forEach(floor => {
 					floor.id = floor.orderId
 				})
-				console.log(res[i])
+				// console.log(res[i])
 				console.log('获取订单详情 ')
 				this.OrderList = res
 				console.log(this.OrderList)
@@ -183,7 +172,7 @@
 			async deleteUserOrder(i) {
 				const {
 					data: res
-				} = await this.$axios.deleteOrder(this.OrderList[i].orderId)
+				} = await this.$axios.deleteOrder(this.OrderList[i].orderNumber)
 				console.log('取消的订单')
 				console.log(res)
 			},

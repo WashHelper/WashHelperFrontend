@@ -47,11 +47,22 @@ export default {
 	 * @description 新增用户地址
 	 */
 
-	addAddress(params) {
+	addAddress() {
 		return request({
 			url: '/location/new',
 			method: 'post',
-			data: params
+			data: {
+				area: "江苏省-南京市-高淳区",
+				location: "1",
+				name: "123",
+				phone: "12345678",
+				isSelf: true,
+				tag: "this.tag",
+				isDefault: false
+			},
+			params: {
+				type: 1
+			}
 		})
 	},
 
@@ -80,6 +91,4 @@ export default {
 			method: 'get'
 		})
 	},
-
-
 }

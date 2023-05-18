@@ -10,9 +10,9 @@
 			<button @click="viewOrder">查看订单</button>
 			<button @click="returnIndex">返回首页</button>
 		</view>
-		<view class="text2">
+		<!-- <view class="text2">
 			<text>感谢您对洗笑颜开的支持!</text>
-		</view>
+		</view> -->
 	</view>
 </template>
 

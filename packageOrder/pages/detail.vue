@@ -29,7 +29,6 @@
 			<div-line></div-line>
 			<!-- 衣服类型和图片 -->
 			<view class="item-detail">
-				<!-- <image src="@/static/order-types/clothes/Artboard 73@3x.png" mode="aspectFit"></image> -->
 				<!-- 衣服类型和价格 -->
 				<view class="type-container">
 					<text class="clothes-type">西服</text>
@@ -102,18 +101,7 @@
 				});
 				plus.device.dial('18851187568', true)
 			},
-			// dateFormat(time) {
-			// 	let date = new Date(time);
-			// 	let year = date.getFullYear();
-			// 	let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-			// 	let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-			// 	let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-			// 	let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-			// 	let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-			// 	// 拼接
-			// 	return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 
-			// }
 			async getdetailList(option) {
 				const {
 					data: res

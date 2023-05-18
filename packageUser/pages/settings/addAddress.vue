@@ -124,24 +124,23 @@
 				console.log(item)
 			},
 			pushOrder(e) {
-				var params = {
-					'type': 1, // 
+				let params2 = {
 					// 'area': '江苏省-南京市-栖霞县',
 					'area': this.areadatail,
-					'location': this.detail_location,
-					'name': this.username,
-					'phone': this.phoneNum,
-					'isSelf': true,
-					'tag': "this.tag",
-					'isDefault': false
+					// 'location': this.detail_location,
+					// 'name': this.username,
+					// 'phone': this.phoneNum,
+					// 'isSelf': true,
+					// 'tag': "this.tag",
+					// 'isDefault': false
 				};
-				console.log(params)
+				console.log(params2)
 				console.log('提交用户新增地址')
-				this.$axios.addAddress(params).then(res => {
+				this.$axios.addAddress(params2).then(res => {
 					console.log(res)
-					if (res.success === 'true')
+					if (res.success === true) {
 						console.log('发送成功')
-					else {
+					} else {
 						console.log('发送失败', this.areadatail)
 					}
 				})
