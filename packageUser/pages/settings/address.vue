@@ -1,36 +1,41 @@
 <template>
-	<view class="container">
+	<view class="big-box">
 		<view class="text">地址管理</view>
-		<view class="address-container" @click="changeicon()">
-			<view class="name-number">
-				<view class="name">张三</view>
-				<view class="phone">1888888</view>
-			</view>
-			<view class="address-detail">
-				<image class="location-icon" src="@/static/user-address/address-icon.png" mode="aspectFit"></image>
-				<view class="box">
-					<!-- 省市县 -->
-					<view class="area">
-						江苏省 南京市 栖霞区
-					</view>
-					<!-- 具体地址 -->
-					<view class="location">
-						仙林街道 文苑路
+		<view class="container" v-for="(item,index) in addressList" :index="index" :key="index">
+			<view class="address-container" @click="changeicon(index)">
+				<view class="name-number">
+					<view class="name">{{item.name}}</view>
+					<view class="phone">{{item.phone}}</view>
+				</view>
+				<view class="address-detail">
+					<image class="location-icon" src="@/static/user-address/address-icon.png" mode="aspectFit"></image>
+					<view class="box">
+						<!-- 省市县 -->
+						<view class="area">
+							{{item.area}}
+						</view>
+						<!-- 具体地址 -->
+						<view class="location">
+							{{item.tag}}
+						</view>
 					</view>
 				</view>
-			</view>
-			<view class="choice">
-				<view class="left">
-					<view class="edit">编辑</view>
-					<view class="delete">删除</view>
+				<view class="choice">
+					<view class="left">
+						<view class="edit">编辑</view>
+						<view class="delete">删除</view>
+					</view>
+					<view class="default">
+						<view class="text">设为默认</view>
+						<uni-icons :type="icon" size="20"></uni-icons>
+					</view>
 				</view>
-				<!-- <view class="default">
-					<view class="text">设为默认</view>
-					<uni-icons :type="icon" size="20"></uni-icons>
-				</view> -->
 			</view>
 		</view>
-		<button class="btn_address" @click="addAddress()">增添新地址</button>
+		<footer class="footer">
+			<button class="btn_address" @click="addAddress()">增添新地址</button>
+		</footer>
+
 	</view>
 </template>
 
@@ -54,15 +59,19 @@
 			// console.log(option.isSelected)
 		},
 		methods: {
-			changeicon() {
-				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
+			changeicon(index) {
+				// this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
+				if (this.addressList[i].isDefault === 'true') {
+					// addressList[i].icon === 'checkbox'
+					console.log('默认')
+				}
 			},
-			getAddress(type) {
+			async getAddress(type) {
 				type = parseInt(type)
 				const {
 					data: res
-				} = this.$axios.getAddressList(type)
-				this.addressList = res
+				} = await this.$axios.getAddressList(type);
+				this.addressList = res;
 				console.log('获得全部地址信息')
 				console.log(this.addressList)
 			},
@@ -71,8 +80,7 @@
 				const {
 					data: res
 				} = this.$axios.getDefault()
-				// console.log()
-				console.log(res)
+
 			},
 			addAddress() {
 				uni.navigateTo({
@@ -84,24 +92,24 @@
 </script>
 
 <style lang="scss">
+	.text {
+		margin-top: 20px;
+		font-size: 18px;
+		font-weight: 400;
+		margin-left: 15px;
+
+		margin-bottom: 9px;
+	}
+
 	.container {
 		width: 100vw;
-
-		.text {
-			margin-top: 20px;
-			font-size: 18px;
-			font-weight: 400;
-			margin-left: 15px;
-
-			margin-bottom: 16px;
-		}
 
 		.address-container {
 			width: 342px;
 			border-radius: 10px;
 			background: rgba(255, 255, 255, 1);
 			padding: 6px 8px 9px 10px;
-			margin: 0px auto;
+			margin: 7.5px auto;
 
 			.name-number {
 				margin-top: 6px;
@@ -173,6 +181,12 @@
 			}
 		}
 
+	}
+
+	.footer {
+		width: 100vw;
+		height: 50px;
+
 		.btn_address {
 			margin-left: -114px;
 			width: 228px;
@@ -184,8 +198,9 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			position: absolute;
-			bottom: 18px;
+			// position: sticky;
+			margin-top: 18px;
 		}
+
 	}
 </style>

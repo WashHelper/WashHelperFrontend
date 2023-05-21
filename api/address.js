@@ -9,7 +9,9 @@ export default {
 		return request({
 			url: `/location/list/${type}`,
 			method: 'get',
-
+			params: {
+				type
+			}
 		})
 	},
 
@@ -45,11 +47,14 @@ export default {
 	 * @description 新增用户地址
 	 */
 
-	addAddress(params) {
+	addAddress(form) {
 		return request({
 			url: '/location/new',
 			method: 'post',
-			data: params
+			data: form,
+			params: {
+				type: 1
+			}
 		})
 	},
 
@@ -78,6 +83,4 @@ export default {
 			method: 'get'
 		})
 	},
-
-
 }

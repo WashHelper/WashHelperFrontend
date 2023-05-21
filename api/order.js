@@ -35,7 +35,7 @@ export default {
 			}
 		})
 	},
-	
+
 	/**
 	 * @data 
 	 * @description 修改订单
@@ -47,7 +47,7 @@ export default {
 			data: {}
 		})
 	},
-	
+
 	/**
 	 * @data orderId
 	 * @description 取消订单
@@ -67,12 +67,12 @@ export default {
 	 * @data orderId
 	 * @description 订单详情
 	 */
-	getOrderDetail(orderId) {
+	getOrderDetail(orderNumber) {
 		return request({
 			url: '/order/info',
 			method: 'get',
 			params: {
-				orderId
+				orderNumber
 			}
 		})
 	},
@@ -88,17 +88,28 @@ export default {
 	 * @description 下单确认
 	 */
 
-	confirmOrder() {
+	confirmOrder(picture) {
 		return request({
 			url: '/order/confirm',
 			method: 'post',
+			headers: {
+				'Content-Type': 'application/form-data'
+			},
 			data: {
-				pickupLocationId,
-				deliveryLocationId,
-				picture,
-				productList,
-				pickupTime,
-				remark
+				pickupLocationId: 3,
+				deliveryLocationId: 2,
+				picture: "",
+
+				productList: [{
+					"productId": 1,
+					"productNum": 1
+				}, {
+					"productId": 2,
+					"productNum": 3
+				}],
+				pickupTime: "2024-01-05 19:22:40",
+				remark: "",
+				fee: 123
 			}
 		})
 	}
