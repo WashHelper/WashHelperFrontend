@@ -106,7 +106,8 @@
 				console.log(e);
 				console.log(e.detail.value[0].text);
 				// return e.detail.value
-				this.areadatail = e.detail.value[0].text + "-" + e.detail.value[1].text + "-" + e.detail.value[2].text
+				this.areadatail = e.detail.value[0].text + '-' + e.detail.value[1].text + '-' + e.detail.value[2].text
+				console.log(this.areadatail)
 			},
 			checkboxChange: function(e) {
 				var items = this.items;
@@ -123,28 +124,24 @@
 			search(item) {
 				console.log(item)
 			},
-			pushOrder(e) {
-				let params2 = {
-					// 'area': '江苏省-南京市-栖霞县',
-					'area': this.areadatail,
-					// 'location': this.detail_location,
-					// 'name': this.username,
-					// 'phone': this.phoneNum,
-					// 'isSelf': true,
-					// 'tag': "this.tag",
-					// 'isDefault': false
-				};
-				console.log(params2)
-				console.log('提交用户新增地址')
-				this.$axios.addAddress(params2).then(res => {
-					console.log(res)
+			pushOrder() {
+				let form = {
+					area: this.areadatail,
+					// area: '江苏省-南京市-鼓楼区',
+					location: this.detail_location,
+					name: this.username,
+					phone: this.phoneNum,
+					isSelf: '',
+					tag: '',
+					isDefault: ''
+				}
+				this.$axios.addAddress(form).then(res => {
 					if (res.success === true) {
 						console.log('发送成功')
 					} else {
-						console.log('发送失败', this.areadatail)
+						console.log('发送失败', res)
 					}
 				})
-				// console.log(res)
 				uni.navigateTo({
 					url: './address?isSelected=true'
 				})

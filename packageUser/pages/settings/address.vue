@@ -80,8 +80,7 @@
 				const {
 					data: res
 				} = this.$axios.getDefault()
-				// console.log()
-				console.log(res)
+
 			},
 			addAddress() {
 				uni.navigateTo({

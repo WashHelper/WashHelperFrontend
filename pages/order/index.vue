@@ -10,7 +10,7 @@
 				<text class="placeholder" @click="Search()">订单号搜索</text>
 			</view>
 			<block v-for="(item,i) in OrderList" :index="i" :key="i">
-				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderId='+item.id">
+				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderNumber='+item.orderNumber">
 					<header>
 						<text class="text">订单状态：取件成功</text><br>
 						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
@@ -35,7 +35,7 @@
 				<text class="placeholder" @click="Search()">订单号搜索</text>
 			</view>
 			<block v-for="(item,i) in OrderList" :index="i" :key="i">
-				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderId='+item.id">
+				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderNumber='+item.orderNumber">
 					<header>
 						<text class="text">订单状态：待处理</text><br>
 						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
@@ -143,7 +143,7 @@
 		methods: {
 			gotodetail() {
 				uni.navigateTo({
-					url: '/packageOrder/pages/detail'
+					url: '/packageOrder/pages/detail?orderNumber=' + item.orderNumber
 				})
 			},
 			clickbar(i) {

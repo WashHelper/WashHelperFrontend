@@ -83,16 +83,16 @@
 			};
 		},
 		mounted() {
-			let _this = this;
-			setInterval(function() {
-				_this.data = Date.parse(new Date())
-			}, 1000)
+			// let _this = this;
+			// setInterval(function() {
+			// 	_this.data = Date.parse(new Date())
+			// }, 1000)
 		},
 		onLoad: function(option) {
-			this.getdetailList(option.orderId)
+			this.getdetailList(option.orderNumber)
 			console.log('打印上个')
 			console.log(option);
-			console.log(option.orderId);
+			console.log(option.orderNumber);
 		},
 		methods: {
 			makeCall() {
@@ -102,16 +102,15 @@
 				plus.device.dial('18851187568', true)
 			},
 
-			async getdetailList(option) {
+			async getdetailList(number) {
 				const {
 					data: res
-				} = await this.$axios.getOrderDetail(option)
-				this.detailList = res
+				} = await this.$axios.getOrderDetail(number)
+				console.log(number)
 				console.log(res)
-				console.log(option)
-				console.log(option.orderId)
+
 				console.log('打印上个页面的参数')
-				console.log(this.detailList)
+
 			}
 		}
 	}
