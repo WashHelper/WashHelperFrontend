@@ -29,7 +29,6 @@
 			<div-line></div-line>
 			<!-- 衣服类型和图片 -->
 			<view class="item-detail">
-				<!-- <image src="@/static/order-types/clothes/Artboard 73@3x.png" mode="aspectFit"></image> -->
 				<!-- 衣服类型和价格 -->
 				<view class="type-container">
 					<text class="clothes-type">西服</text>
@@ -84,16 +83,16 @@
 			};
 		},
 		mounted() {
-			let _this = this;
-			setInterval(function() {
-				_this.data = Date.parse(new Date())
-			}, 1000)
+			// let _this = this;
+			// setInterval(function() {
+			// 	_this.data = Date.parse(new Date())
+			// }, 1000)
 		},
 		onLoad: function(option) {
-			this.getdetailList(option.orderId)
+			this.getdetailList(option.orderNumber)
 			console.log('打印上个')
 			console.log(option);
-			console.log(option.orderId);
+			console.log(option.orderNumber);
 		},
 		methods: {
 			makeCall() {
@@ -102,28 +101,16 @@
 				});
 				plus.device.dial('18851187568', true)
 			},
-			// dateFormat(time) {
-			// 	let date = new Date(time);
-			// 	let year = date.getFullYear();
-			// 	let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-			// 	let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-			// 	let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-			// 	let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-			// 	let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-			// 	// 拼接
-			// 	return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 
-			// }
-			async getdetailList(option) {
+			async getdetailList(number) {
 				const {
 					data: res
-				} = await this.$axios.getOrderDetail(option)
-				this.detailList = res
+				} = await this.$axios.getOrderDetail(number)
+				console.log(number)
 				console.log(res)
-				console.log(option)
-				console.log(option.orderId)
+
 				console.log('打印上个页面的参数')
-				console.log(this.detailList)
+
 			}
 		}
 	}

@@ -92,7 +92,9 @@
 				</uni-grid>
 			</scroll-view>
 		</view>
-
+		<!-- 	<view class="" @click="getCamera(camera)">
+			上传图片
+		</view> -->
 		<footer class="shop">
 			<uni-badge class="uni-badge-left-margin" :text="totalNumber" absolute="rightTop" :offset="[4, 4]"
 				size="small">
@@ -109,6 +111,7 @@
 	export default {
 		data() {
 			return {
+				camera: '',
 				totalNumber: 0, // 下单数量
 				totalprice: 0, //总共的价格
 				wh: 0,
@@ -118,6 +121,7 @@
 					cid: ''
 				},
 				goodsList: [],
+				cartList: [],
 				//默认图片
 				defaultPic: '',
 				leftscrollList: [{
@@ -143,9 +147,7 @@
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight - 115 //赋值
 
-			this.getGoodsList(0)
-			// console.log(this.totalprice)
-
+			this.getGoodsList(0);
 			this.getCartList()
 		},
 		methods: {
@@ -168,9 +170,6 @@
 			activeChange(i) {
 				this.active = i;
 				this.getGoodsList(i)
-
-				//重新为二级分类赋值
-				// this.rightList = this.leftscrollList[i].
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
@@ -183,42 +182,76 @@
 			},
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
-
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
-				// this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
+				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
 			admitOrder() {
-				if (this.totalNumber === 0) {
-					uni.showToast({
-						title: '购物车为空',
-						icon: 'none'
-					})
-					return
-				} else {
-					// this.$axios.add(index);
-					uni.navigateTo({
-						// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
-						url: '/pages/order/mapBuy'
-					})
-				}
-				// console.log(清空购物车)
-				// const {
-				// 	data: res
-				// } = this.$axios.deleteCart()
-				// console.log(res)
+				// let params = {
+				// 	'pickupLocationId': 3,
+				// 	'deliveryLocationId': 2,
+				// 	'picture': this.camera,
+				// 	'productList': this.cartList,
+				// 	'pickupTime': "1999-01-05 19:22:40",
+				// 	'remark': "",
+				// 	'fee': 123
+				// }
+				// if (this.totalNumber === 0) {
+				// 	uni.showToast({
+				// 		title: '购物车为空',
+				// 		icon: 'none'
+				// 	})
+				// 	return
+				// } else {
+				// 	this.$axios.confirmOrder(this.camera).then(res => {
+				// 		console.log(res)
+				// 		if (res.success === true)
+				// 			console.log('发送成功')
+				// 		else {
+				// 			console.log('发送失败')
+				// 		}
+				// 	});
+				// 	// this.$axios.add(index);
+
+				// }
+
+				uni.navigateTo({
+					// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
+					url: '/pages/order/mapBuy'
+				})
 			},
+			//获取商品列表
 			async getCartList() {
 				const {
 					data: res
 				} = await this.$axios.getCart()
 				this.totalNumber = res.totalNum
 				this.totalprice = res.totalPrice
+				console.log(res.totalPrice)
+			},
+			getCamera(camera) {
+				uni.chooseImage({
+					count: 1,
+					sourceType: ['album'],
+					success: function(res) {
+						console.log(this);
+						// uni.getImageInfo({
+						// 	src: res.tempFilePaths[0],
+
+						// 	success: function(image) {
+						// 		console.log(image.width);
+						// 		console.log(image.height);
+						// 		this.camera = image
+						// 	},
+						// });
+						// this.camera = image
+						// console.log('图片')
+						// console.log(this.camera)
+					}
+				});
 			}
-
-
 		},
 	}
 </script>

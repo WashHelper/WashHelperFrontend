@@ -45,12 +45,12 @@ export default {
 	 * @data orderId
 	 * @description 订单详情
 	 */
-	getOrderDetail(orderId) {
+	getOrderDetail(orderNumber) {
 		return request({
 			url: '/order/info',
 			method: 'get',
 			params: {
-				orderId
+				orderNumber
 			}
 		})
 	},

@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
+
 		<view class="bigbox">
+			<!-- <uni-data-picker></uni-data-picker> -->
 			<view class="banner" @click="testGet()">
 				<swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff" circular
 					autoplay interval="4000">
@@ -23,8 +25,8 @@
 					</view>
 				</view>
 				<view v-if="active==0">
-					<view class="indexInput-box">
-						<view class="input" @click="gotopickupAddress()">
+					<view class="indexInput-box" @click="gotopickupAddress()">
+						<view class="input">
 							<image v-if="isDataLoaded" :src="baseUrl+urlsList[6]" mode=""></image>
 							<text class="placeholder">输入您的取件地址</text>
 						</view>

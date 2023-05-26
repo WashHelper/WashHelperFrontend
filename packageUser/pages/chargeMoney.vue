@@ -8,10 +8,10 @@
 			<silver-card msg="150元"></silver-card>
 			<gold-card msg="300元"></gold-card>
 		</view>
-		<footer class="footer">
+		<!-- <footer class="footer">
 			<text>{{totalprice}}元</text>
 			<button @click="charge()" class="btn">支付</button>
-		</footer>
+		</footer> -->
 	</view>
 </template>
 
