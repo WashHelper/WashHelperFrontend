@@ -92,9 +92,6 @@
 				</uni-grid>
 			</scroll-view>
 		</view>
-		<!-- 	<view class="" @click="getCamera(camera)">
-			上传图片
-		</view> -->
 		<footer class="shop">
 			<uni-badge class="uni-badge-left-margin" :text="totalNumber" absolute="rightTop" :offset="[4, 4]"
 				size="small">
@@ -111,10 +108,10 @@
 	export default {
 		data() {
 			return {
-				camera: '',
+
 				totalNumber: 0, // 下单数量
 				totalprice: 0, //总共的价格
-				wh: 0,
+
 				active: 0,
 				queryObj: {
 					query: '',
@@ -136,17 +133,11 @@
 				}, {
 					id: 3,
 					text: '家纺'
-				}],
-
-				//节流阀
-				isloading: false,
-				timer: 0
+				}]
 			};
 		},
 		onLoad(options) {
-			const sysInfo = uni.getSystemInfoSync()
-			this.wh = sysInfo.windowHeight - 115 //赋值
-
+			// const sysInfo = uni.getSystemInfoSync()
 			this.getGoodsList(0);
 			this.getCartList()
 		},
@@ -164,13 +155,15 @@
 				this.getGoodsList(i)
 			},
 			//添加购物车并计算价格
-			async clickItem(index) {
+			clickItem(index) {
 				const {
 					data: res
-				} = await this.$axios.add(this.goodsList[index].productId)
+				} = this.$axios.add(this.goodsList[index].productId).then((res) => {
+					console.log(res)
+				})
 				console.log(this.goodsList[index].productId)
-				this.goodsList[index].productNum++
 				console.log(this.goodsList[index])
+				this.goodsList[index].productNum++
 				this.totalNumber++;
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
@@ -178,43 +171,23 @@
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
 
 				console.log(this.goodsList[index].productId)
+				console.log(this.goodsList[index])
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1;
 				this.totalNumber--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
 			admitOrder() {
-				// let params = {
-				// 	'pickupLocationId': 3,
-				// 	'deliveryLocationId': 2,
-				// 	'picture': this.camera,
-				// 	'productList': this.cartList,
-				// 	'pickupTime': "1999-01-05 19:22:40",
-				// 	'remark': "",
-				// 	'fee': 123
-				// }
-				// if (this.totalNumber === 0) {
-				// 	uni.showToast({
-				// 		title: '购物车为空',
-				// 		icon: 'none'
-				// 	})
-				// 	return
-				// } else {
-				// 	this.$axios.confirmOrder(this.camera).then(res => {
-				// 		console.log(res)
-				// 		if (res.success === true)
-				// 			console.log('发送成功')
-				// 		else {
-				// 			console.log('发送失败')
-				// 		}
-				// 	});
-				// 	// this.$axios.add(index);
-
-				// }
-
+				if (this.totalNumber === 0) {
+					uni.showToast({
+						title: '购物车为空',
+						icon: 'none'
+					})
+					return;
+				}
 				uni.navigateTo({
-					// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
-					url: '/pages/order/mapBuy'
+					url: '/pages/order/mapBuy?cartList=' + JSON.stringify(this.cartList) + '&totalprice=' + this
+						.totalprice
 				})
 			},
 			//获取商品列表
@@ -222,36 +195,23 @@
 				const {
 					data: res
 				} = await this.$axios.getCart()
-				console.log(123)
+				console.log('获得购物车内容')
 				console.log(res)
 				this.cartList = res.productList
-				console.log(this.cartList)
 				this.totalNumber = res.totalNum
-				this.totalprice = res.totalPrice
-				console.log(res.totalPrice)
+				// this.totalprice = res.totalPrice
+				// console.log(res.totalPrice)
+				console.log(this.cartList)
 			},
-			getCamera(camera) {
-				uni.chooseImage({
-					count: 1,
-					sourceType: ['album'],
-					success: function(res) {
-						console.log(this);
-						// uni.getImageInfo({
-						// 	src: res.tempFilePaths[0],
-
-						// 	success: function(image) {
-						// 		console.log(image.width);
-						// 		console.log(image.height);
-						// 		this.camera = image
-						// 	},
-						// });
-						// this.camera = image
-						// console.log('图片')
-						// console.log(this.camera)
-					}
-				});
+			calculate() {
+				this.totalprice = 0;
+				let res = 0
+				for (let i = 0; i < this.cartList.length; i++) {
+					res = multiple(this.cartList[i].productNum, this.cartList[i].productPrice);
+				}
+				console.log('for', res);
 			}
-		},
+		}
 	}
 </script>
 

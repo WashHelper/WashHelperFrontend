@@ -88,7 +88,7 @@ export default {
 	 * @description 下单确认
 	 */
 
-	confirmOrder(picture) {
+	confirmOrder() {
 		return request({
 			url: '/order/confirm',
 			method: 'post',
@@ -96,20 +96,7 @@ export default {
 				'Content-Type': 'application/form-data'
 			},
 			data: {
-				pickupLocationId: 3,
-				deliveryLocationId: 2,
-				picture: "",
 
-				productList: [{
-					"productId": 1,
-					"productNum": 1
-				}, {
-					"productId": 2,
-					"productNum": 3
-				}],
-				pickupTime: "2024-01-05 19:22:40",
-				remark: "",
-				fee: 123
 			}
 		})
 	}

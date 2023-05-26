@@ -106,9 +106,10 @@
 				}]
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			this.testGet();
-			// console.log(123)
+			console.log(options)
+			console.log(options.cartList)
 		},
 		methods: {
 			handleStore(index) {
