@@ -137,9 +137,9 @@
 			};
 		},
 		onLoad(options) {
-			// const sysInfo = uni.getSystemInfoSync()
 			this.getGoodsList(0);
-			this.getCartList()
+			this.getCartList();
+			// this.calculate()
 		},
 		methods: {
 			//获取商品列表数据的方法
@@ -148,7 +148,6 @@
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
-				console.log(this.goodsList)
 			},
 			activeChange(i) {
 				this.active = i;
@@ -161,23 +160,30 @@
 				} = this.$axios.add(this.goodsList[index].productId).then((res) => {
 					console.log(res)
 				})
-				console.log(this.goodsList[index].productId)
-				console.log(this.goodsList[index])
 				this.goodsList[index].productNum++
 				this.totalNumber++;
+				this.cartList[index].productNum++;
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
+				console.log(this.goodsList[index].productNum)
 			},
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
-
-				console.log(this.goodsList[index].productId)
-				console.log(this.goodsList[index])
-				this.goodsList[index].productNum = this.goodsList[index].productNum - 1;
+				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				this.totalNumber--;
+				this.cartList[index].productNum--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
 			admitOrder() {
+				let listArr = []
+				this.cartList.forEach(item => {
+					let listItem = {
+						productId: item.productId,
+						productNum: item.productNum
+					}
+					listArr.push(listItem)
+				})
+				console.log('111111', listArr);
 				if (this.totalNumber === 0) {
 					uni.showToast({
 						title: '购物车为空',
@@ -186,7 +192,7 @@
 					return;
 				}
 				uni.navigateTo({
-					url: '/pages/order/mapBuy?cartList=' + JSON.stringify(this.cartList) + '&totalprice=' + this
+					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(this.listArr) + '&totalprice=' + this
 						.totalprice
 				})
 			},
@@ -195,21 +201,21 @@
 				const {
 					data: res
 				} = await this.$axios.getCart()
+
 				console.log('获得购物车内容')
 				console.log(res)
 				this.cartList = res.productList
 				this.totalNumber = res.totalNum
-				// this.totalprice = res.totalPrice
-				// console.log(res.totalPrice)
 				console.log(this.cartList)
+				this.calculate()
 			},
 			calculate() {
 				this.totalprice = 0;
 				let res = 0
-				for (let i = 0; i < this.cartList.length; i++) {
-					res = multiple(this.cartList[i].productNum, this.cartList[i].productPrice);
+				for (let list of this.cartList) {
+					this.totalprice += list.productNum * list.productPrice
 				}
-				console.log('for', res);
+				console.log('for', this.totalprice);
 			}
 		}
 	}

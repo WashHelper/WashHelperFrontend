@@ -39,14 +39,4 @@ export default {
 			data
 		})
 	}
-
-	// // 获取手机号
-	// getUserPhoneNum(params) {
-	// 	return request('/user/getPhone', 'post', params)
-	// },
-
-	// // 获取 openId
-	// getUserOpenId(params) {
-	// 	return request('/user/getOpenid', 'post', params)
-	// },
 }
