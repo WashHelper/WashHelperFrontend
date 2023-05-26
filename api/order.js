@@ -1,31 +1,10 @@
 import request from '@/utils/service.js'
 
 export default {
-	// 获取全部审核通过的预约
-	getAllAppointments_ok(params) {
-		return request('/order/getorder/ok', 'get', params)
-	},
-
-	// 获取全部审核未通过的预约
-	getAllAppointments_pass(params) {
-		return request('/order/getorder/no', 'get', params)
-	},
-
-	// 获取指定日期审核通过的预约
-	getAppointmentsByDate_ok(params) {
-		return request('/order/getorderbydate/ok', 'get', params)
-	},
-
-	// 获取指定日期审核未通过的预约
-	getAppointmentsByDate_pass(params) {
-		return request('/order/getorderbydate/no', 'get', params)
-	},
-
 	/**
-	 * @param {Object}status
+	 * @param {Object} status
 	 * @description 获取用户信息
 	 */
-
 	getOrderList(status) {
 		return request({
 			url: '/order/getList',
@@ -35,7 +14,7 @@ export default {
 			}
 		})
 	},
-	
+
 	/**
 	 * @data 
 	 * @description 修改订单
@@ -47,12 +26,11 @@ export default {
 			data: {}
 		})
 	},
-	
+
 	/**
 	 * @data orderId
 	 * @description 取消订单
 	 */
-
 	deleteOrder(orderId) {
 		return request({
 			url: '/order/cancel',
@@ -78,28 +56,26 @@ export default {
 	},
 
 	/**
-	 * @data 
-	 * @description 意见反馈
-	 */
-
-
-	/**
-	 * @data 
+	 * @param {Object} data 订单信息 
 	 * @description 下单确认
 	 */
-
-	confirmOrder() {
+	confirmOrder(data) {
 		return request({
 			url: '/order/confirm',
 			method: 'post',
-			data: {
-				pickupLocationId,
-				deliveryLocationId,
-				picture,
-				productList,
-				pickupTime,
-				remark
-			}
+			data
+		})
+	},
+
+	/**
+	 * @@param {Object} data = [value]
+	 * @@description 预支付 
+	 */
+	prePay(data) {
+		return request({
+			url: '/pay/unifiedOrder',
+			method: 'post',
+			data
 		})
 	}
 }

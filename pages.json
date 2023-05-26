@@ -20,59 +20,25 @@
 	}, {
 		"path": "pages/order/index"
 	}, {
-		"path": "pages/cart/cart",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/cart/cart"
 	}, {
-		"path": "pages/order/maps",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/maps"
 	}, {
-		"path": "pages/order/map2",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/map2"
 	}, {
-		"path": "pages/order/mapBuy",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/mapBuy"
 	}, {
-		"path": "pages/order/mailingAddress",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/mailingAddress"
 	}, {
-		"path": "pages/purchase/purchase",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/purchase"
 	}, {
-		"path": "pages/purchase/mailingAddress",
-		"style ": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/mailingAddress"
 	}, {
-		"path": "pages/purchase/doorToDoor",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/doorToDoor"
 	}, {
-		"path": "pages/purchase/pickupAddress",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/pickupAddress"
+	}, {
+		"path": "pages/order/orderConfirm"
 	}],
 	"subpackages": [{
 			"root": "packageOrder",
@@ -89,29 +55,16 @@
 		{
 			"root": "packageUser",
 			"pages": [{
-					"path": "pages/order/detail"
-				}, {
-					"path": "pages/order/feedback"
-				}, {
 					"path": "pages/settings/address"
 				}, {
 					"path": "pages/settings/index"
 				}, {
 					"path": "pages/settings/addAddress"
 				}, {
-					"path": "pages/cooperate"
-				}, {
-					"path": "pages/credit"
-				}, {
 					"path": "pages/feedback"
-				}, {
-					"path": "pages/joinUs"
-				}, {
-					"path": "pages/recycle"
 				}, {
 					"path": "pages/service",
 					"style": {
-						"navigationBarTitleText": "洗笑颜开",
 						"app-plus": {
 							"animationType": "fade-in",
 							"background": "transparent",
@@ -120,18 +73,10 @@
 						}
 					}
 				}, {
-					"path": "pages/card",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
+					"path": "pages/card"
 				},
 				{
-					"path": "pages/chargeMoney",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
+					"path": "pages/chargeMoney"
 				}
 			]
 		}

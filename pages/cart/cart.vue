@@ -155,7 +155,6 @@
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
-				console.log(this.goodsList)
 				//打开节流阀
 				// 	this.isloading = true
 				// if (res.meta.status !== 200) {
@@ -176,10 +175,8 @@
 			//添加购物车并计算价格
 			clickItem(index) {
 				const res = this.$axios.add(this.goodsList[index].productId)
-				console.log(this.goodsList[index].productId)
 				// console.log(this.goodsList[index])
 				this.goodsList[index].productNum++
-				console.log(this.goodsList[index])
 				this.totalNumber++
 				// this.totalprice += this.goodsList[index].originalPrice
 				// this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
@@ -187,7 +184,6 @@
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
 
-				console.log(this.goodsList[index].productId)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
@@ -218,8 +214,6 @@
 				const {
 					data: res
 				} = await this.$axios.getCart()
-				console.log(123)
-				console.log(res)
 				this.totalNumber = res.totalNum
 				this.totalprice = res.totalPrice
 			}
