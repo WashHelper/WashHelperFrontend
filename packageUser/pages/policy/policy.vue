@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		合作品牌
+	<view>
+		协议与政策
 	</view>
 </template>
 
@@ -14,5 +14,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+
 </style>

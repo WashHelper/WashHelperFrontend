@@ -2,34 +2,33 @@
 	<view>
 		<view class="map-body">
 			<view class="map-section">
-				<map style="width: 100%; height: 723rpx;" id="map" :latitude="latitude" :longitude="longitude"
-					:markers="covers" :scale="scale">
+				<map style="width: 100%; height: 723rpx;" :latitude="latitude" :longitude="longitude" :markers="covers"
+					:scale="scale">
 				</map>
 				<view class="locationpicker-ic-marker">
-					<img class="locationpicker-img" src="../../static/order-map/Oval.png"></img>
+					<image class="locationpicker-img" src="@/static/order-map/Oval.png"></img>
 				</view>
 			</view>
 		</view>
 
 		<view class="content">
-
 			<view class="first-item">
-				<label>
-					<p>南京邮电大学仙林校区东门网点</p>
-					<p>王二 18816887878</p>
-				</label>
-				<span>
-					<img src="../../static/order-map/Combined.png" alt="" @click="">
-				</span>
+				<view>
+					<text>南京邮电大学仙林校区东门网点</text></br>
+					<text>王二 18816887878</text>
+				</view>
+
+				<image src="@/static/order-map/Combined.png" alt="">
+
 			</view>
 			<view class="first-item">
-				<label>
-					<p>南京邮电大学仙林校区东门网点</p>
-					<p>王二 18816887878</p>
-				</label>
-				<span>
-					<img src="../../static/order-map/Combined.png" @click="" alt="">
-				</span>
+				<view>
+					<text>南京邮电大学仙林校区东门网点</text></br>
+					<text>王二 18816887878</text>
+				</view>
+
+				<image src="@/static/order-map/Combined.png" alt="">
+
 			</view>
 
 			<view class="main-item">
@@ -41,15 +40,14 @@
 				<input type="text" placeholder="请选择送回方式" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>原价</text>
-				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
+				<text>上门时间</text>
+				<uni-datetime-picker clear-icon placeholder='请选择时间' v-model="orderInfo.pickupTime" type="datetime" />
 			</view>
 			<view class="main-item">
 				<text>折扣</text>
 				<text class='specialRed'>新人礼遇券</text>
 				<view class="cover">
-					<input type="text" placeholder="请输入折扣" placeholder-class="placeholder" @click="showPopup"
-						v-model="selected">
+					<input type="text" placeholder="请输入折扣" placeholder-class="placeholder" class='input2'>
 				</view>
 			</view>
 			<view class="main-item">
@@ -63,12 +61,12 @@
 			<view></view>
 			<view class="main-item">
 				<text>备注</text>
-				<input v-model="orderInfo.remark" type="text" placeholder="填写要备注的内容" placeholder-class="placeholder"
-					class="input5">
+				<input type="text" placeholder="填写要备注的内容" placeholder-class="placeholder" class="input5"
+					v-model="orderInfo.remark">
 			</view>
 			<view class="default">
-				<text>35元</text>
-				<button @click="comfirmOrder">确认下单</button>
+				<text>{{orderInfo.fee}}元</text>
+				<button @click="confirmOrder">确认下单</button>
 			</view>
 		</view>
 	</view>
@@ -79,97 +77,117 @@
 		data() {
 			return {
 				list: ["南京邮电大学", "南京财经大学", "南京大学", "南京理工大学", "东南大学"],
-				selected: "",
-				urlsList: [],
-				orderInfo: {
-					pickupLocationId: 10,
-					deliveryLocationId: 87,
-					productsList: [{
-							productId: "85",
-							productNum: "73"
-						},
-						{
-							productId: "19",
-							productNum: "78"
-						}
-					],
-					picture: "http://dummyimage.com/400x400",
-					remark: "123"
-				},
-				baseUrl: 'https://wash-helper.oss-cn-nanjing.aliyuncs.com/',
-
-				id: 0, // 使用 marker点击事件 需要填写id
-				title: 'map',
 				scale: 12,
 				latitude: 32.064118,
 				longitude: 118.895458,
 				covers: [{
+					id: 0,
+					width: 20,
+					height: 20,
 					latitude: 32.080982,
 					longitude: 118.77094,
 					iconPath: '../../static/order-map/location.png',
 					//南邮
 				}, {
+					id: 1,
+					width: 20,
+					height: 20,
 					latitude: 32.107498,
 					longitude: 118.922689,
 					iconPath: '../../static/order-map/location.png',
 					//南财
 				}, {
+					id: 2,
+					width: 20,
+					height: 20,
 					latitude: 32.119566,
 					longitude: 118.958384,
 					iconPath: '../../static/order-map/location.png',
 					//南大
 				}, {
+					id: 3,
+					width: 20,
+					height: 20,
 					latitude: 32.028344,
 					longitude: 118.856503,
 					iconPath: '../../static/order-map/location.png',
 					//南理
 				}, {
+					id: 4,
+					width: 20,
+					height: 20,
 					latitude: 32.054757,
 					longitude: 118.794544,
 					iconPath: '../../static/order-map/location.png',
 					//东南
-				}]
+				}],
+				orderInfo: {
+					pickupLocationId: 1,
+					deliveryLocationId: 2,
+					productList: [{
+							productId: 1,
+							productNum: 1
+						},
+						{
+							productId: 2,
+							productNum: 3
+						}
+					],
+					remark: "laborum adipisicing",
+					fee: 92.00,
+					pickupTime: "",
+					pictureUrl: ''
+				},
 			}
 		},
-		onLoad() {
-			this.testGet();
-			// console.log(123)
+		onLoad(options) {
+			let {
+				listArr,
+				totalPrice: fee
+			} = options
+			this.orderInfo = {
+				...this.orderInfo,
+				...{
+					productList: [...JSON.parse(listArr)],
+					fee
+				}
+			}
 		},
 		methods: {
-			handleStore(index) {
-				this.selected = this.list[index];
-				// console.log(this.selected);
-			},
-			async testGet() {
-				const {
-					data: res
-				} = await this.$axios.getUrl()
-				this.urlsList = res
-			},
-			gotodoorToDoor() {
-				uni.navigateTo({
-					url: '/packageOrder/pages/doorToDoor'
-				})
-			},
-			gotopickupAddress() {
-				uni.navigateTo({
-					url: '/packageOrder/pages/pickupAddress'
-				})
-			},
-			comfirmOrder() {
-				this.$axios.confirmOrder(this.orderInfo)
-				console.log(this.orderInfo.pickupLocationId)
+			confirmOrder() {
+				uni.chooseMedia({
+					count: 9,
+					mediaType: ['image'],
+					sourceType: ['album', 'camera'],
+					maxDuration: 30,
+					camera: 'back',
+					success: ({
+						tempFiles
+					}) => {
+						uni.uploadFile({
+							url: 'http://1.13.80.178:9000/order/uploadPicture',
+							filePath: tempFiles[0].tempFilePath,
+							name: 'picture',
+							header: {
+								token: uni.getStorageSync('token')
+							},
+							success: async ({
+								data
+							}) => {
+								this.orderInfo.pictureUrl = JSON.parse(data).data
 
-			},
-			//获得购物车商品列表
-			async getCartList() {
-				const {
-					data: res
-				} = await this.$axios.getCart()
-				// console.log('获得购物车商品列表')
-				// console.log(res)
-				// this.totalNumber = res.totalNum
-				// this.totalprice = res.totalPrice
+								let {
+									data: orderInfo
+								} = await this.$axios.confirmOrder(this.orderInfo)
+
+								uni.setStorageSync('orderInfo', orderInfo)
+								uni.navigateTo({
+									url: '/pages/order/orderConfirm'
+								})
+							},
+						});
+					}
+				})
 			}
 		}
 	}
@@ -186,7 +204,7 @@
 		position: relative;
 	}
 
-	.map-section img {
+	.map-section image {
 		width: 256rpx;
 		height: 256rpx;
 	}
@@ -211,43 +229,24 @@
 	}
 
 	.content .first-item {
-		position: relative;
-		width: 692rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		height: 110rpx;
-		margin: 0 auto;
+		padding: 0 20px;
 		border-bottom: 1.92rpx solid rgba(0, 0, 0, 0.3);
 	}
 
-	.content .first-item img {
-		float: left;
-		width: 62rpx;
-		margin: 23rpx 75rpx;
+	.content .first-item image {
+		width: 42rpx;
+		height: 42rpx;
 	}
 
-	.content .first-item p {
+	.content .first-item text {
 		font-size: 21.15rpx;
 		font-weight: 400;
 		letter-spacing: 0px;
 		color: rgba(0, 0, 0, 1);
-	}
-
-	.content .first-item p:nth-child(1) {
-		padding-top: 23rpx;
-	}
-
-	.content .first-item p:nth-child(2) {
-		padding-top: 5rpx;
-	}
-
-
-	.content .first-item span {
-		position: absolute;
-		right: -48rpx;
-		top: 14rpx;
-	}
-
-	.content .first-item span img {
-		width: 40rpx;
 	}
 
 	.main-item {
@@ -283,7 +282,11 @@
 		.input1 {
 			margin-left: 30rpx;
 		}
-
+		
+		.input2 {
+			width: 270rpx;
+			height: 26px;
+		}
 
 		.placeholder {
 			font-size: 26.92rpx;
@@ -323,5 +326,13 @@
 			line-height: 57.69rpx;
 			color: rgba(255, 255, 255, 1);
 		}
+	}
+
+	/deep/ .uni-date {
+		.uni-date-x--border {
+			border: transparent !important;
+		}
+
+		line-height: 108rpx;
 	}
 </style>

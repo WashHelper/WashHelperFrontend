@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		碳积分
+	<view>
+		云洗店
 	</view>
 </template>
 
@@ -15,4 +15,5 @@
 </script>
 
 <style lang="scss">
+
 </style>

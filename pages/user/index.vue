@@ -27,82 +27,82 @@
 		<section class="mine-body">
 			<ul class="set-list">
 				<li>
-					<view class="link">
-						<navigator open-type="navigate">我的卡劵</navigator>
+					<navigator url="../../packageUser/pages/card" class="link">
+						<view>我的卡劵</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>我的回收</navigator>
+					<navigator class="link" url="../../packageUser/pages/recycle">
+						<view>我的回收</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>我的碳积分</navigator>
+					<navigator class="link" url="../../packageUser/pages/credit">
+						<view>我的碳积分</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator url="/pages/order/index" open-type="switchTab">我的订单</navigator>
+					<navigator class="link" url="/pages/order/index" open-type="switchTab">
+						<view>我的订单</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>常见问题</navigator>
+					<navigator class="link">
+						<view>常见问题</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li @click="makeCall">
-					<view class="link">
-						<navigator>在线客服</navigator>
+					<navigator class="link">
+						<view>在线客服</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>加盟我们</navigator>
+					<navigator class="link" url="../../packageUser/pages/joinUs">
+						<view>加盟我们</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>我的云洗店</navigator>
+					<navigator class="link" url="../../packageUser/pages/clouds/clouds">
+						<view>我的云洗店</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>合作品牌</navigator>
+					<navigator class="link" url="../../packageUser/pages/cooperate">
+						<view>合作品牌</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 
 				</li>
 				<div-line></div-line>
 				<li>
-					<view class="link">
-						<navigator>协议与政策</navigator>
+					<navigator class="link" url="../../packageUser/pages/policy/policy">
+						<view>协议与政策</view>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
-					</view>
+					</navigator>
 				</li>
 				<div-line></div-line>
 			</ul>

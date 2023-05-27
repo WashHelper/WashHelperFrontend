@@ -2,7 +2,7 @@
 	<view class="card VIP">
 		<header>
 			<view class="card-type ">VIP卡</view>
-			<view class="warn">{{warn}}</view>
+			<!-- <view class="warn">{{warn}}</view> -->
 			<view class="money">{{msg}}</view>
 		</header>
 		<footer>

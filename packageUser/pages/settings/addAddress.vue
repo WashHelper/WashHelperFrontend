@@ -4,7 +4,7 @@
 			<!-- <view class="box"> -->
 			<view class="consignee">
 				<text>收货人</text>
-				<input focus placeholder="请输入姓名" v-model="name" class="placeholder2" />
+				<input focus placeholder="请输入姓名" v-model="username" class="placeholder2" />
 			</view>
 			<view class="phoneNum">
 				<text>联系方式</text>
@@ -13,29 +13,27 @@
 
 			<view class="address-msg" style="display: flex;">
 				<view class="item-msg">所在地区</view>
-				<!-- 多选框 -->
-				<!-- <uni-section title="本地数据" type="line" padding style="height: calc(100vh - 100px);"> -->
+
 				<uni-data-picker class="uni-data-picker" placeholder="请选择地址" popup-title="请选择所在地区" :localdata="dataTree"
-					v-model="classes" @change="onchange" @nodeclick="onnodeclick" @popupopened="onpopupopened"
-					@popupclosed="onpopupclosed">
+					v-model="classes" @change="onchange" ref="location">
 				</uni-data-picker>
-				<!-- </uni-section> -->
 
 			</view>
 			<view class="detail-location">
 				<text>详细地址</text>
-				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"></textarea>
+				<textarea placeholder="请填写具体地址" class="textarea" placeholder-style="margin-left:12px"
+					v-model="detail_location"></textarea>
 				<!-- </view> -->
 			</view>
-			<!-- <view class="default">
+			<view class="default">
 				<text>设为默认</text>
 				<uni-icons :type="icon" size="20" @click="changeicon()"></uni-icons>
-			</view -->
+			</view>
 			<view class="paste">
 				整段识别粘贴输入
 			</view>
 		</view>
-		<view class="btn" @click="pushOrder()">保存</view>
+		<view class="btn" @click="pushOrder(e)">保存</view>
 	</view>
 </template>
 
@@ -43,80 +41,77 @@
 	export default {
 		data() {
 			return {
-				name: '',
+				username: '',
+				//电话号码
 				phoneNum: '',
 				icon: 'checkbox',
-				// inputClass: 'input-style',
-				classes: '1-2-3',
+				classes: '0',
 				// isOpened: false,
 				single: '',
+				tag: '',
+				detail_location: '',
+				areadatail: '',
 				dataTree: [{
-					text: "江苏省",
-					value: "1-0",
+					text: " 江苏省",
+					value: "1",
 					children: [{
-							text: "南京市",
-							value: "1-1",
-							children: [{
+						text: "南京市",
+						value: "1-1",
+						children: [{
 								text: '高淳区',
-								value: "2-1"
-							}, {
+								value: "1-1-1"
+							},
+							{
 								text: '鼓楼区',
-								value: "2-2"
+								value: "1-1-2"
 							}, {
 								text: '建邺区',
-								value: "2-3"
+								value: "1-1-3"
 							}, {
 								text: '江宁区',
-								value: "2-4"
+								value: "1-1-4"
 							}, {
 								text: '溧水区',
-								value: "2-5"
+								value: "1-1-5"
 							}, {
 								text: '六合区',
-								value: "2-6"
+								value: "1-1-6"
 							}, {
 								text: '浦口区',
-								value: "2-7"
+								value: "1-1-7"
 							}, {
 								text: '栖霞区',
-								value: "2-8"
-
+								value: "1-1-8"
 							}, {
 								text: '其他区',
-								value: "2-9"
-							}]
-						},
-						{
-							text: "徐州市",
-							value: "1-2"
-						}
-					]
+								value: "1-1-9"
+							}
+						]
+					}, {
+						text: "徐州市",
+						value: "1-2"
+					}]
 				}]
 			};
 		},
 		computed: {},
 		methods: {
 			changeicon() {
-				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
-			},
-			onnodeclick(e) {
-				console.log(e);
-			},
-			onpopupopened(e) {
-				console.log('popupopened');
-			},
-			onpopupclosed(e) {
-				console.log('popupclosed');
+				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' :
+					'checkbox-filled'
 			},
 			onchange(e) {
-				console.log('关闭')
-				// this.classes = e[0];
-				this.single = e;
+				console.log('关闭');
+				// this.single=e; // this.$refs.location.clear();
 				console.log(e);
+				console.log(e.detail.value[0].text);
+				// return e.detail.value
+				this.areadatail = e.detail.value[0].text + '-' + e.detail.value[1].text + '-' + e.detail.value[2].text
+				console.log(this.areadatail)
 			},
 			checkboxChange: function(e) {
-				var items = this.items,
-					values = e.detail.value;
+				var items = this.items;
+				values = e.detail.value;
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
 					const item = items[i]
 					if (values.includes(item.value)) {
@@ -126,12 +121,27 @@
 					}
 				}
 			},
+			search(item) {
+				console.log(item)
+			},
 			pushOrder() {
-				console.log('提交用户新增地址')
-				const {
-					data: res
-				} = this.$axios.addAddress();
-				console.log(res)
+				let form = {
+					area: this.areadatail,
+					// area: '江苏省-南京市-鼓楼区',
+					location: this.detail_location,
+					name: this.username,
+					phone: this.phoneNum,
+					isSelf: '',
+					tag: '',
+					isDefault: ''
+				}
+				this.$axios.addAddress(form).then(res => {
+					if (res.success === true) {
+						console.log('发送成功')
+					} else {
+						console.log('发送失败', res)
+					}
+				})
 				uni.navigateTo({
 					url: './address?isSelected=true'
 				})

@@ -20,59 +20,25 @@
 	}, {
 		"path": "pages/order/index"
 	}, {
-		"path": "pages/cart/cart",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/cart/cart"
+	},{
+		"path": "pages/order/map2"
 	}, {
-		"path": "pages/order/dotSelection",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/mapBuy"
 	}, {
-		"path": "pages/order/map2",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/mailingAddress"
 	}, {
-		"path": "pages/order/mapBuy",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/purchase"
 	}, {
-		"path": "pages/order/mailingAddress",
-		"style": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/mailingAddress"
 	}, {
-		"path": "pages/purchase/purchase",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/doorToDoor"
 	}, {
-		"path": "pages/purchase/mailingAddress",
-		"style ": {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/purchase/pickupAddress"
 	}, {
-		"path": "pages/purchase/doorToDoor",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/dotSelection"
 	}, {
-		"path": "pages/purchase/pickupAddress",
-		"style": {
-			"navigationBarTitleText": "洗笑颜开",
-			"enablePullDownRefresh": false
-		}
+		"path": "pages/order/orderConfirm"
 	}],
 	"subpackages": [{
 			"root": "packageOrder",
@@ -89,29 +55,16 @@
 		{
 			"root": "packageUser",
 			"pages": [{
-					"path": "pages/order/detail"
-				}, {
-					"path": "pages/order/feedback"
-				}, {
 					"path": "pages/settings/address"
 				}, {
 					"path": "pages/settings/index"
 				}, {
 					"path": "pages/settings/addAddress"
 				}, {
-					"path": "pages/cooperate"
-				}, {
-					"path": "pages/credit"
-				}, {
 					"path": "pages/feedback"
-				}, {
-					"path": "pages/joinUs"
-				}, {
-					"path": "pages/recycle"
 				}, {
 					"path": "pages/service",
 					"style": {
-						"navigationBarTitleText": "洗笑颜开",
 						"app-plus": {
 							"animationType": "fade-in",
 							"background": "transparent",
@@ -119,19 +72,15 @@
 							"popGesture": "none"
 						}
 					}
-				}, {
-					"path": "pages/card",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
 				},
 				{
-					"path": "pages/chargeMoney",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
+					"path": "pages/chargeMoney"
+				},
+				{
+					"path": "pages/clouds/clouds"
+				},
+				{
+					"path": "pages/policy/policy"
 				}
 			]
 		}
@@ -152,26 +101,29 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath": "static/tabbar/first.png",
-			"selectedIconPath": "static/tabbar/first_fill.png"
-		}, {
-			"pagePath": "pages/order/index",
-			"text": "订单",
-			"iconPath": "static/tabbar/second.png",
-			"selectedIconPath": "static/tabbar/second_fill.png"
-		}, {
-			"pagePath": "pages/cart/cart",
-			"text": "购物车",
-			"iconPath": "static/tabbar/cart-empty.png",
-			"selectedIconPath": "static/tabbar/cart-empty-fill.png"
-		}, {
-			"pagePath": "pages/user/index",
-			"text": "我的",
-			"iconPath": "static/tabbar/mine.png",
-			"selectedIconPath": "static/tabbar/mine_fill.png"
-		}]
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/first.png",
+				"selectedIconPath": "static/tabbar/first_fill.png"
+			},
+			{
+				"pagePath": "pages/order/index",
+				"text": "订单",
+				"iconPath": "static/tabbar/second.png",
+				"selectedIconPath": "static/tabbar/second_fill.png"
+			},
+			{
+				"pagePath": "pages/cart/cart",
+				"text": "购物车",
+				"iconPath": "static/tabbar/cart-empty.png",
+				"selectedIconPath": "static/tabbar/cart-empty-fill.png"
+			}, {
+				"pagePath": "pages/user/index",
+				"text": "我的",
+				"iconPath": "static/tabbar/mine.png",
+				"selectedIconPath": "static/tabbar/mine_fill.png"
+			}
+		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
