@@ -63,7 +63,7 @@ export default {
 		return request({
 			url: '/order/confirm',
 			method: 'post',
-			data: 
+			data
 		})
 	},
 	/**
