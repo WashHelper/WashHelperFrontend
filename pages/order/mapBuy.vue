@@ -34,22 +34,31 @@
 
 			<view class="main-item">
 				<text>取件方式</text>
-				<input type="text" placeholder="请选择取件方式" placeholder-class="placeholder">
+				<input type="text" placeholder="请选择取件方式" placeholder-class="placeholder" v-modal="">
 			</view>
 			<view class="main-item">
 				<text>送回方式</text>
 				<input type="text" placeholder="请选择送回方式" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
-				<text>价格</text>
+				<text>原价</text>
 				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
 			</view>
 			<view class="main-item">
 				<text>折扣</text>
+				<text class='specialRed'>新人礼遇券</text>
 				<view class="cover">
 					<input type="text" placeholder="请输入折扣" placeholder-class="placeholder" @click="showPopup"
 						v-model="selected">
 				</view>
+			</view>
+			<view class="main-item">
+				<text>会员价</text>
+				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
+			</view>
+			<view class="main-item">
+				<text>最终价格</text>
+				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
 			</view>
 			<view></view>
 			<view class="main-item">
@@ -149,14 +158,16 @@
 			},
 			comfirmOrder() {
 				this.$axios.confirmOrder(this.orderInfo)
+				console.log(this.orderInfo.pickupLocationId)
+
 			},
 			//获得购物车商品列表
 			async getCartList() {
 				const {
 					data: res
 				} = await this.$axios.getCart()
-				console.log('获得购物车商品列表')
-				console.log(res)
+				// console.log('获得购物车商品列表')
+				// console.log(res)
 				// this.totalNumber = res.totalNum
 				// this.totalprice = res.totalPrice
 			}
@@ -188,10 +199,10 @@
 		margin-left: -128rpx;
 		z-index: 10;
 	}
-
+	
 	.content {
 		width: 750rpx;
-		height: 925rpx;
+		height: 1090rpx;
 		opacity: 1;
 		background: rgba(255, 255, 255, 1);
 		position: absolute;
@@ -252,6 +263,14 @@
 			color: rgba(0, 0, 0, 0.9);
 			line-height: 108rpx;
 		}
+		
+		.specialRed {
+			font-size: 19.23rpx;
+			font-weight: 400;
+			color: rgba(240, 55, 55, 0.9);
+			margin-left: 18rpx;
+		}
+		
 
 		input {
 			float: left;

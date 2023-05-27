@@ -13,7 +13,7 @@
 			</view>
 			<view class="main-item">
 				<text>网点选择</text>
-				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder">
+				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder" @click="gotodotSeleciton()" v-model="myselectedValue">
 			</view>
 			<view class="main-item">
 				<text>实物图片</text>
@@ -66,7 +66,9 @@
 				title: "请选择",
 				list: ["拍照上传", "图库选择"],
 				selected: "",
-				imgUrl: " "
+				imgUrl: " ",
+				mySelected: "",
+				myselectedValue: ""
 			}
 		},
 
@@ -112,7 +114,7 @@
 
 			chooseImage() {
 				this.isPopup = true;
-				let that = this;
+				const that = this;
 				uni.chooseImage({
 					count: 4,
 					sizeType: ["original", "compressed"],
@@ -123,6 +125,18 @@
 					},
 				});
 			},
+			
+			gotodotSeleciton() {
+				uni.navigateTo({
+					url: '../order/dotSelection'
+				})
+			},
+			
+			getValue(selectedValue){
+				this.myselectedValue = selectedValue
+			    console.log(this.myselectedValue) 
+			}
+			
 
 		}
 	}

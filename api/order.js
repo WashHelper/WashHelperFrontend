@@ -89,7 +89,7 @@ export default {
 	 */
 
 	confirmOrder(data) {
-		console.log(data);
+		// console.log(data);
 		return request({
 			url: '/order/confirm',
 			method: 'post',

@@ -63,7 +63,7 @@
 			getCaptcha() {
 				if (!phoneNumberReg.test(this.phoneNumber)) {
 					uni.showToast({
-						title: '重新输入手机号',&&
+						title: '重新输入手机号',
 						icon: 'error'
 					})
 					this.phoneNumber = ''

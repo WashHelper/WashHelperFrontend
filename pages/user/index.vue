@@ -28,7 +28,7 @@
 			<ul class="set-list">
 				<li>
 					<view class="link">
-						<navigator url="../../packageUser/pages/card" open-type="navigate">我的卡劵</navigator>
+						<navigator open-type="navigate">我的卡劵</navigator>
 						<uni-icons type="forward" size="10" color="rgba(207, 207, 207, 1)" class="icon"></uni-icons>
 					</view>
 
