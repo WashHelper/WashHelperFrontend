@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="top">
 			<view class="clock">
-				<image src="../../static/order/clock.png" mode=""></image>
+				<image src="@/static/order-pickup/clock.png" mode=""></image>
 				<view class="time">
 					<text>付款倒计时</text>&nbsp;<text class="remain">{{remainingMin}}:{{remainingSec}}</text>
 				</view>
@@ -62,7 +62,7 @@
 			return {
 				totalFee: '',
 				isDefault: false,
-				remainingTime: Math.ceil(3000 / 1000)
+				remainingTime: Math.ceil(900000 / 1000)
 			}
 		},
 		computed: {
@@ -94,9 +94,15 @@
 				remark
 			}
 
-			let {
-				data
-			} = await this.$axios.prePay(orderInfo)
+			try {
+				let {
+					data
+				} = await this.$axios.prePay(orderInfo)
+			} catch (e) {
+				console.log(e);
+			}
+
+
 			this.timeCutDown()
 		},
 		methods: {
