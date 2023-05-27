@@ -59,16 +59,11 @@ export default {
 	 * @param {Object} data 订单信息 
 	 * @description 下单确认
 	 */
-	confirmOrder() {
+	confirmOrder(data) {
 		return request({
 			url: '/order/confirm',
 			method: 'post',
-			headers: {
-				'Content-Type': 'application/form-data'
-			},
-			data: {
-
-			}
+			data: 
 		})
 	},
 	/**
@@ -80,7 +75,6 @@ export default {
 			url: '/pay/unifiedOrder',
 			method: 'post',
 			data
-
 		})
 	}
 }
