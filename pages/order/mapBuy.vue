@@ -128,8 +128,11 @@
 					fee: 92.00,
 					pickupTime: "",
 					pictureUrl: ''
-				}
+				},
+				listArr: []
 			}
+		},
+		onLoad(options) {
 		},
 		methods: {
 			confirmOrder() {
@@ -166,7 +169,7 @@
 						});
 					}
 				})
-			},
+			}
 		}
 	}
 </script>

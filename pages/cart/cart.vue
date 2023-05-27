@@ -92,9 +92,6 @@
 				</uni-grid>
 			</scroll-view>
 		</view>
-		<!-- 	<view class="" @click="getCamera(camera)">
-			上传图片
-		</view> -->
 		<footer class="shop">
 			<uni-badge class="uni-badge-left-margin" :text="totalNumber" absolute="rightTop" :offset="[4, 4]"
 				size="small">
@@ -111,10 +108,10 @@
 	export default {
 		data() {
 			return {
-				camera: '',
+
 				totalNumber: 0, // 下单数量
 				totalprice: 0, //总共的价格
-				wh: 0,
+
 				active: 0,
 				queryObj: {
 					query: '',
@@ -136,19 +133,13 @@
 				}, {
 					id: 3,
 					text: '家纺'
-				}],
-
-				//节流阀
-				isloading: false,
-				timer: 0
+				}]
 			};
 		},
 		onLoad(options) {
-			const sysInfo = uni.getSystemInfoSync()
-			this.wh = sysInfo.windowHeight - 115 //赋值
-
 			this.getGoodsList(0);
-			this.getCartList()
+			this.getCartList();
+			// this.calculate()
 		},
 		methods: {
 			//获取商品列表数据的方法
@@ -157,15 +148,6 @@
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
-				//打开节流阀
-				// 	this.isloading = true
-				// if (res.meta.status !== 200) {
-				// 	retrun uni.$showMsg()
-				// }
-				//关闭节流阀
-				// 	this.isloading = false
-
-				// this.goodsList = res.message.goods
 			},
 			activeChange(i) {
 				this.active = i;
@@ -173,53 +155,45 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				const res = this.$axios.add(this.goodsList[index].productId)
-				// console.log(this.goodsList[index])
+				const {
+					data: res
+				} = this.$axios.add(this.goodsList[index].productId).then((res) => {
+					console.log(res)
+				})
 				this.goodsList[index].productNum++
-				this.totalNumber++
-				// this.totalprice += this.goodsList[index].originalPrice
-				// this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
+				this.totalNumber++;
+				this.cartList[index].productNum++;
+				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
+				console.log(this.goodsList[index].productNum)
 			},
 			minus(index) {
 				const res2 = this.$axios.sub(this.goodsList[index].productId)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
-				// console.log(this.goodsList[index].productNum);
 				this.totalNumber--;
+				this.cartList[index].productNum--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
 			//确认下单
 			admitOrder() {
-				// let params = {
-				// 	'pickupLocationId': 3,
-				// 	'deliveryLocationId': 2,
-				// 	'picture': this.camera,
-				// 	'productList': this.cartList,
-				// 	'pickupTime': "1999-01-05 19:22:40",
-				// 	'remark': "",
-				// 	'fee': 123
-				// }
-				// if (this.totalNumber === 0) {
-				// 	uni.showToast({
-				// 		title: '购物车为空',
-				// 		icon: 'none'
-				// 	})
-				// 	return
-				// } else {
-				// 	this.$axios.confirmOrder(this.camera).then(res => {
-				// 		console.log(res)
-				// 		if (res.success === true)
-				// 			console.log('发送成功')
-				// 		else {
-				// 			console.log('发送失败')
-				// 		}
-				// 	});
-				// 	// this.$axios.add(index);
-
-				// }
-
+				let listArr = []
+				this.cartList.forEach(item => {
+					let listItem = {
+						productId: item.productId,
+						productNum: item.productNum
+					}
+					listArr.push(listItem)
+				})
+				console.log('111111', listArr);
+				if (this.totalNumber === 0) {
+					uni.showToast({
+						title: '购物车为空',
+						icon: 'none'
+					})
+					return;
+				}
 				uni.navigateTo({
-					// url: '/pages/order/mapBuy？totalNum=this.totalNum&totalPrice=this.totalPrice'
-					url: '/pages/order/mapBuy'
+					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(this.listArr) + '&totalprice=' + this
+						.totalprice
 				})
 			},
 			//获取商品列表
@@ -227,32 +201,23 @@
 				const {
 					data: res
 				} = await this.$axios.getCart()
-				this.totalNumber = res.totalNum
-				this.totalprice = res.totalPrice
-				console.log(res.totalPrice)
-			},
-			getCamera(camera) {
-				uni.chooseImage({
-					count: 1,
-					sourceType: ['album'],
-					success: function(res) {
-						console.log(this);
-						// uni.getImageInfo({
-						// 	src: res.tempFilePaths[0],
 
-						// 	success: function(image) {
-						// 		console.log(image.width);
-						// 		console.log(image.height);
-						// 		this.camera = image
-						// 	},
-						// });
-						// this.camera = image
-						// console.log('图片')
-						// console.log(this.camera)
-					}
-				});
+				console.log('获得购物车内容')
+				console.log(res)
+				this.cartList = res.productList
+				this.totalNumber = res.totalNum
+				console.log(this.cartList)
+				this.calculate()
+			},
+			calculate() {
+				this.totalprice = 0;
+				let res = 0
+				for (let list of this.cartList) {
+					this.totalprice += list.productNum * list.productPrice
+				}
+				console.log('for', this.totalprice);
 			}
-		},
+		}
 	}
 </script>
 
