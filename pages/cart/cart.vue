@@ -111,7 +111,7 @@
 
 				totalNumber: 0, // 下单数量
 				totalprice: 0, //总共的价格
-
+				// listArr: [],
 				active: 0,
 				queryObj: {
 					query: '',
@@ -146,8 +146,11 @@
 			async getGoodsList(i) {
 				const {
 					data: res
-				} = await this.$axios.getTypeList(i)
+				} = await this.$axios.getTypeList(i).then((res) => {
+					console.log(res)
+				})
 				this.goodsList = res.productList;
+
 			},
 			activeChange(i) {
 				this.active = i;
@@ -155,11 +158,7 @@
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				const {
-					data: res
-				} = this.$axios.add(this.goodsList[index].productId).then((res) => {
-					console.log(res)
-				})
+				const res = this.$axios.add(this.goodsList[index].productId)
 				this.goodsList[index].productNum++
 				this.totalNumber++;
 				this.cartList[index].productNum++;
@@ -192,7 +191,7 @@
 					return;
 				}
 				uni.navigateTo({
-					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(this.listArr) + '&totalprice=' + this
+					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(listArr) + '&totalprice=' + this
 						.totalprice
 				})
 			},

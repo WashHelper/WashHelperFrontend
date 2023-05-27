@@ -137,7 +137,8 @@
 		},
 		onLoad(options) {
 			this.totalPrice = options.totalPrice
-			console.log(options.listArr)
+			console.log("222", options)
+			console.log("111", options.listArr)
 		},
 		methods: {
 			//过滤获得productList
