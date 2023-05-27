@@ -64,7 +64,6 @@
 </template>
 
 <script>
-	import order from '../../api/order'
 	export default {
 		data() {
 			return {
@@ -130,24 +129,23 @@
 					pickupTime: "",
 					pictureUrl: ''
 				},
-				orderList: [],
-				totalPrice: 0,
-				listArr: []
 			}
 		},
 		onLoad(options) {
-			this.totalPrice = options.totalPrice
-			console.log("222", options)
-			console.log("111", options.listArr)
+			let {
+				listArr,
+				totalPrice: fee
+			} = options
+			this.orderInfo = {
+				...this.orderInfo,
+				...{
+					productList: [...JSON.parse(listArr)],
+					fee
+				}
+			}
 		},
 		methods: {
-			//过滤获得productList
-			handleFilter() {
-
-
-			},
 			confirmOrder() {
-				this.handleFilter()
 				uni.chooseMedia({
 					count: 9,
 					mediaType: ['image'],

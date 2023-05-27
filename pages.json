@@ -74,34 +74,13 @@
 					}
 				},
 				{
-					"path": "pages/card",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
+					"path": "pages/chargeMoney"
 				},
 				{
-					"path": "pages/chargeMoney",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
+					"path": "pages/clouds/clouds"
 				},
 				{
-					"path": "pages/clouds/clouds",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
-
-				},
-				{
-					"path": "pages/policy/policy",
-					"style": {
-						"navigationBarTitleText": "",
-						"enablePullDownRefresh": false
-					}
-
+					"path": "pages/policy/policy"
 				}
 			]
 		}
