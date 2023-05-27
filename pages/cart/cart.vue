@@ -105,6 +105,7 @@
 </template>
 
 <script>
+	import currency from 'currency.js';
 	export default {
 		data() {
 			return {
@@ -169,8 +170,14 @@
 			},
 
 			//确认下单
-			admitOrder() {
-				this.getCartList()
+			async admitOrder() {
+				const {
+					data: res
+				} = await this.$axios.getCart()
+				this.cartList = res.productList
+				let result = parseFloat(this.totalprice).toFixed(2)
+
+				console.log('啊啊', result)
 				let listArr = []
 				this.cartList.forEach(item => {
 					let listItem = {
@@ -179,7 +186,7 @@
 					}
 					listArr.push(listItem)
 				})
-				console.log(listArr)
+				console.log(listArr, this.totalprice)
 				if (this.totalNumber === 0) {
 					uni.showToast({
 						title: '购物车为空',
@@ -188,9 +195,7 @@
 					return;
 				}
 				uni.navigateTo({
-
-					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(listArr) + '&totalPrice=' + this
-						.totalprice
+					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(listArr) + '&totalPrice=' + result
 				})
 			},
 			//获取商品列表
