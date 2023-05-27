@@ -128,6 +128,19 @@
 					fee: 92.00,
 					pickupTime: "",
 					pictureUrl: ''
+				},
+			}
+		},
+		onLoad(options) {
+			let {
+				listArr,
+				totalPrice: fee
+			} = options
+			this.orderInfo = {
+				...this.orderInfo,
+				...{
+					productList: [...JSON.parse(listArr)],
+					fee
 				}
 			}
 		},
@@ -166,7 +179,7 @@
 						});
 					}
 				})
-			},
+			}
 		}
 	}
 </script>

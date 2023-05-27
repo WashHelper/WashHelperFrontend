@@ -66,7 +66,6 @@ export default {
 			data
 		})
 	},
-
 	/**
 	 * @@param {Object} data = [value]
 	 * @@description 预支付 

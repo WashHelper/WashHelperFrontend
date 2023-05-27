@@ -72,8 +72,6 @@
 							"popGesture": "none"
 						}
 					}
-				}, {
-					"path": "pages/card"
 				},
 				{
 					"path": "pages/chargeMoney"
