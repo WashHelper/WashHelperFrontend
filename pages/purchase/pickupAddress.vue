@@ -20,7 +20,8 @@
 			</view>
 			<view class="main-item">
 				<text>网点选择</text>
-				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder">
+				<input type="text" placeholder="请选择服务网点" placeholder-class="placeholder" @click="gotodotSeleciton()"
+				v-model="myselectedValue">
 			</view>
 			<view class="main-item">
 				<text>详细地址</text>
@@ -65,7 +66,8 @@
 				title: "请选择",
 				list: ["送回网点", "上门配送"],
 				selected: "",
-				mySelected: ""
+				mySelected: "",
+				myselectedValue: ""
 			}
 		},
 
@@ -83,6 +85,17 @@
 			},
 			handleStore(index) {
 				this.mySelected = this.list[index];
+			},
+
+			gotodotSeleciton() {
+				uni.navigateTo({
+					url: '../order/dotSelection'
+				})
+			},
+			
+			getValue(selectedValue){
+				this.myselectedValue = selectedValue
+			    console.log(this.myselectedValue) 
 			}
 
 		}

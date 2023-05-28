@@ -29,10 +29,8 @@
 		data() {
 			return {
 				//
-				list: ["南京邮电大学", "南京财经大学", "南京大学", "南京理工大学", "东南大学"],
-				selected: "",
-
-
+				list: ["南京邮电大学服务点", "南京财经大学服务点", "南京大学服务点", "南京理工大学服务点", "东南大学服务点"],
+				selectedValue: "",
 
 				id: 0, // 使用 marker点击事件 需要填写id
 				title: 'map',
@@ -69,11 +67,16 @@
 		},
 
 		methods: {
-
 			handleStore(index) {
-				this.selected = this.list[index];
-				// console.log(this.selected);
-			}
+				this.selectedValue = this.list[index];
+				let pages = getCurrentPages()
+				let prevPage = pages[pages.length - 2]
+				prevPage.$vm.getValue(this.selectedValue)
+				uni.navigateBack({
+					delta: 1 
+				})
+			},
+
 		}
 	}
 </script>

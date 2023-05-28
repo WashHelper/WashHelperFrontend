@@ -21,9 +21,7 @@
 		"path": "pages/order/index"
 	}, {
 		"path": "pages/cart/cart"
-	}, {
-		"path": "pages/order/maps"
-	}, {
+	},{
 		"path": "pages/order/map2"
 	}, {
 		"path": "pages/order/mapBuy"
@@ -37,6 +35,8 @@
 		"path": "pages/purchase/doorToDoor"
 	}, {
 		"path": "pages/purchase/pickupAddress"
+	}, {
+		"path": "pages/order/dotSelection"
 	}, {
 		"path": "pages/order/orderConfirm"
 	}],

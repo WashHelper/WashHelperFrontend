@@ -55,7 +55,7 @@
 			</view>
 		</view>
 		
-		<view class="cover cover2">
+<!-- 		<view class="cover cover2">
 			<view class="popup" :class="{show: isPopup}">
 				<view class="popup-content">
 		
@@ -67,7 +67,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 
 
 	</view>
@@ -86,59 +86,6 @@
 
 				// 双向绑定
 				contactName: '',
-
-				//滑动选择器
-				list: [{
-						id: -9,
-						city: "",
-						label: "a"
-					},
-					{
-						id: -9,
-						city: "",
-						label: "b"
-					},
-					{
-						id: 0,
-						val: "北京",
-						label: "bj"
-					},
-					{
-						id: 1,
-						val: "上海",
-						label: "sh"
-					},
-					{
-						id: 2,
-						val: "广州",
-						label: "gz"
-					},
-					{
-						id: 3,
-						val: "深圳",
-						label: "sz"
-					},
-					{
-						id: 4,
-						val: "北海",
-						label: "bh"
-					},
-					{
-						id: -9,
-						city: "",
-						label: "c"
-					},
-					{
-						id: -9,
-						city: "",
-						label: "d"
-					}
-				],
-				show: false,
-				active: 0,
-				city: "",
-				listOffsetTop: [],
-				timer: null
 			}
 		},
 
@@ -157,38 +104,6 @@
 			handleStore(index) {
 				this.mySelected = this.list1[index];
 			},
-
-			// 滚动选择器
-			showPicker() {
-				this.show = true;
-				this.active = 0;
-				this.timer = setTimeout(() => {
-					clearTimeout(this.timer);
-					this.getOffsetTop();
-					this.computeActive();
-				}, 50);
-			},
-			sure() {
-				this.list.map((item, index) => {
-					item.id == this.active ? (this.city = item.val) : null;
-				});
-				this.show = false;
-			},
-			getOffsetTop() {
-				this.listOffsetTop = [];
-				this.list.map((item, index) => {
-					let liTop = this.$refs["li" + item.label];
-					this.listOffsetTop.push(liTop[0].offsetTop - 41);
-				});
-			},
-			computeActive() {
-				let scroll = this.$refs.ul;
-				scroll.addEventListener("scroll", () => {
-					this.listOffsetTop.map((item, index) => {
-						item <= scroll.scrollTop + 100 ? (this.active = index - 2) : null;
-					});
-				});
-			}
 		}
 	}
 </script>
@@ -294,7 +209,7 @@
 	}
 
 	// cover
-	.cover {
+.cover {
 
 		button {
 			width: 128px;
@@ -302,8 +217,8 @@
 			border: transparent;
 			border-radius: 10px;
 			line-height: 67rpx;
-			background: rgba(131, 195, 230, 1);
 			color: rgba(255, 255, 255, 1);
+			background: rgba(131, 195, 230, 1);
 			margin-top: 33rpx;
 			margin-bottom: 65rpx;
 			font-size: 34.62rpx;

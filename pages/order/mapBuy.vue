@@ -33,7 +33,7 @@
 
 			<view class="main-item">
 				<text>取件方式</text>
-				<input type="text" placeholder="请选择取件方式" placeholder-class="placeholder">
+				<input type="text" placeholder="请选择取件方式" placeholder-class="placeholder" v-modal="">
 			</view>
 			<view class="main-item">
 				<text>送回方式</text>
@@ -45,9 +45,18 @@
 			</view>
 			<view class="main-item">
 				<text>折扣</text>
+				<text class='specialRed'>新人礼遇券</text>
 				<view class="cover">
-					<input type="text" placeholder="请输入折扣" placeholder-class="placeholder">
+					<input type="text" placeholder="请输入折扣" placeholder-class="placeholder" class='input2'>
 				</view>
+			</view>
+			<view class="main-item">
+				<text>会员价</text>
+				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
+			</view>
+			<view class="main-item">
+				<text>最终价格</text>
+				<input type="text" placeholder="请输入价格" placeholder-class="placeholder">
 			</view>
 			<view></view>
 			<view class="main-item">
@@ -208,10 +217,10 @@
 		margin-left: -128rpx;
 		z-index: 10;
 	}
-
+	
 	.content {
 		width: 750rpx;
-		height: 925rpx;
+		height: 1090rpx;
 		opacity: 1;
 		background: rgba(255, 255, 255, 1);
 		position: absolute;
@@ -253,6 +262,14 @@
 			color: rgba(0, 0, 0, 0.9);
 			line-height: 108rpx;
 		}
+		
+		.specialRed {
+			font-size: 19.23rpx;
+			font-weight: 400;
+			color: rgba(240, 55, 55, 0.9);
+			margin-left: 18rpx;
+		}
+		
 
 		input {
 			float: left;
@@ -265,7 +282,11 @@
 		.input1 {
 			margin-left: 30rpx;
 		}
-
+		
+		.input2 {
+			width: 270rpx;
+			height: 26px;
+		}
 
 		.placeholder {
 			font-size: 26.92rpx;
