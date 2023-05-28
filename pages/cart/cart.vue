@@ -98,20 +98,19 @@
 				<uni-icons class="cart" type="cart" size="30" color="rgba(255, 195, 0, 1)"></uni-icons>
 			</uni-badge>
 
-			<text v-bind:value="totalprice">{{totalprice}}元</text>
+			<text v-bind:value="totalprice">{{Number(totalprice).toFixed(2)}}元</text>
 			<button @click="admitOrder()">确认下单</button>
 		</footer>
 	</view>
 </template>
 
 <script>
+	import currency from 'currency.js';
 	export default {
 		data() {
 			return {
-
 				totalNumber: 0, // 下单数量
-				totalprice: 0, //总共的价格
-
+				totalprice: 0.00, //总共的价格
 				active: 0,
 				queryObj: {
 					query: '',
@@ -139,6 +138,7 @@
 		onLoad(options) {
 			this.getGoodsList(0);
 			this.getCartList();
+			// this.calculate(this.cartList)
 		},
 		methods: {
 			//获取商品列表数据的方法
@@ -147,30 +147,37 @@
 					data: res
 				} = await this.$axios.getTypeList(i)
 				this.goodsList = res.productList;
+				console.log("222", this.goodsList)
+
 			},
-			activeChange(i) {
+			async activeChange(i) {
 				this.active = i;
-				this.getGoodsList(i)
+				await this.getGoodsList(i)
 			},
 			//添加购物车并计算价格
 			clickItem(index) {
-				const {
-					data: res
-				} = this.$axios.add(this.goodsList[index].productId).then((res) => {})
-				this.goodsList[index].productNum++
+				this.$axios.add(this.goodsList[index].productId)
+				this.goodsList[index].productNum = this.goodsList[index].productNum + 1
 				this.totalNumber++;
-				this.cartList[index].productNum++;
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
-				const res2 = this.$axios.sub(this.goodsList[index].productId)
+				// this.getCartList()
+				this.$axios.sub(this.goodsList[index].productId)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				this.totalNumber--;
-				this.cartList[index].productNum--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
+
 			//确认下单
-			admitOrder() {
+			async admitOrder() {
+				const {
+					data: res
+				} = await this.$axios.getCart()
+				this.cartList = res.productList
+				let result = parseFloat(this.totalprice).toFixed(2)
+
+				console.log('啊啊', result)
 				let listArr = []
 				this.cartList.forEach(item => {
 					let listItem = {
@@ -179,6 +186,7 @@
 					}
 					listArr.push(listItem)
 				})
+				console.log(listArr, this.totalprice)
 				if (this.totalNumber === 0) {
 					uni.showToast({
 						title: '购物车为空',
@@ -187,8 +195,7 @@
 					return;
 				}
 				uni.navigateTo({
-					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(listArr) + '&totalPrice=' + this
-						.totalprice
+					url: '/pages/order/mapBuy?listArr=' + JSON.stringify(listArr) + '&totalPrice=' + result
 				})
 			},
 			//获取商品列表
@@ -196,15 +203,13 @@
 				const {
 					data: res
 				} = await this.$axios.getCart()
-
 				this.cartList = res.productList
 				this.totalNumber = res.totalNum
-				this.calculate()
+				console.log("111", this.cartList)
+				this.calculate(this.cartList)
 			},
-			calculate() {
-				this.totalprice = 0;
-				let res = 0
-				for (let list of this.cartList) {
+			calculate(cartList) {
+				for (let list of cartList) {
 					this.totalprice += list.productNum * list.productPrice
 				}
 			}
