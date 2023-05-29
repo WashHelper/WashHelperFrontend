@@ -181,12 +181,11 @@
 			},
 			async getPhoneNumber(e) {
 				let {
-					data: {
-						phone
-					}
+					data: phoneNumber
+
 				} = await this.$axios.getPhoneNumber(e.detail.code)
 				uni.setStorageSync('phoneNumber',
-					phone)
+					phoneNumber)
 				this.phoneNumber = uni.getStorageSync('phoneNumber')
 			}
 		}

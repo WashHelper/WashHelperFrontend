@@ -62,7 +62,8 @@
 			return {
 				totalFee: '',
 				isDefault: false,
-				remainingTime: Math.ceil(900000 / 1000)
+				remainingTime: Math.ceil(900000 / 1000),
+				prepayInfo: {}
 			}
 		},
 		computed: {
@@ -98,10 +99,22 @@
 				let {
 					data
 				} = await this.$axios.prePay(orderInfo)
-			} catch (e) {
-				console.log(e);
-			}
 
+				this.prepayInfo = {
+					...{
+						partnerid: '1641733714',
+					},
+					...data
+				}
+				this.payment()
+
+			} catch (e) {
+				uni.showToast({
+					title: '支付失败',
+					icon: 'none'
+				});
+				throw new Error(e)
+			}
 
 			this.timeCutDown()
 		},
@@ -130,9 +143,27 @@
 				}, 1000)
 			},
 			payment() {
-
+				uni.requestPayment({
+					provider: 'wxpay',
+					...this.prepayInfo,
+					success: (res) => {
+						uni.showToast({
+							title: '支付成功',
+							icon: 'none',
+							duration: 2000
+						});
+						uni.switchTab({
+							url: '/pages/order/index'
+						})
+					},
+					fail: (err) => {
+						uni.showToast({
+							title: '支付失败',
+							icon: 'none'
+						});
+					}
+				})
 			},
-			modify(item) {},
 			changeIcon() {
 				this.isDefault = !this.isDefault
 			},

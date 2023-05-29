@@ -124,17 +124,9 @@
 				orderInfo: {
 					pickupLocationId: 1,
 					deliveryLocationId: 2,
-					productList: [{
-							productId: 1,
-							productNum: 1
-						},
-						{
-							productId: 2,
-							productNum: 3
-						}
-					],
-					remark: "laborum adipisicing",
-					fee: 92.00,
+					productList: [],
+					remark: "",
+					fee: '',
 					pickupTime: "",
 					pictureUrl: ''
 				},
@@ -217,7 +209,7 @@
 		margin-left: -128rpx;
 		z-index: 10;
 	}
-	
+
 	.content {
 		width: 750rpx;
 		height: 1090rpx;
@@ -262,14 +254,14 @@
 			color: rgba(0, 0, 0, 0.9);
 			line-height: 108rpx;
 		}
-		
+
 		.specialRed {
 			font-size: 19.23rpx;
 			font-weight: 400;
 			color: rgba(240, 55, 55, 0.9);
 			margin-left: 18rpx;
 		}
-		
+
 
 		input {
 			float: left;
@@ -282,7 +274,7 @@
 		.input1 {
 			margin-left: 30rpx;
 		}
-		
+
 		.input2 {
 			width: 270rpx;
 			height: 26px;

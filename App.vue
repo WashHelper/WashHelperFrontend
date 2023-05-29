@@ -63,48 +63,6 @@
 			if (uni.getStorageSync('token')) {
 				this.login()
 				return
-				const timeStamp = new Date().getTime()
-				const orderInfo = {
-					appid: 'wx86812ba3adbd4c65',
-					partnerid: '1641733714',
-					prepayid: '',
-					timeStamp,
-					nonceStr: ' res.nonceStr',
-					package: 'Sign=WXPay',
-					sign: 'res.signType',
-					paySign: 'res.paySign',
-				}
-				console.log(orderInfo);
-				// uni.requestPayment({
-				// 	provider: 'wxpay',
-				// 	orderInfo,
-				// 	success: (resp) => {
-				// 		console.log('success:' + JSON.stringify(resp));
-				// 		uni.showToast({
-				// 			title: '支付成功',
-				// 			icon: 'none',
-				// 			duration: 2000
-				// 		});
-				// 		const params = {
-				// 			outTradeNo: that.toClass.orderId + '',
-				// 		}
-				// 		getwxorder(params).then(orderStatus => {
-				// 			console.log(orderStatus)
-				// 			setTimeout(function() {
-				// 				uni.navigateTo({
-				// 					url: '/pages/course/order?item=2'
-				// 				});
-				// 			}, 0);
-				// 		})
-				// 	},
-				// 	fail: (resp) => {
-				// 		console.log('fail:' + JSON.stringify(resp));
-				// 		uni.showToast({
-				// 			title: '支付失败',
-				// 			icon: 'none'
-				// 		});
-				// 	}
-				// })
 			}
 
 			wx.showModal({
