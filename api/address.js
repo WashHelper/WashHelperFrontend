@@ -48,13 +48,13 @@ export default {
 	 */
 
 
-	addAddress(form, type) {
+	addAddress(form) {
 		return request({
 			url: '/location/new',
 			method: 'post',
 			data: form,
 			params: {
-				type
+				type: 1
 			}
 		})
 	},

@@ -144,7 +144,7 @@
 					tag: '',
 					isDefault: this.changeicon()
 				}
-				this.$axios.addAddress(form, 3).then(res => {
+				this.$axios.addAddress(form).then(res => {
 					if (res.success === true) {
 						console.log('发送成功', typeof(form.area), typeof(form))
 					} else {
