@@ -83,10 +83,7 @@
 			};
 		},
 		mounted() {
-			// let _this = this;
-			// setInterval(function() {
-			// 	_this.data = Date.parse(new Date())
-			// }, 1000)
+
 		},
 		onLoad: function(option) {
 			this.getdetailList(option.orderNumber)

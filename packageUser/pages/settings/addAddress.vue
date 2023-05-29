@@ -49,6 +49,7 @@
 				// isOpened: false,
 				single: '',
 				tag: '',
+				type: 0,
 				detail_location: '',
 				areadatail: '',
 				dataTree: [{
@@ -97,22 +98,30 @@
 		computed: {},
 		methods: {
 			changeicon() {
-				this.icon = this.icon === 'checkbox-filled' ? 'checkbox' :
-					'checkbox-filled'
+				// this.icon = this.icon === 'checkbox-filled' ? 'checkbox' :
+				// 	'checkbox-filled'
+				if (this.icon === 'checkbox-filled') {
+					this.icon = 'checkbox'
+					this.type = 0;
+					return true
+				} else {
+					this.icon = 'checkbox-filled'
+					this.type = 3
+					return false
+				}
 			},
 			onchange(e) {
 				console.log('关闭');
-				// this.single=e; // this.$refs.location.clear();
 				console.log(e);
 				console.log(e.detail.value[0].text);
-				// return e.detail.value
 				this.areadatail = e.detail.value[0].text + '-' + e.detail.value[1].text + '-' + e.detail.value[2].text
-				console.log(this.areadatail)
+				this.areadatail = this.areadatail.trim()
+				console.log(this.areadatail, typeof(this.areadatail))
 			},
 			checkboxChange: function(e) {
-				var items = this.items;
+				let items = this.items;
 				values = e.detail.value;
-				for (var i = 0, lenI = items.length; i < lenI; ++i) {
+				for (let i = 0, lenI = items.length; i < lenI; ++i) {
 					const item = items[i]
 					if (values.includes(item.value)) {
 						this.$set(item, 'checked', true)
@@ -125,26 +134,26 @@
 				console.log(item)
 			},
 			pushOrder() {
+				let type1 = this.type
 				let form = {
 					area: this.areadatail,
-					// area: '江苏省-南京市-鼓楼区',
 					location: this.detail_location,
 					name: this.username,
 					phone: this.phoneNum,
 					isSelf: '',
 					tag: '',
-					isDefault: ''
+					isDefault: this.changeicon()
 				}
-				this.$axios.addAddress(form).then(res => {
+				this.$axios.addAddress(form, 3).then(res => {
 					if (res.success === true) {
-						console.log('发送成功')
+						console.log('发送成功', typeof(form.area), typeof(form))
 					} else {
-						console.log('发送失败', res)
+						console.log('发送失败', res, typeof(form))
 					}
 				})
-				uni.navigateTo({
-					url: './address?isSelected=true'
-				})
+				// uni.navigateTo({
+				// 	url: './address?isSelected=true'
+				// })
 			}
 		}
 	}

@@ -47,13 +47,14 @@ export default {
 	 * @description 新增用户地址
 	 */
 
-	addAddress(form) {
+
+	addAddress(form, type) {
 		return request({
 			url: '/location/new',
 			method: 'post',
 			data: form,
 			params: {
-				type: 1
+				type
 			}
 		})
 	},
