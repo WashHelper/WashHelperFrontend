@@ -30,9 +30,12 @@
 			<!-- 衣服类型和图片 -->
 			<view class="item-detail" v-for="(item,i) in productList" :index="i" :key="i">
 				<!-- 衣服类型和价格 -->
+				<view class="background">
+					<image :src="item.pictureUrl" mode="aspectFit"></image>
+				</view>
 				<view class=" type-container">
 					<text class="clothes-type">{{item.productName}}</text>
-					<view class="price">洗涤费：{{}}</view>
+					<view class="price">洗涤费：{{item.price}}</view>
 				</view>
 			</view>
 			<div-line></div-line>
@@ -219,6 +222,12 @@
 				display: flex;
 				flex-direction: row;
 				padding: 7px 0px 24px 12px;
+
+				.background {
+					width: 17.7vw;
+					height: 72.31px;
+					background: rgba(247, 249, 252, 1);
+				}
 
 				image {
 					width: 16.15vw;

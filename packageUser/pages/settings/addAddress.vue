@@ -151,9 +151,9 @@
 						console.log('发送失败', res, typeof(form))
 					}
 				})
-				// uni.navigateTo({
-				// 	url: './address?isSelected=true'
-				// })
+				uni.navigateTo({
+					url: './address?isSelected=true'
+				})
 			}
 		}
 	}
