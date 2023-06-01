@@ -22,12 +22,12 @@
 				</view>
 				<view class="choice">
 					<view class="left">
-						<view class="edit">编辑</view>
+						<view class="edit" @click="change()">编辑</view>
 						<view class="delete">删除</view>
 					</view>
 					<view class="default">
 						<view class="text">设为默认</view>
-						<uni-icons :type="icon" size="20"></uni-icons>
+						<uni-icons :type="check(index)" size="20"></uni-icons>
 					</view>
 				</view>
 			</view>
@@ -46,19 +46,24 @@
 				icon: 'checkbox',
 				// clickedicon: 'checkbox-filled'
 				isSelected: false,
-				addressList: []
+				addressList: [],
+				default: []
 			};
 		},
 		onLoad: function(option) {
-			// const res = this.$axios.getAddressList(0)
-			// console.log(res)
-			this.getAddress(0)
-			// this.getDefaultAddress(1)
 
-			// this.isSelected = option.isSelected
-			// console.log(option.isSelected)
+			this.getAddress(0)
+			//this.getDefaultAddress()
 		},
 		methods: {
+			check(index) {
+				if (this.addressList[index].isDefault === true) {
+					return 'checkbox-filled'
+				} else {
+					return 'checkbox'
+				}
+
+			},
 			changeicon(index) {
 				// this.icon = this.icon === 'checkbox-filled' ? 'checkbox' : 'checkbox-filled'
 				if (this.addressList[i].isDefault === 'true') {
@@ -79,7 +84,7 @@
 				console.log('获得默认地址');
 				const {
 					data: res
-				} = this.$axios.getDefault()
+				} = this.$axios.getDefault(1)
 
 			},
 			addAddress() {

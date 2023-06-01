@@ -111,7 +111,6 @@
 	export default {
 		data() {
 			return {
-				// date: new Date().toISOString(),
 				active: 0,
 				status: 0,
 				OrderList: [],
