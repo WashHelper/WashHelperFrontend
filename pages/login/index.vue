@@ -42,6 +42,25 @@
 				<image src="/static/login/vx.png" mode="" @click="quickLogin('vx')"></image>
 			</view>
 		</view>
+		<uni-popup ref="uPopup" :mask-click="false" type="center">
+			<view class="agreement-view"
+				:style="{ width: scrollWidth * 0.80 + 'px', height: scrollHeight * 0.70 + 'px' }">
+				<!-- 弹框提示头 -->
+				<view class="u-text-center">用户使用须知</view>
+				<scroll-view scroll-y class="agreement-content" :style="{ height: (scrollHeight - 110) * 0.70 + 'px' }">
+					请你务必审慎阅读、充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识、操作日志等信息用于分析、优化应用性能。<br />你可阅读
+					<navigator href="\\">《服务协议》</navigator>和<navigator href="\\">《隐私政策》</navigator>
+					了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。
+				</scroll-view>
+				<view class="agreement-btns"
+					:style="{ height: (scrollHeight*0.7 - (scrollHeight - 120) * 0.70) - 42 + 'px' }">
+					<navigator class="no-btn text" target="miniProgram" open-type="exit">
+						暂不使用
+					</navigator>
+					<view class="yse-btn text" @tap="admit">同意</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -53,13 +72,94 @@
 				phoneNumber: '',
 				captcha: '',
 				password: '',
-				isloading: uni.getStorageSync('isloading') || true
+				isloading: uni.getStorageSync('isloading') || true,
+				// 内容的高度
+				scrollWidth: uni.getSystemInfoSync().windowWidth,
+				scrollHeight: uni.getSystemInfoSync().windowHeight,
 			}
 		},
-		created() {
-
+		mounted() {
+			this.judge()
 		},
 		methods: {
+			// 初始化的时候调用参数，判断用户是否第一次进入
+			judge() {
+				uni.getStorage({
+					key: 'token',
+					success: () => {
+						// 获取到了不显示弹窗
+						this.$refs.uPopup.close();
+						uni.showTabBar({
+							animation: true
+						})
+						uni.switchTab({
+							url: '/pages/index/index'
+						})
+					},
+					fail: () => {
+						uni.hideTabBar({
+							animation: true
+						})
+						this.$refs.uPopup.open('center');
+					}
+				})
+			},
+			// 同意按钮
+			admit() {
+				try {
+					uni.login({
+						provider: 'weixin',
+						success: async (loginRes) => {
+							const {
+								code
+							} = loginRes
+
+							const {
+								data: {
+									token
+								}
+							} = await this.$axios.login(code)
+							await this.getUserProfile()
+							uni.setStorageSync('token', token);
+							uni.switchTab({
+								url: '/pages/index/index'
+							})
+						}
+					});
+				} catch (e) {
+					//TODO handle the exception
+				}
+				this.$refs.uPopup.close();
+				uni.showTabBar({
+					animation: true
+				})
+			},
+			getUserProfile() {
+				uni.getUserInfo({
+					desc: '获取你的昵称、头像',
+					provider: 'weixin',
+					success: (infoRes) => {
+						const {
+							nickName,
+							avatarUrl
+						} = infoRes.userInfo
+						uni.setStorageSync('nickName', nickName)
+						try {
+							uni.setStorageSync('isloading', false); //记录是否第一次授权  false:表示不是第一次授权
+						} catch (e) {}
+					},
+					fail: res => {
+						this.failToLogin(res);
+					}
+				});
+			},
+			failToLogin(res) {
+				wx.showToast({
+					title: res,
+					icon: 'error',
+					duration: 1000
+				});
+			},
 			getCaptcha() {
 				if (!phoneNumberReg.test(this.phoneNumber)) {
 					uni.showToast({
@@ -124,6 +224,8 @@
 </script>
 
 <style lang="scss" scoped>
+	@import url('index.css');
+
 	.login-section {
 		padding: 20px 15px;
 

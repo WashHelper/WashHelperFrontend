@@ -1,24 +1,24 @@
 import App from './App'
 import api from 'api/index.js'
-// import piui from "sadais-piui";
+import share from './utils/share.js'
+
 
 //货币的计算方式
 import currency from 'currency.js'
 
-// import store from '@/store/store.js'
 // #ifndef VUE3
 import Vue from 'vue'
 
 Vue.prototype.currency = currency
 Vue.config.productionTip = false
 
-
+Vue.mixin(share)
 Vue.prototype.$axios = api
 
 App.mpType = 'app'
 const app = new Vue({
-	...App
-	// store
+	...App,
+	share
 })
 app.$mount()
 // #endif

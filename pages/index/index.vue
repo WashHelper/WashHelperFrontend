@@ -135,11 +135,8 @@
 				} = await this.$axios.getUrl()
 				this.urlsList = res
 				this.isDataLoaded = true;
-				console.log(this.urlsList)
 			},
-			change(e) {
-				console.log('当前模式：' + e.type + ',状态：' + e.show);
-			},
+			change(e) {},
 			toggle(type) {
 				this.type = type
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
