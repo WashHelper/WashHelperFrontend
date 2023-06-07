@@ -31,12 +31,12 @@ export default {
 	 * @data orderId
 	 * @description 取消订单
 	 */
-	deleteOrder(orderId) {
+	deleteOrder(orderNumber) {
 		return request({
 			url: '/order/cancel',
 			method: 'post',
 			data: {
-				orderId
+				orderNumber
 			}
 		})
 	},

@@ -13,14 +13,14 @@
 			<scroll-view class="right-scroll-view" scroll-y="true" :style="{height:wh+'px'}">
 				<view class="first" v-if="active==0">
 					<uni-grid :column="4" :show-border="false" :square="false" class="wash-shoes">
-						<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index">
+						<uni-grid-item v-for="(item,index) in goodsList" :index="index" :key="index" v-model="shoesNum">
 							<view v-if="index<=7" class="grid-item-box">
-								<view class="background" @click="clickItem(index)">
+								<view class="background" @click="shoesNum+=1;clickItem(index)">
 									<image :src="item.pictureUrl||defaultPic" mode="aspectFit"></image>
 									<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
 										:offset="[5, -8]" size="primary"></uni-badge>
 									<uni-icons v-if="item.productNum!=0" class="minus" type="minus-filled" size="22"
-										@tap.native.stop="minus(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
+										@tap.native.stop="minus2(index)" color="rgba(166, 166, 166, 1)"></uni-icons>
 								</view>
 								<text class="text" style="font-size: 14px;">{{item.productName }}</text>
 								<text class="price">{{item.originalPrice }}元</text>
@@ -31,7 +31,7 @@
 						<uni-grid :column="4" :show-border="false" :square="false" class="addlist">
 							<uni-grid-item v-for="(item ,index) in goodsList" :index="index" :key="index">
 								<view v-if="index>7" class="grid-item-box">
-									<view class="background" @click="clickItem(index)">
+									<view class="background" @click="check(index)">
 										<text class="text" style="font-size: 14px;">{{item.productName}}</text>
 										<text class="price">{{item.originalPrice}}元</text>
 										<uni-badge class="uni-badge" :text="item.productNum" absolute="rightTop"
@@ -111,6 +111,7 @@
 			return {
 				totalNumber: 0, // 下单数量
 				totalprice: 0.00, //总共的价格
+				shoesNum: 0,
 				active: 0,
 				queryObj: {
 					query: '',
@@ -162,13 +163,18 @@
 				this.totalprice = this.currency(this.totalprice).add(this.goodsList[index].originalPrice)
 			},
 			minus(index) {
-				// this.getCartList()
 				this.$axios.sub(this.goodsList[index].productId)
 				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
 				this.totalNumber--;
 				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
 			},
-
+			minus2(index) {
+				this.shoesNum--;
+				this.$axios.sub(this.goodsList[index].productId)
+				this.goodsList[index].productNum = this.goodsList[index].productNum - 1
+				this.totalNumber--;
+				this.totalprice = this.currency(this.totalprice).subtract(this.goodsList[index].originalPrice)
+			},
 			//确认下单
 			async admitOrder() {
 				const {
@@ -211,6 +217,29 @@
 			calculate(cartList) {
 				for (let list of cartList) {
 					this.totalprice += list.productNum * list.productPrice
+				}
+
+				for (let item of cartList) {
+
+					if (item.productId <= 7)
+						this.shoesNum += item.productNum; //跳出循环
+					// else {
+					// 	this.shoesNum += item.productNum;
+					// }
+				}
+				console.log('打印鞋子', this.shoesNum)
+
+			},
+
+			check(index) {
+				if (this.shoesNum === 0) {
+					uni.showToast({
+						title: '请先选择上面的服务',
+						icon: 'none'
+					})
+					return;
+				} else {
+					this.clickItem(index);
 				}
 			}
 		}

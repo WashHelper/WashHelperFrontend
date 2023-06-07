@@ -12,7 +12,7 @@
 			<block v-for="(item,i) in OrderList" :index="i" :key="i">
 				<navigator class="order-detail" :url="'/packageOrder/pages/detail?orderNumber='+item.orderNumber">
 					<header>
-						<text class="text">订单状态：取件成功</text><br>
+						<text class="text">订单状态：下单成功</text><br>
 						<text class="text"> 预约时间：{{item.orderTime}}</text><br>
 						<text class="text">下单时间：{{item.pickupTime}}</text>
 					</header>
@@ -98,7 +98,7 @@
 					<view class="footer-banner">
 						<view>修改</view>
 						<view>详情</view>
-						<view @tap.native.stop="deleteUserOrder(i)">取消</view>
+						<view @tap.native.stop="showWarn()">取消</view>
 						<view>联系</view>
 					</view>
 				</navigator>
@@ -111,7 +111,6 @@
 	export default {
 		data() {
 			return {
-				// date: new Date().toISOString(),
 				active: 0,
 				status: 0,
 				OrderList: [],
@@ -170,14 +169,23 @@
 			},
 			//取消订单
 			async deleteUserOrder(i) {
-				const {
-					data: res
-				} = await this.$axios.deleteOrder(this.OrderList[i].orderNumber)
-				console.log('取消的订单')
-				console.log(res)
+				await this.$axios.deleteOrder(this.OrderList[i].orderNumber).then((res) => {
+					console.log(res)
+				})
+				console.log('取消的订单', this.OrderList[i].orderNumber)
+				uni.showToast({
+					title: '该订单已取消',
+					icon: 'none'
+				});
 			},
 			Search() {
 				console.log('搜索')
+			},
+			showWarn() {
+				uni.showToast({
+					title: '该订单已取消',
+					icon: 'none'
+				});
 			}
 		}
 	}

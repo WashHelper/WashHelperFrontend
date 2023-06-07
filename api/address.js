@@ -47,6 +47,7 @@ export default {
 	 * @description 新增用户地址
 	 */
 
+
 	addAddress(form) {
 		return request({
 			url: '/location/new',
