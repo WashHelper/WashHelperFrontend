@@ -157,7 +157,7 @@
 						tempFiles
 					}) => {
 						uni.uploadFile({
-							url: 'http://1.13.80.178:9000/order/uploadPicture',
+							url: 'https://www.xixiaoyankaicleaning.com/order/uploadPicture',
 							filePath: tempFiles[0].tempFilePath,
 							name: 'picture',
 							header: {

@@ -5,7 +5,7 @@
 				wx.showToast({
 					title: res,
 					icon: 'error',
-					duration: 2000
+					duration: 1000
 				});
 			},
 			/**
@@ -35,51 +35,52 @@
 			 * @description 登录
 			 */
 			login() {
-				uni.login({
-					provider: 'weixin',
-					success: async (loginRes) => {
+				wx.showModal({
+					title: '提示',
+					content: '请登录以正常使用',
+					success: (res) => {
+						if (res.confirm) {
+							uni.login({
+								provider: 'weixin',
+								success: async (loginRes) => {
 
-						const {
-							code
-						} = loginRes
+									const {
+										code
+									} = loginRes
 
-						const {
-							data: {
-								token
-							}
-						} = await this.$axios.login(code)
+									const {
+										data: {
+											token
+										}
+									} = await this.$axios.login(code)
 
-						await this.getUserProfile()
-						uni.setStorageSync('token', token);
-						uni.switchTab({
-							url: '/pages/index/index'
-						})
-					}
+									await this.getUserProfile()
+									uni.setStorageSync('token', token);
+									uni.switchTab({
+										url: '/pages/index/index'
+									})
+								}
+							});
+						} else if (res.cancel) {
+							this.failToLogin('拒绝一键登录');
+							this.login()
+						}
+					},
 				});
+
 			}
 		},
 
 		onLaunch() {
-			if (uni.getStorageSync('token')) {
+			if (!uni.getStorageSync('token')) {
 				this.login()
-				return
+			} else {
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
 			}
-
-			wx.showModal({
-				title: '提示',
-				content: '请登录以正常使用',
-				success: (res) => {
-					if (res.confirm) {
-						this.login();
-					} else if (res.cancel) {
-						this.failToLogin('拒绝一键登录');
-					}
-				}
-			});
 		},
 
-		onShow() {},
-		onHide() {}
 	}
 </script>
 

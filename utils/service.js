@@ -6,7 +6,7 @@ var token
 const service = axios.create({
 	// 超时
 	timeout: 5000,
-	baseURL: 'http://1.13.80.178:9000',
+	baseURL: 'https://www.xixiaoyankaicleaning.com',
 });
 
 axios.defaults.adapter = function(config) {
